@@ -1,23 +1,35 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b121b">
-  <title>Guess Who • JEV Arcade</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0e1017">
+  <title>Guess Who · JEV Arcade</title>
   <meta name="description" content="A game of questions, information and calculated risk. Play Guess Who against JEV, inspect decisions and analyze every match.">
-  <link rel="stylesheet" href="/game.css"><script type="module" src="/game.js"></script>
+  <link rel="preload" href="/brand/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="/brand/icon.svg">
+  <link rel="apple-touch-icon" href="/brand/icon.svg">
+  <link rel="stylesheet" href="/brand/brand.css">
+  <link rel="stylesheet" href="/game.css"><script type="module" src="/brand/brand.js"></script><script type="module" src="/game.js"></script>
 </head>
 <body>
-<a class="skip" href="#board">Skip to board</a>
-<header class="masthead">
-  <a class="brand" href="/" aria-label="JEV Arcade home"><span class="brand-mark">J</span><span>JEV <strong>ARCADE</strong></span></a>
-  <nav aria-label="Account"><span id="identity">Guest</span><button id="login" class="quiet">Sign in with Discord</button><button id="logout" class="quiet" hidden>Sign out</button></nav>
-</header>
-<main>
-  <div class="title-row"><div><p class="eyebrow">DEDUCTION LAB / 01</p><h1>Guess <span>Who.</span></h1><p class="subtitle">24 characters. One hidden identity. Make every question count.</p></div><button id="rules-button" class="quiet">How to play</button></div>
+<a class="jv-skip" href="#board">Skip to game</a>
+<div class="jv-app">
+  <header class="jv-header">
+    <a class="jv-brand" href="/" aria-label="JEV Arcade home">
+      <img class="jv-mark" src="/brand/mark.svg" alt="" width="28" height="28">
+      <span class="jv-wordmark">JEV ARCADE</span>
+      <span class="jv-sep" aria-hidden="true"></span>
+      <span class="jv-title">Guess Who</span>
+    </a>
+    <span class="jv-status" id="remaining-chip"><span class="jv-dot"></span><strong id="remaining-count" class="jv-num">24</strong> left</span>
+    <button class="jv-icon-btn jv-menu-btn" id="jv-menu" type="button"
+            aria-expanded="false" aria-controls="jv-sheet" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </header>
+  <main class="jv-main" id="main">
+  <div class="title-row jv-hero"><div><p class="eyebrow">DEDUCTION LAB / 01</p><h1>Guess <span>Who.</span></h1><p class="subtitle">24 characters. One hidden identity. Make every question count.</p></div></div>
   <section class="toolbar" aria-label="Game settings">
-    <label>Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="jev">JEV</option></select></label>
-    <label>Match type<select id="mode"><option value="practice">Practice · local opponent</option><option value="casual">Casual · online JEV</option><option value="ranked">Ranked · Discord + JEV</option></select></label>
     <button id="new-game" class="primary">New game</button><span class="mode-badge" id="eligibility">Unranked practice</span>
   </section>
   <p id="notice" class="notice" role="alert" hidden></p>
@@ -26,12 +38,12 @@
     <button id="tab-analytics" role="tab" aria-selected="false" aria-controls="panel-analytics">Analytics</button>
     <button id="tab-leaderboard" role="tab" aria-selected="false" aria-controls="panel-leaderboard">Leaderboards</button>
   </div>
-  <section id="panel-play" role="tabpanel" aria-labelledby="tab-play">
+  <section id="panel-play" class="jv-first" role="tabpanel" aria-labelledby="tab-play">
     <div class="game-layout">
       <section class="board-panel card">
         <div class="section-heading"><div><p class="eyebrow">YOUR DEDUCTION BOARD</p><h2 id="turn-status" aria-live="polite">Ready when you are</h2></div><span class="remaining"><strong id="remaining">24</strong> remaining</span></div>
         <div class="board-options"><label><input type="checkbox" id="show-eliminated" checked> Show eliminated</label><label><input type="checkbox" id="text-mode"> Text cards</label></div>
-        <div id="board" class="board" tabindex="-1" aria-label="Character candidates"></div>
+        <div id="board" class="board jv-fit" tabindex="-1" aria-label="Character candidates"></div>
         <div class="action-bar"><label class="question-label">Ask a yes / no question<select id="question" disabled aria-label="Question"></select></label><button id="ask" class="primary" disabled>Ask question</button></div>
         <p id="question-preview" class="muted">Each question takes one turn. Select a character to make a final guess.</p>
         <div id="result" class="result" hidden></div>
@@ -58,7 +70,19 @@
     </section>
   </section>
   <footer><p>JEV decides. The engine enforces. Every result has a record.</p><p>Original character set. Independent project; not affiliated with Hasbro, Discord, or TypeSafe.</p></footer>
-</main>
+  </main>
+  <div class="jv-scrim" id="jv-scrim"></div>
+  <div class="jv-sheet" id="jv-sheet" role="dialog" aria-modal="true" aria-label="Menu">
+    <p class="jv-sheet-label">Account</p>
+    <span class="jv-sheet-item is-static" id="identity">Guest</span>
+    <button id="login" class="jv-sheet-item">Sign in with Discord</button>
+    <button id="logout" class="jv-sheet-item" hidden>Sign out</button>
+    <p class="jv-sheet-label">Game</p>
+    <label class="jv-sheet-field">Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="jev">JEV</option></select></label>
+    <label class="jv-sheet-field">Match type<select id="mode"><option value="practice">Practice · local opponent</option><option value="casual">Casual · online JEV</option><option value="ranked">Ranked · Discord + JEV</option></select></label>
+    <button id="rules-button" class="jv-sheet-item">How to play</button>
+  </div>
+</div>
 <dialog id="confirm-dialog"><form method="dialog"><p class="eyebrow">FINAL ANSWER</p><h2 id="confirm-title">Make this guess?</h2><p id="confirm-detail">A wrong final guess immediately loses the match.</p><div class="dialog-actions"><button value="cancel" class="quiet">Cancel</button><button value="confirm" class="primary">Confirm</button></div></form></dialog>
 <dialog id="rules-dialog"><form method="dialog"><p class="eyebrow">THE RULES</p><h2>Find the hidden character.</h2><p>Both players have the same 24-character roster and independently assigned secrets. Identical secrets are allowed. The server randomly chooses the first player.</p><p>On your turn, ask one yes/no trait question OR make one final guess. Answers and eliminations are automatic. Noninformative questions are unavailable.</p><p>A correct final guess wins. A wrong final guess loses immediately. One remaining candidate is not an automatic win; you must guess on your turn.</p><p>Easy narrows the question catalog. Normal evaluates splits. Hard and JEV provide bounded race-aware search evidence. Strength ordering requires live benchmarking.</p><p>Practice uses a clearly identified local heuristic. Casual and ranked use JEV when configured. Any provider fallback makes a ranked match ineligible. Ranked games expire after 24 hours.</p><p>Discord sign-in identifies you. A fresh /play-jev launch establishes channel and server context. World results need no community launch.</p><p>Analytics distinguish exact public-state calculations from model distributions and search estimates. Confidence is not win probability. Wall-turn time includes idle and network time.</p><button class="primary">Back to game</button></form></dialog>
 <noscript>This game requires JavaScript. No third-party browser libraries or tracking scripts are loaded.</noscript>

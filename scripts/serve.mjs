@@ -12,7 +12,7 @@ if(!['127.0.0.1','localhost','::1'].includes(host)&&!origin.startsWith('https://
 const local=new URL(origin).protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(new URL(origin).hostname);
 const database=path.resolve(root,process.env.DB_PATH||'data/guess-who.sqlite');await mkdir(path.dirname(database),{recursive:true});
 const DB=openDatabase(database);DB.exec(await readFile(path.join(root,'migrations/001.sql'),'utf8'));
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.json':'application/json'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.json':'application/json','.woff2':'font/woff2'};
 const env={...process.env,DB,ORIGIN:origin,LOCAL_DEVELOPMENT:local?'true':'false',
   LAUNCH_SIGNING_KEY:process.env.LAUNCH_SIGNING_KEY||randomBytes(32).toString('hex'),
   RATE_LIMIT_HASH_KEY:process.env.RATE_LIMIT_HASH_KEY||randomBytes(32).toString('hex'),

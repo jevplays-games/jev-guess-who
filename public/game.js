@@ -68,7 +68,8 @@ function renderBoard(){
 function render(){
   renderBoard();if(!current)return;
   const practice=current.config.opponent==='local'||offline;
-  $('remaining').textContent=count(current.possible.human);$('jev-remaining').textContent=count(current.possible.jev);$('jev-questions').textContent=current.questionsAsked.jev;
+  const humanRemaining=count(current.possible.human);
+  $('remaining').textContent=humanRemaining;$('remaining-count').textContent=humanRemaining;$('jev-remaining').textContent=count(current.possible.jev);$('jev-questions').textContent=current.questionsAsked.jev;
   $('turn-status').textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):(current.outcome.winner==='human'?'You found the answer.':'Match complete.');
   $('eligibility').textContent=current.eligible?'Ranked · eligible':current.eligibilityReason?.startsWith('jev_fallback')?'Unranked · JEV fallback':practice?(offline?'Offline practice':'Practice · local heuristic'):'Casual · not ranked';
   const fallback=current.history.some(e=>e.decision?.source==='fallback');
