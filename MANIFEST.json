@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-guess-who",
-  "generatedAt": "2026-09-22T05:31:17.014699+00:00",
+  "generatedAt": "2026-09-22T07:15:07.893728+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -30,6 +30,11 @@
       "path": "README.md",
       "bytes": 7917,
       "sha256": "72961ccb7c49cde47d4c20280bd34c3269f2e49268e8ce408b162334f2b74e26"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 364,
+      "sha256": "0b4efee44655e40607caa30f5e28775ccea6fd79a9f10ae2dddb2ee353a11abe"
     },
     {
       "path": "benchmarks/run.mjs",
@@ -92,19 +97,49 @@
       "sha256": "8c1ecfd2f59293b26276ea204f0135798bbe173cdc425584fcd652bfb8fd74d8"
     },
     {
+      "path": "public/brand/OFL.txt",
+      "bytes": 4380,
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+    },
+    {
+      "path": "public/brand/brand.css",
+      "bytes": 11030,
+      "sha256": "7b2df5dc429cb396233afff3673a7a1d9b9b518710d88a7cbcfb8ffdde40ed25"
+    },
+    {
+      "path": "public/brand/brand.js",
+      "bytes": 3481,
+      "sha256": "661ed9c0cc676363d01fb330533cc09f1dfb5aa388eff1bf59c8a61836bcba66"
+    },
+    {
+      "path": "public/brand/icon.svg",
+      "bytes": 601,
+      "sha256": "e374b14df39f1d60b32aa8aa7d408dd350e24c06856a56e9552bd83ae8d1fb88"
+    },
+    {
+      "path": "public/brand/inter-var.woff2",
+      "bytes": 68320,
+      "sha256": "7ffd1096cc8918f9340f7b93a2a7b02dfc965f278420d5f9a18742ab959e5c6f"
+    },
+    {
+      "path": "public/brand/mark.svg",
+      "bytes": 314,
+      "sha256": "36302e2d29ca7b644799190de1af44727eb416d91e30648e10ff71f8571ddeb3"
+    },
+    {
       "path": "public/game.css",
-      "bytes": 11078,
-      "sha256": "f4cca1be3d00f6023f114515a99fd976ec71b4b1f98a3a4104867f38505f55fb"
+      "bytes": 11134,
+      "sha256": "e07de4510ad70b69327b184804f7eb951aa73277fbfd2397e76cff6f1b794d90"
     },
     {
       "path": "public/game.js",
-      "bytes": 28792,
-      "sha256": "eae1ba736b9fb887d0be004777d3a751f2c980606244badfc371b8e57c53e555"
+      "bytes": 28879,
+      "sha256": "63e33dde87a1ccb323d358ce5586e337e9be04299e82256be15d293657f82aa1"
     },
     {
       "path": "public/index.html",
-      "bytes": 9419,
-      "sha256": "9a9eb394c246847ac60ed96abf72a89bed171357d5856f1d2f37a6b31c95b667"
+      "bytes": 10678,
+      "sha256": "aeec58fba784faf09f92d13ffe3462ca02de49634fd301ed0b3c5250f70bcda5"
     },
     {
       "path": "public/portraits/c01.svg",
@@ -383,8 +418,8 @@
     },
     {
       "path": "scripts/serve.mjs",
-      "bytes": 3444,
-      "sha256": "6b79cc929daf6b3a7f99a58d3368a732b4e9a05d1bb84da8dbb648ee76a9fb6a"
+      "bytes": 3466,
+      "sha256": "d5ffb4582b96c31a6716cad636e0b450c34e7ca6bfc3480d69be2701d8078ecc"
     },
     {
       "path": "scripts/sqlite-adapter.mjs",
@@ -438,8 +473,8 @@
     },
     {
       "path": "tests/browser.py",
-      "bytes": 7282,
-      "sha256": "adeae1b3dbb96e94a20d9a954135b5efa4c98bef8eaaaaa8ba48c879281eb721"
+      "bytes": 7459,
+      "sha256": "a621b3a29878565cfd4b5ed77e28f929bedf7c1c8900bede7f548547cef4063b"
     },
     {
       "path": "tests/helpers.mjs",

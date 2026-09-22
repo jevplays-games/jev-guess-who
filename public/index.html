@@ -30,7 +30,7 @@
   <main class="jv-main" id="main">
   <div class="title-row jv-hero"><div><p class="eyebrow">DEDUCTION LAB / 01</p><h1>Guess <span>Who.</span></h1><p class="subtitle">24 characters. One hidden identity. Make every question count.</p></div></div>
   <section class="toolbar" aria-label="Game settings">
-    <button id="new-game" class="primary">New game</button><span class="mode-badge" id="eligibility">Unranked practice</span>
+    <button id="new-game" class="primary">New game</button><label>Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="jev">JEV</option></select></label><label>Match type<select id="mode"><option value="practice">Practice · local opponent</option><option value="casual">Casual · online JEV</option><option value="ranked">Ranked · Discord + JEV</option></select></label><span class="mode-badge" id="eligibility">Unranked practice</span>
   </section>
   <p id="notice" class="notice" role="alert" hidden></p>
   <div class="tabs" role="tablist" aria-label="Workspace">
@@ -73,14 +73,13 @@
   </main>
   <div class="jv-scrim" id="jv-scrim"></div>
   <div class="jv-sheet" id="jv-sheet" role="dialog" aria-modal="true" aria-label="Menu">
-    <p class="jv-sheet-label">Account</p>
-    <span class="jv-sheet-item is-static" id="identity">Guest</span>
-    <button id="login" class="jv-sheet-item">Sign in with Discord</button>
-    <button id="logout" class="jv-sheet-item" hidden>Sign out</button>
-    <p class="jv-sheet-label">Game</p>
-    <label class="jv-sheet-field">Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="jev">JEV</option></select></label>
-    <label class="jv-sheet-field">Match type<select id="mode"><option value="practice">Practice · local opponent</option><option value="casual">Casual · online JEV</option><option value="ranked">Ranked · Discord + JEV</option></select></label>
-    <button id="rules-button" class="jv-sheet-item">How to play</button>
+    <div id="jv-controls">
+      <p class="jv-sheet-label">Account</p>
+      <span class="jv-sheet-item is-static" id="identity">Guest</span>
+      <button id="login" class="jv-sheet-item">Sign in with Discord</button>
+      <button id="logout" class="jv-sheet-item" hidden>Sign out</button>
+      <button id="rules-button" class="jv-sheet-item">How to play</button>
+    </div>
   </div>
 </div>
 <dialog id="confirm-dialog"><form method="dialog"><p class="eyebrow">FINAL ANSWER</p><h2 id="confirm-title">Make this guess?</h2><p id="confirm-detail">A wrong final guess immediately loses the match.</p><div class="dialog-actions"><button value="cancel" class="quiet">Cancel</button><button value="confirm" class="primary">Confirm</button></div></form></dialog>

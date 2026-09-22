@@ -58,6 +58,7 @@ def setup_page(browser, viewport, errors):
     html = re.sub(r'<script[^>]*>.*?</script>', '', html, flags=re.S)
     html = re.sub(r'<link[^>]+>', '', html)
     page.set_content(html)
+    page.add_style_tag(content=(PUBLIC / 'brand' / 'brand.css').read_text())
     page.add_style_tag(content=(PUBLIC / 'game.css').read_text())
     portraits = {p.stem: 'data:image/svg+xml;base64,' + base64.b64encode(p.read_bytes()).decode() for p in (PUBLIC / 'portraits').glob('*.svg')}
     page.evaluate('(portraits) => window.__PORTRAITS=portraits', portraits)
@@ -68,6 +69,7 @@ def setup_page(browser, viewport, errors):
             return new Response(result.body,{status:result.status,headers:result.headers});
         };
     }""")
+    page.evaluate('async url => { await import(url); }', module_url(PUBLIC / 'brand' / 'brand.js'))
     page.evaluate('async url => { await import(url); }', module_url(PUBLIC / 'game.js'))
     page.wait_for_function("document.querySelector('#login').textContent !== 'Sign in with Discord'")
     return page
