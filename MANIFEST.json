@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-guess-who",
-  "generatedAt": "2026-09-22T07:36:27.493616+00:00",
+  "generatedAt": "2026-09-22T12:14:08.645356+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -133,13 +133,13 @@
     },
     {
       "path": "public/game.js",
-      "bytes": 28879,
-      "sha256": "63e33dde87a1ccb323d358ce5586e337e9be04299e82256be15d293657f82aa1"
+      "bytes": 28873,
+      "sha256": "aacffa06f6abc25b4bbb30baac2452a19552d48d087b58094cc82eeebd2cb260"
     },
     {
       "path": "public/index.html",
       "bytes": 10678,
-      "sha256": "aeec58fba784faf09f92d13ffe3462ca02de49634fd301ed0b3c5250f70bcda5"
+      "sha256": "246c8dd4c80d87a8c03f74596c20d1fd1bb321ebe016dc2a06e72e4378a6dc71"
     },
     {
       "path": "public/portraits/c01.svg",
@@ -389,7 +389,7 @@
     {
       "path": "reports/static-checks.json",
       "bytes": 4248,
-      "sha256": "9480daf4f8ee586b15dc8d64dc5cbcc941573db302afd5ad37722ca35b5af069"
+      "sha256": "b5c59646b060b67dfada351b0ed2ade4c9943ccd634e874e6e116fde3124f809"
     },
     {
       "path": "reports/unit-tests.tap",

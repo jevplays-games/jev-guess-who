@@ -249,7 +249,7 @@ async function loadLeaderboard(next=false){
 $('refresh-leaderboard').addEventListener('click',()=>guarded(()=>loadLeaderboard(false)));
 $('leaderboard-more').addEventListener('click',()=>guarded(()=>loadLeaderboard(true)));
 async function initialize(){
-  $('difficulty').value=setting('difficulty','normal');if(!$('difficulty').value)$('difficulty').value='normal';
+  $('difficulty').value=setting('difficulty','jev');if(!$('difficulty').value)$('difficulty').value='jev';
   $('analysis-toggle').checked=setting('analysis','true')==='true';$('text-mode').checked=setting('text-mode','false')==='true';renderBoard();
   const launch=new URLSearchParams(location.hash.slice(1)).get('launch');
   if(launch){try{sessionStorage.setItem('gw:launch',launch);}catch{}history.replaceState(null,'',location.pathname);}
