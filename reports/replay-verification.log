@@ -1,0 +1,13 @@
+
+> jev-guess-who@1.0.0 verify
+> node scripts/verify-replay.mjs reports/sample-replay.json
+
+{
+  "valid": true,
+  "matchId": "27651b8d-a832-4f1b-9940-b503e5815e4f",
+  "outcome": {
+    "winner": "jev",
+    "reason": "correct_guess"
+  },
+  "verification": "Rules, commitment, decision evidence and analytics consistency; not proof of server issuance or provider provenance."
+}

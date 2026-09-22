@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b121b">
+  <title>Guess Who • JEV Arcade</title>
+  <meta name="description" content="A game of questions, information and calculated risk. Play Guess Who against JEV, inspect decisions and analyze every match.">
+  <link rel="stylesheet" href="/game.css"><script type="module" src="/game.js"></script>
+</head>
+<body>
+<a class="skip" href="#board">Skip to board</a>
+<header class="masthead">
+  <a class="brand" href="/" aria-label="JEV Arcade home"><span class="brand-mark">J</span><span>JEV <strong>ARCADE</strong></span></a>
+  <nav aria-label="Account"><span id="identity">Guest</span><button id="login" class="quiet">Sign in with Discord</button><button id="logout" class="quiet" hidden>Sign out</button></nav>
+</header>
+<main>
+  <div class="title-row"><div><p class="eyebrow">DEDUCTION LAB / 01</p><h1>Guess <span>Who.</span></h1><p class="subtitle">24 characters. One hidden identity. Make every question count.</p></div><button id="rules-button" class="quiet">How to play</button></div>
+  <section class="toolbar" aria-label="Game settings">
+    <label>Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal" selected>Normal</option><option value="hard">Hard</option><option value="jev">JEV</option></select></label>
+    <label>Match type<select id="mode"><option value="practice">Practice · local opponent</option><option value="casual">Casual · online JEV</option><option value="ranked">Ranked · Discord + JEV</option></select></label>
+    <button id="new-game" class="primary">New game</button><span class="mode-badge" id="eligibility">Unranked practice</span>
+  </section>
+  <p id="notice" class="notice" role="alert" hidden></p>
+  <div class="tabs" role="tablist" aria-label="Workspace">
+    <button id="tab-play" role="tab" aria-selected="true" aria-controls="panel-play">Play</button>
+    <button id="tab-analytics" role="tab" aria-selected="false" aria-controls="panel-analytics">Analytics</button>
+    <button id="tab-leaderboard" role="tab" aria-selected="false" aria-controls="panel-leaderboard">Leaderboards</button>
+  </div>
+  <section id="panel-play" role="tabpanel" aria-labelledby="tab-play">
+    <div class="game-layout">
+      <section class="board-panel card">
+        <div class="section-heading"><div><p class="eyebrow">YOUR DEDUCTION BOARD</p><h2 id="turn-status" aria-live="polite">Ready when you are</h2></div><span class="remaining"><strong id="remaining">24</strong> remaining</span></div>
+        <div class="board-options"><label><input type="checkbox" id="show-eliminated" checked> Show eliminated</label><label><input type="checkbox" id="text-mode"> Text cards</label></div>
+        <div id="board" class="board" tabindex="-1" aria-label="Character candidates"></div>
+        <div class="action-bar"><label class="question-label">Ask a yes / no question<select id="question" disabled aria-label="Question"></select></label><button id="ask" class="primary" disabled>Ask question</button></div>
+        <p id="question-preview" class="muted">Each question takes one turn. Select a character to make a final guess.</p>
+        <div id="result" class="result" hidden></div>
+      </section>
+      <aside class="sidebar">
+        <section class="card secret-panel"><p class="eyebrow">YOUR SECRET IDENTITY</p><div id="secret" class="secret-content"><span class="unknown">?</span><p>Start a game to receive your character.</p></div><p class="muted">The opponent must identify this character.</p></section>
+        <section class="card opponent-panel"><div class="section-heading"><h2>Opponent</h2><span id="opponent-source" class="tag">Local heuristic</span></div><div class="stat-pair"><div><strong id="jev-remaining">24</strong><span>candidates left</span></div><div><strong id="jev-questions">0</strong><span>questions asked</span></div></div><p id="last-answer" class="muted">Questions and answers appear here.</p><details><summary>Opponent's deduction board</summary><div id="opponent-board" class="mini-board"></div></details></section>
+        <section class="card analysis-panel"><div class="section-heading"><h2>Decision evidence</h2><label><input type="checkbox" id="analysis-toggle" checked><span class="sr-only">Show decision evidence</span></label></div><div id="decision-evidence"><p class="muted">After the opponent moves, inspect the action, candidate count, evidence and decision source.</p></div></section>
+        <div class="side-actions"><button id="resume" class="quiet">Refresh / reconnect</button><button id="resign" class="danger" disabled>Resign</button></div>
+      </aside>
+    </div>
+    <section class="card history-panel"><div class="section-heading"><h2>Turn history</h2><div><button id="export-turns" class="quiet" disabled>Export turns CSV</button><button id="export-replay" class="quiet" disabled>Export replay JSON</button></div></div><div id="history" class="history"><p class="muted">Your first question starts the story.</p></div></section>
+  </section>
+  <section id="panel-analytics" role="tabpanel" aria-labelledby="tab-analytics" hidden>
+    <section class="card"><div class="section-heading"><div><p class="eyebrow">MEASURE EVERY DECISION</p><h2>Match & player analytics</h2></div><div><button id="refresh-analytics" class="quiet">Refresh</button><button id="export-analytics" class="quiet">Export analytics JSON</button><button id="export-matches" class="quiet">Export matches CSV</button></div></div>
+      <div class="analytics-filters"><label>Difficulty<select id="analytics-difficulty"><option value="all">All difficulties</option><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev">JEV</option></select></label><label>Mode<select id="analytics-mode"><option value="all">All match types</option><option value="practice">Practice</option><option value="casual">Casual</option><option value="ranked">Ranked</option></select></label><label>Starter<select id="analytics-starter"><option value="all">Either starter</option><option value="human">Human first</option><option value="jev">Opponent first</option></select></label></div>
+      <p id="coverage" class="muted">No analytics loaded.</p><div id="analytics-content"></div>
+    </section>
+  </section>
+  <section id="panel-leaderboard" role="tabpanel" aria-labelledby="tab-leaderboard" hidden>
+    <section class="card"><div class="section-heading"><div><p class="eyebrow">VERIFIED RESULTS ONLY</p><h2>Leaderboards</h2></div></div>
+      <div class="analytics-filters"><label>Scope<select id="leaderboard-scope"><option value="world">World</option><option value="server">Discord server</option><option value="channel">Discord channel</option></select></label><label>Period<select id="leaderboard-period"><option value="week">This week · UTC</option><option value="all">All retained results</option></select></label><button id="refresh-leaderboard" class="quiet">Refresh</button></div>
+      <p class="muted">Uses the difficulty selected above. Minimum 20 verified games to qualify. Practice and fallback games never enter the rankings.</p><div id="leaderboard-content"></div><button id="leaderboard-more" class="quiet" hidden>Next page</button>
+    </section>
+  </section>
+  <footer><p>JEV decides. The engine enforces. Every result has a record.</p><p>Original character set. Independent project; not affiliated with Hasbro, Discord, or TypeSafe.</p></footer>
+</main>
+<dialog id="confirm-dialog"><form method="dialog"><p class="eyebrow">FINAL ANSWER</p><h2 id="confirm-title">Make this guess?</h2><p id="confirm-detail">A wrong final guess immediately loses the match.</p><div class="dialog-actions"><button value="cancel" class="quiet">Cancel</button><button value="confirm" class="primary">Confirm</button></div></form></dialog>
+<dialog id="rules-dialog"><form method="dialog"><p class="eyebrow">THE RULES</p><h2>Find the hidden character.</h2><p>Both players have the same 24-character roster and independently assigned secrets. Identical secrets are allowed. The server randomly chooses the first player.</p><p>On your turn, ask one yes/no trait question OR make one final guess. Answers and eliminations are automatic. Noninformative questions are unavailable.</p><p>A correct final guess wins. A wrong final guess loses immediately. One remaining candidate is not an automatic win; you must guess on your turn.</p><p>Easy narrows the question catalog. Normal evaluates splits. Hard and JEV provide bounded race-aware search evidence. Strength ordering requires live benchmarking.</p><p>Practice uses a clearly identified local heuristic. Casual and ranked use JEV when configured. Any provider fallback makes a ranked match ineligible. Ranked games expire after 24 hours.</p><p>Discord sign-in identifies you. A fresh /play-jev launch establishes channel and server context. World results need no community launch.</p><p>Analytics distinguish exact public-state calculations from model distributions and search estimates. Confidence is not win probability. Wall-turn time includes idle and network time.</p><button class="primary">Back to game</button></form></dialog>
+<noscript>This game requires JavaScript. No third-party browser libraries or tracking scripts are loaded.</noscript>
+</body>
+</html>

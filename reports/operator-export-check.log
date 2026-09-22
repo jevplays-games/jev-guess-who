@@ -1,0 +1,12 @@
+(node:3242) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "out": "/mnt/data/gw-operator-check",
+  "asOf": 1790055053119,
+  "storedMatches": 3,
+  "exportedMatches": 3,
+  "truncated": false,
+  "telemetryStored": 15,
+  "telemetryExported": 15,
+  "telemetryTruncated": false
+}

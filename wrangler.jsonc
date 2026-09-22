@@ -1,0 +1,9 @@
+{
+  "name": "jev-guess-who",
+  "main": "server/app.js",
+  "compatibility_date": "2026-09-22",
+  "assets": {"directory": "./public", "binding": "ASSETS", "run_worker_first": true},
+  "d1_databases": [{"binding":"DB","database_name":"jev-guess-who","database_id":"REPLACE_WITH_D1_DATABASE_ID","migrations_dir":"migrations"}],
+  "vars": {"ORIGIN":"https://REPLACE_WITH_YOUR_HOST","JEV_MODEL":"jev-1.13.0","JEV_TIMEOUT_MS":"3000","MATCH_RETENTION_DAYS":"90","RESULT_RETENTION_DAYS":"730"},
+  "triggers": {"crons":["0 * * * *"]}
+}

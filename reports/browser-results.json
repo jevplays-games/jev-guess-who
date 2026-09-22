@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "transport": "inline assets + Python HTTP bridge",
+  "checks": [
+    "24 character cards rendered",
+    "local opponent is explicitly labeled",
+    "own secret has full accessible trait description",
+    "human question, automatic elimination and opponent response",
+    "text alternative exposes all character traits",
+    "rules dialog keyboard dismissal",
+    "analytics tables, cohorts and coverage visible",
+    "390px mobile layout has four columns and no horizontal overflow",
+    "terminal result and replay export become available",
+    "world leaderboard loads without fabricating entries",
+    "no JavaScript page errors"
+  ],
+  "javascriptErrors": [],
+  "notCovered": [
+    "Live Discord credentials",
+    "Live TypeSafe credentials",
+    "Production Cloudflare deployment"
+  ]
+}

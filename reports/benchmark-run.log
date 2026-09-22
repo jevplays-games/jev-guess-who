@@ -1,0 +1,10 @@
+
+> jev-guess-who@1.0.0 benchmark
+> node benchmarks/run.mjs
+
+fixed-vs-balanced: 1152 games; human wins 450; opponent wins 702
+random-safe-vs-balanced: 1152 games; human wins 447; opponent wins 705
+random-risk-vs-balanced: 1152 games; human wins 114; opponent wins 1038
+balanced-vs-balanced: 1152 games; human wins 576; opponent wins 576
+balanced-vs-search-hard: 1152 games; human wins 390; opponent wins 762
+Saved /mnt/data/jev-guess-who/reports/benchmark. Local benchmark complete.

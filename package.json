@@ -1,0 +1,19 @@
+{
+  "name": "jev-guess-who",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Server-authoritative Guess Who with JEV, Discord, replay verification and detailed analytics",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "python tests/browser.py",
+    "benchmark": "node benchmarks/run.mjs",
+    "verify": "node scripts/verify-replay.mjs",
+    "discord:register": "node --env-file-if-exists=.env scripts/register-discord.mjs",
+    "check": "node scripts/check.mjs"
+  }
+}

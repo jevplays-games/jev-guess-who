@@ -1,0 +1,2608 @@
+{
+  "schemaVersion": 1,
+  "analyticsVersion": "analytics-1",
+  "generatedFor": "Guess Who Human vs JEV source package",
+  "entryCount": 324,
+  "pathNotation": "Curly braces indicate alternatives/dynamic cohort keys; [] indicates array elements. Distribution statistics are separately documented paths, not independent metric families.",
+  "globalRules": [
+    "Missing measurements remain null or absent; an unknown bill is not zero.",
+    "Filter mode/source/league before making comparisons.",
+    "Player analytics covers at most500 retained games; operations exports carry separate limits.",
+    "Default benchmarks use local policies and are not live JEV evidence.",
+    "All interpretations and caveats in ANALYTICS.md apply."
+  ],
+  "metrics": [
+    {
+      "path": "event.metrics.beforeCount",
+      "unit": "characters",
+      "definition": "Acting player remaining candidates before the action.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.afterCount",
+      "unit": "characters",
+      "definition": "Acting player remaining candidates after the action.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.opponentBeforeCount",
+      "unit": "characters",
+      "definition": "Opponent candidate count before the action.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.eliminated",
+      "unit": "characters",
+      "definition": "Before minus after for a question; zero for other actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.entropyBefore",
+      "unit": "bits",
+      "definition": "log2(beforeCount) under the uniform candidate prior.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.entropyAfter",
+      "unit": "bits",
+      "definition": "log2(afterCount).",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.realizedInformationGain",
+      "unit": "bits",
+      "definition": "log2(beforeCount/afterCount) for a question; depends on the observed answer.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.wallTurnMs",
+      "unit": "milliseconds",
+      "definition": "Nonnegative interval between persisted action timestamps, including idle/network/reconnect time.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.expectedInformationGain",
+      "unit": "bits",
+      "definition": "Binary entropy \u2212p log2 p\u2212(1\u2212p)log2(1\u2212p), p=yesCount/beforeCount.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.informationGainRegret",
+      "unit": "bits",
+      "definition": "Maximum information gain of any informative legal question minus the selected question information gain; not overall strategic regret.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.splitBalance",
+      "unit": "ratio",
+      "definition": "2 \u00d7 min(yesCount,noCount) / beforeCount; 1 is balanced.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.expectedRemaining",
+      "unit": "characters",
+      "definition": "(yesCount\u00b2+noCount\u00b2)/beforeCount.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.worstCaseRemaining",
+      "unit": "characters",
+      "definition": "max(yesCount,noCount).",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.singletonProbability",
+      "unit": "probability",
+      "definition": "Probability under the uniform prior that the question leaves exactly one candidate.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.guessWinProbability",
+      "unit": "probability",
+      "definition": "1/beforeCount for final guesses, not inferred from model confidence.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.riskyGuess",
+      "unit": "boolean",
+      "definition": "Final guess with beforeCount greater than one.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.metrics.searchRegret",
+      "unit": "probability difference",
+      "definition": "Maximum available candidate estimatedWinProbability minus selected estimate. Same finite depth/policy only; null without comparable estimates.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.sequence",
+      "unit": "actions",
+      "definition": "Ordered engine revision.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.actor",
+      "unit": "enum",
+      "definition": "human, jev or system.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.action",
+      "unit": "object",
+      "definition": "Validated ask, guess, resign or expire action.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.answer",
+      "unit": "boolean",
+      "definition": "Authoritative trait answer for a question.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.correct",
+      "unit": "boolean",
+      "definition": "Whether a final guess equals the opponent secret.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.timestamp",
+      "unit": "UTC epoch milliseconds",
+      "definition": "Server timestamp for online game actions; local time in offline practice.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.requestId",
+      "unit": "identifier",
+      "definition": "Human idempotency key when provided.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.source",
+      "unit": "enum",
+      "definition": "jev, forced_rule, fallback or local_heuristic; never interchangeable.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.actionId",
+      "unit": "identifier",
+      "definition": "Selected validated candidate ID.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.candidateCount",
+      "unit": "actions",
+      "definition": "Number of candidate actions passed to this decision process.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.candidateEvidence",
+      "unit": "array",
+      "definition": "All computed candidate features used by the online provider adapter.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.selectedFeatures",
+      "unit": "object",
+      "definition": "Computed features for selected action.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.probabilities",
+      "unit": "probability map",
+      "definition": "Provider Choice selection distribution over supplied options; not secret-identity or game-win probabilities.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.confidence",
+      "unit": "ratio",
+      "definition": "Provider selection-confidence statistic.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.entropy",
+      "unit": "bits",
+      "definition": "\u2212sum(p log2 p) of the Choice distribution.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.normalizedEntropy",
+      "unit": "ratio",
+      "definition": "Choice entropy divided by log2(number of options); singleton 0.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.topMargin",
+      "unit": "ratio",
+      "definition": "Largest Choice probability minus second largest.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.latencyMs",
+      "unit": "milliseconds",
+      "definition": "Entire decision time measured by adapter, including build and retries; provider-only aggregates filter source.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.buildMs",
+      "unit": "milliseconds",
+      "definition": "Local decision feature/search construction duration.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.requestBytes",
+      "unit": "bytes",
+      "definition": "UTF-8 JSON provider request length; not token count.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.inputHash",
+      "unit": "SHA-256",
+      "definition": "Hash of canonical redacted provider input.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.model",
+      "unit": "version identifier",
+      "definition": "Pinned provider model expected and checked.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.fallbackReason",
+      "unit": "enum",
+      "definition": "Explicit service/schema/timeout/configuration reason when fallback occurs.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.search.completedDepth",
+      "unit": "action plies",
+      "definition": "Last fully completed iterative-deepening pass.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.search.nodes",
+      "unit": "nodes",
+      "definition": "Recorded bounded search node count; inspect search object for budget fields.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.attempts[].latencyMs",
+      "unit": "milliseconds",
+      "definition": "Elapsed time of each attempted request.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.attempts[].status",
+      "unit": "HTTP status",
+      "definition": "Response HTTP status when received.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.attempts[].error",
+      "unit": "enum",
+      "definition": "Error classification; null for success.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.attempts[].usage.input_tokens",
+      "unit": "tokens",
+      "definition": "Known provider-reported input tokens.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "event.decision.attempts[].usage.output_tokens",
+      "unit": "tokens",
+      "definition": "Known provider-reported output tokens.",
+      "source": "server/jev.js; public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.turns",
+      "unit": "count",
+      "definition": "Per-actor turns from the recorded state/actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.questions",
+      "unit": "count",
+      "definition": "Per-actor questions from the recorded state/actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.remaining",
+      "unit": "count",
+      "definition": "Per-actor remaining from the recorded state/actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.guesses",
+      "unit": "count",
+      "definition": "Per-actor guesses from the recorded state/actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.correctGuesses",
+      "unit": "count",
+      "definition": "Per-actor correctGuesses from the recorded state/actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.riskyGuesses",
+      "unit": "count",
+      "definition": "Per-actor riskyGuesses from the recorded state/actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.totalEliminated",
+      "unit": "count",
+      "definition": "Per-actor totalEliminated from the recorded state/actions.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.n",
+      "unit": "observations",
+      "definition": "n of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.min",
+      "unit": "bits",
+      "definition": "min of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.mean",
+      "unit": "bits",
+      "definition": "mean of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.p50",
+      "unit": "bits",
+      "definition": "p50 of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.p90",
+      "unit": "bits",
+      "definition": "p90 of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.p95",
+      "unit": "bits",
+      "definition": "p95 of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.p99",
+      "unit": "bits",
+      "definition": "p99 of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.expectedInformationGain.max",
+      "unit": "bits",
+      "definition": "max of this actor\u2019s expectedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.n",
+      "unit": "observations",
+      "definition": "n of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.min",
+      "unit": "bits",
+      "definition": "min of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.mean",
+      "unit": "bits",
+      "definition": "mean of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.p50",
+      "unit": "bits",
+      "definition": "p50 of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.p90",
+      "unit": "bits",
+      "definition": "p90 of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.p95",
+      "unit": "bits",
+      "definition": "p95 of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.p99",
+      "unit": "bits",
+      "definition": "p99 of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.realizedInformationGain.max",
+      "unit": "bits",
+      "definition": "max of this actor\u2019s realizedInformationGain values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.n",
+      "unit": "observations",
+      "definition": "n of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.min",
+      "unit": "bits",
+      "definition": "min of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.mean",
+      "unit": "bits",
+      "definition": "mean of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.p50",
+      "unit": "bits",
+      "definition": "p50 of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.p90",
+      "unit": "bits",
+      "definition": "p90 of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.p95",
+      "unit": "bits",
+      "definition": "p95 of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.p99",
+      "unit": "bits",
+      "definition": "p99 of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.informationGainRegret.max",
+      "unit": "bits",
+      "definition": "max of this actor\u2019s informationGainRegret values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.n",
+      "unit": "observations",
+      "definition": "n of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.min",
+      "unit": "ratio",
+      "definition": "min of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.mean",
+      "unit": "ratio",
+      "definition": "mean of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.p50",
+      "unit": "ratio",
+      "definition": "p50 of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.p90",
+      "unit": "ratio",
+      "definition": "p90 of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.p95",
+      "unit": "ratio",
+      "definition": "p95 of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.p99",
+      "unit": "ratio",
+      "definition": "p99 of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.splitBalance.max",
+      "unit": "ratio",
+      "definition": "max of this actor\u2019s splitBalance values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.n",
+      "unit": "observations",
+      "definition": "n of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.min",
+      "unit": "milliseconds",
+      "definition": "min of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.actors.{human|jev}.wallTurnMs.max",
+      "unit": "milliseconds",
+      "definition": "max of this actor\u2019s wallTurnMs values; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.decisions",
+      "unit": "count",
+      "definition": "decisions over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.forcedDecisions",
+      "unit": "count",
+      "definition": "forcedDecisions over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.fallbackDecisions",
+      "unit": "count",
+      "definition": "fallbackDecisions over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.attempts",
+      "unit": "count",
+      "definition": "attempts over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.retries",
+      "unit": "count",
+      "definition": "retries over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.invalidAttempts",
+      "unit": "count",
+      "definition": "invalidAttempts over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.timeoutAttempts",
+      "unit": "count",
+      "definition": "timeoutAttempts over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.failedAttempts",
+      "unit": "count",
+      "definition": "failedAttempts over stored accepted decision records; use operations telemetry to include discarded responses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.latencyMs.n",
+      "unit": "observations",
+      "definition": "n of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.latencyMs.min",
+      "unit": "milliseconds",
+      "definition": "min of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.latencyMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.latencyMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.latencyMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.latencyMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.latencyMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.latencyMs.max",
+      "unit": "milliseconds",
+      "definition": "max of latencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.n",
+      "unit": "observations",
+      "definition": "n of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.min",
+      "unit": "milliseconds",
+      "definition": "min of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.attemptLatencyMs.max",
+      "unit": "milliseconds",
+      "definition": "max of attemptLatencyMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.n",
+      "unit": "observations",
+      "definition": "n of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.min",
+      "unit": "milliseconds",
+      "definition": "min of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.buildMs.max",
+      "unit": "milliseconds",
+      "definition": "max of buildMs values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.n",
+      "unit": "observations",
+      "definition": "n of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.min",
+      "unit": "actions",
+      "definition": "min of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.mean",
+      "unit": "actions",
+      "definition": "mean of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.p50",
+      "unit": "actions",
+      "definition": "p50 of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.p90",
+      "unit": "actions",
+      "definition": "p90 of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.p95",
+      "unit": "actions",
+      "definition": "p95 of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.p99",
+      "unit": "actions",
+      "definition": "p99 of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.candidateCount.max",
+      "unit": "actions",
+      "definition": "max of candidateCount values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.n",
+      "unit": "observations",
+      "definition": "n of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.min",
+      "unit": "ratio",
+      "definition": "min of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.mean",
+      "unit": "ratio",
+      "definition": "mean of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.p50",
+      "unit": "ratio",
+      "definition": "p50 of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.p90",
+      "unit": "ratio",
+      "definition": "p90 of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.p95",
+      "unit": "ratio",
+      "definition": "p95 of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.p99",
+      "unit": "ratio",
+      "definition": "p99 of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.confidence.max",
+      "unit": "ratio",
+      "definition": "max of confidence values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.n",
+      "unit": "observations",
+      "definition": "n of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.min",
+      "unit": "ratio",
+      "definition": "min of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.mean",
+      "unit": "ratio",
+      "definition": "mean of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.p50",
+      "unit": "ratio",
+      "definition": "p50 of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.p90",
+      "unit": "ratio",
+      "definition": "p90 of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.p95",
+      "unit": "ratio",
+      "definition": "p95 of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.p99",
+      "unit": "ratio",
+      "definition": "p99 of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.normalizedEntropy.max",
+      "unit": "ratio",
+      "definition": "max of normalizedEntropy values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.n",
+      "unit": "observations",
+      "definition": "n of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.min",
+      "unit": "action plies",
+      "definition": "min of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.mean",
+      "unit": "action plies",
+      "definition": "mean of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.p50",
+      "unit": "action plies",
+      "definition": "p50 of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.p90",
+      "unit": "action plies",
+      "definition": "p90 of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.p95",
+      "unit": "action plies",
+      "definition": "p95 of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.p99",
+      "unit": "action plies",
+      "definition": "p99 of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.completedSearchDepth.max",
+      "unit": "action plies",
+      "definition": "max of completedSearchDepth values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.n",
+      "unit": "observations",
+      "definition": "n of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.min",
+      "unit": "probability difference",
+      "definition": "min of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.mean",
+      "unit": "probability difference",
+      "definition": "mean of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.p50",
+      "unit": "probability difference",
+      "definition": "p50 of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.p90",
+      "unit": "probability difference",
+      "definition": "p90 of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.p95",
+      "unit": "probability difference",
+      "definition": "p95 of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.p99",
+      "unit": "probability difference",
+      "definition": "p99 of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.searchRegret.max",
+      "unit": "probability difference",
+      "definition": "max of searchRegret values in the matching decision or attempt population; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "match.provider.errorReasons",
+      "unit": "reason count map",
+      "definition": "Counts of attempt errors grouped by normalized reason.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.knownInputTokens",
+      "unit": "tokens",
+      "definition": "Sum of known provider input usage; not complete usage if coverage <1.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.knownOutputTokens",
+      "unit": "tokens",
+      "definition": "Sum of known provider output usage.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.usageCoverage",
+      "unit": "ratio",
+      "definition": "Attempts with validated input/output usage divided by attempts.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.inputCostUsd",
+      "unit": "USD",
+      "definition": "Known input tokens \u00d7 configured rate /1e6 only when every attempt has known usage; otherwise null. Not a complete multi-component bill.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.knownInputCostLowerBoundUsd",
+      "unit": "USD",
+      "definition": "Known reported input usage valued at the configured input rate; excludes unknown usage and other charges.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.provider.pricingInputUsdPerMillion",
+      "unit": "USD per million input tokens",
+      "definition": "Operator-supplied rate frozen in match config; no built-in current-price assumption.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.durationMs",
+      "unit": "milliseconds",
+      "definition": "finishedAt\u2212createdAt for terminal matches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.createdAt",
+      "unit": "UTC epoch milliseconds",
+      "definition": "Creation time.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.finishedAt",
+      "unit": "UTC epoch milliseconds",
+      "definition": "Terminal time, including scheduled expiration timestamp.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.difficulty",
+      "unit": "enum",
+      "definition": "easy, normal, hard or jev.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.starter",
+      "unit": "enum",
+      "definition": "human or jev.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.mode",
+      "unit": "enum",
+      "definition": "practice, casual, ranked or explicitly labeled benchmark.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.source",
+      "unit": "enum",
+      "definition": "Match-level source classification; any fallback takes precedence.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.leagueId",
+      "unit": "identifier",
+      "definition": "Hash of frozen competitive configuration, excluding price.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.winner",
+      "unit": "enum",
+      "definition": "Human or JEV when terminal.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.reason",
+      "unit": "enum",
+      "definition": "correct_guess, wrong_guess, resignation or expiration.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "match.eligible",
+      "unit": "boolean",
+      "definition": "Current official-ranking eligibility; must also be verified before result insert.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.started",
+      "unit": "matches",
+      "definition": "Number of selected match records.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.finished",
+      "unit": "matches",
+      "definition": "Number whose phase is finished.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.active",
+      "unit": "matches",
+      "definition": "Number whose phase is active.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.wins",
+      "unit": "matches",
+      "definition": "Finished matches won by the human.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.losses",
+      "unit": "matches",
+      "definition": "Finished matches not won by human; no normal draws in this ruleset.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.winRate",
+      "unit": "ratio",
+      "definition": "wins/finished.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.winInterval.lower",
+      "unit": "ratio",
+      "definition": "Wilson lower bound with z=1.96.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.winInterval.upper",
+      "unit": "ratio",
+      "definition": "Wilson upper bound with z=1.96.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.averageHumanQuestions",
+      "unit": "questions",
+      "definition": "Mean human questions among finished selected matches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.averageJevQuestions",
+      "unit": "questions",
+      "definition": "Mean JEV questions among finished selected matches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.eligible",
+      "unit": "matches",
+      "definition": "Selected records whose eligibility flag is true; not an official result count.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.expirations",
+      "unit": "matches",
+      "definition": "Selected matches ending in expiration.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.{overall|cohort}.resignations",
+      "unit": "matches",
+      "definition": "Selected matches ending in resignation.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.byDifficulty",
+      "unit": "cohort map",
+      "definition": "Each selected difficulty group exposes the cohort fields above. Do not interpret mixed groups as opponent-strength rankings.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.byStarter",
+      "unit": "cohort map",
+      "definition": "Each selected starter group exposes the cohort fields above. Do not interpret mixed groups as opponent-strength rankings.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.bySource",
+      "unit": "cohort map",
+      "definition": "Each selected opponent source group exposes the cohort fields above. Do not interpret mixed groups as opponent-strength rankings.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.byMode",
+      "unit": "cohort map",
+      "definition": "Each selected mode group exposes the cohort fields above. Do not interpret mixed groups as opponent-strength rankings.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.byLeague",
+      "unit": "cohort map",
+      "definition": "Each selected immutable league configuration group exposes the cohort fields above. Do not interpret mixed groups as opponent-strength rankings.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.byDay",
+      "unit": "cohort map",
+      "definition": "Each selected UTC creation day group exposes the cohort fields above. Do not interpret mixed groups as opponent-strength rankings.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.byDifficultyAndStarter",
+      "unit": "cohort map",
+      "definition": "Each selected difficulty and starter pair group exposes the cohort fields above. Do not interpret mixed groups as opponent-strength rankings.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.streaks.current",
+      "unit": "consecutive human wins",
+      "definition": "current win streak in finish-time order within the selected retained history; ties ordered by matchId.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.streaks.best",
+      "unit": "consecutive human wins",
+      "definition": "best win streak in finish-time order within the selected retained history; ties ordered by matchId.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.durationMs.n",
+      "unit": "observations",
+      "definition": "n of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.durationMs.min",
+      "unit": "milliseconds",
+      "definition": "min of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.durationMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.durationMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.durationMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.durationMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.durationMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.durationMs.max",
+      "unit": "milliseconds",
+      "definition": "max of pooled durationMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.n",
+      "unit": "observations",
+      "definition": "n of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.min",
+      "unit": "milliseconds",
+      "definition": "min of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.humanWallTurnMs.max",
+      "unit": "milliseconds",
+      "definition": "max of pooled humanWallTurnMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.n",
+      "unit": "observations",
+      "definition": "n of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.min",
+      "unit": "milliseconds",
+      "definition": "min of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.jevLatencyMs.max",
+      "unit": "milliseconds",
+      "definition": "max of pooled jevLatencyMs values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.n",
+      "unit": "observations",
+      "definition": "n of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.min",
+      "unit": "ratio",
+      "definition": "min of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.mean",
+      "unit": "ratio",
+      "definition": "mean of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.p50",
+      "unit": "ratio",
+      "definition": "p50 of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.p90",
+      "unit": "ratio",
+      "definition": "p90 of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.p95",
+      "unit": "ratio",
+      "definition": "p95 of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.p99",
+      "unit": "ratio",
+      "definition": "p99 of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.confidence.max",
+      "unit": "ratio",
+      "definition": "max of pooled confidence values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.n",
+      "unit": "observations",
+      "definition": "n of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.min",
+      "unit": "actions",
+      "definition": "min of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.mean",
+      "unit": "actions",
+      "definition": "mean of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.p50",
+      "unit": "actions",
+      "definition": "p50 of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.p90",
+      "unit": "actions",
+      "definition": "p90 of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.p95",
+      "unit": "actions",
+      "definition": "p95 of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.p99",
+      "unit": "actions",
+      "definition": "p99 of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.candidateCount.max",
+      "unit": "actions",
+      "definition": "max of pooled candidateCount values from selected retained matches, with the implementation source filters; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.uses",
+      "unit": "questions",
+      "definition": "Total questions using predicate.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.yes",
+      "unit": "answers",
+      "definition": "Observed yes answers.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.no",
+      "unit": "answers",
+      "definition": "Observed no answers.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.meanEliminated",
+      "unit": "characters",
+      "definition": "Mean eliminated candidates when this predicate is used.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.meanInformationGain",
+      "unit": "bits",
+      "definition": "Mean expected information gain of this predicate in the states where used.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.meanRegret",
+      "unit": "bits",
+      "definition": "Mean question-information regret in those states.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.humanUses",
+      "unit": "questions",
+      "definition": "Human usage count.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.predicates.{predicate}.jevUses",
+      "unit": "questions",
+      "definition": "Opponent usage count, including explicitly separated local/fallback match cohorts.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.guessCalibration.{n}.guesses",
+      "unit": "guesses",
+      "definition": "Final guesses at candidate-count n.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.guessCalibration.{n}.correct",
+      "unit": "guesses",
+      "definition": "Correct guesses at candidate-count n.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.guessCalibration.{n}.expectedProbability",
+      "unit": "probability",
+      "definition": "1/n under the uniform conditional candidate prior.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.guessCalibration.{n}.observedRate",
+      "unit": "ratio",
+      "definition": "correct/guesses.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.guessCalibration.{n}.interval",
+      "unit": "ratio bounds",
+      "definition": "Wilson interval around observedRate; repeated observations may be dependent.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.attempts",
+      "unit": "count",
+      "definition": "Aggregate attempts over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.failures",
+      "unit": "count",
+      "definition": "Aggregate failures over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.invalid",
+      "unit": "count",
+      "definition": "Aggregate invalid over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.timeouts",
+      "unit": "count",
+      "definition": "Aggregate timeouts over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.fallbackDecisions",
+      "unit": "count",
+      "definition": "Aggregate fallbackDecisions over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.knownInputTokens",
+      "unit": "count",
+      "definition": "Aggregate knownInputTokens over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.measuredCostMatches",
+      "unit": "count",
+      "definition": "Aggregate measuredCostMatches over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "aggregate.provider.measuredInputCostUsd",
+      "unit": "USD",
+      "definition": "Aggregate measuredInputCostUsd over selected retained game records. Cost sums only known complete-input-cost match values; disclose measuredCostMatches.",
+      "source": "public/shared/analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.activity.discord.daily",
+      "unit": "distinct pseudonyms",
+      "definition": "Distinct discord actor keys in game-start telemetry over rolling 1 days through asOf. Not verified unique humans.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.activity.discord.weekly",
+      "unit": "distinct pseudonyms",
+      "definition": "Distinct discord actor keys in game-start telemetry over rolling 7 days through asOf. Not verified unique humans.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.activity.discord.monthly",
+      "unit": "distinct pseudonyms",
+      "definition": "Distinct discord actor keys in game-start telemetry over rolling 30 days through asOf. Not verified unique humans.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.activity.guestSessions.daily",
+      "unit": "distinct pseudonyms",
+      "definition": "Distinct guestSessions actor keys in game-start telemetry over rolling 1 days through asOf. Not verified unique humans.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.activity.guestSessions.weekly",
+      "unit": "distinct pseudonyms",
+      "definition": "Distinct guestSessions actor keys in game-start telemetry over rolling 7 days through asOf. Not verified unique humans.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.activity.guestSessions.monthly",
+      "unit": "distinct pseudonyms",
+      "definition": "Distinct guestSessions actor keys in game-start telemetry over rolling 30 days through asOf. Not verified unique humans.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.funnelEventCounts.oauthStarted",
+      "unit": "events",
+      "definition": "Count of retained oauthStarted events; unjoined event funnel, not a person-level conversion rate.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.funnelEventCounts.discordLogins",
+      "unit": "events",
+      "definition": "Count of retained discordLogins events; unjoined event funnel, not a person-level conversion rate.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.funnelEventCounts.contextRedemptions",
+      "unit": "events",
+      "definition": "Count of retained contextRedemptions events; unjoined event funnel, not a person-level conversion rate.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.funnelEventCounts.gameStarts",
+      "unit": "events",
+      "definition": "Count of retained gameStarts events; unjoined event funnel, not a person-level conversion rate.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.funnelEventCounts.completions",
+      "unit": "events",
+      "definition": "Count of retained completions events; unjoined event funnel, not a person-level conversion rate.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.funnelEventCounts.expirations",
+      "unit": "events",
+      "definition": "Count of retained expirations events; unjoined event funnel, not a person-level conversion rate.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.starts",
+      "unit": "count",
+      "definition": "starts in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.activeDiscordPlayers",
+      "unit": "count",
+      "definition": "activeDiscordPlayers in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.activeGuestSessions",
+      "unit": "count",
+      "definition": "activeGuestSessions in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.completions",
+      "unit": "count",
+      "definition": "completions in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.expirations",
+      "unit": "count",
+      "definition": "expirations in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.providerAttempts",
+      "unit": "count",
+      "definition": "providerAttempts in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.fallbacks",
+      "unit": "count",
+      "definition": "fallbacks in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.byDay.{UTC-date}.requestRejections",
+      "unit": "count",
+      "definition": "requestRejections in one UTC calendar day from retained telemetry.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day1.maturedPlayers",
+      "unit": "accounts",
+      "definition": "Exact day-1 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day1.returnedPlayers",
+      "unit": "accounts",
+      "definition": "Exact day-1 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day1.rate",
+      "unit": "ratio",
+      "definition": "Exact day-1 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day7.maturedPlayers",
+      "unit": "accounts",
+      "definition": "Exact day-7 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day7.returnedPlayers",
+      "unit": "accounts",
+      "definition": "Exact day-7 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day7.rate",
+      "unit": "ratio",
+      "definition": "Exact day-7 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day30.maturedPlayers",
+      "unit": "accounts",
+      "definition": "Exact day-30 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day30.returnedPlayers",
+      "unit": "accounts",
+      "definition": "Exact day-30 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.firstObservedDiscordRetention.day30.rate",
+      "unit": "ratio",
+      "definition": "Exact day-30 return after first observed retained Discord game-start day. Denominator includes only actors whose target UTC day fully elapsed; not true lifetime acquisition.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.provider.attempts",
+      "unit": "requests",
+      "definition": "All retained provider attempt events, including attempts not committed to a game.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.provider.reasons",
+      "unit": "reason counts",
+      "definition": "Normalized success/error categories.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.provider.knownInputTokens",
+      "unit": "tokens",
+      "definition": "Known reported input tokens in attempt events.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.provider.knownOutputTokens",
+      "unit": "tokens",
+      "definition": "Known reported output tokens in attempt events.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.provider.usageCoverage",
+      "unit": "ratio",
+      "definition": "Attempt events with known usage divided by all attempt events.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.provider.staleResponses",
+      "unit": "events",
+      "definition": "Provider responses discarded after a failed state CAS.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "operations.provider.latencyMs.n",
+      "unit": "observations",
+      "definition": "n of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "operations.provider.latencyMs.min",
+      "unit": "milliseconds",
+      "definition": "min of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "operations.provider.latencyMs.mean",
+      "unit": "milliseconds",
+      "definition": "mean of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "operations.provider.latencyMs.p50",
+      "unit": "milliseconds",
+      "definition": "p50 of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "operations.provider.latencyMs.p90",
+      "unit": "milliseconds",
+      "definition": "p90 of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "operations.provider.latencyMs.p95",
+      "unit": "milliseconds",
+      "definition": "p95 of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "operations.provider.latencyMs.p99",
+      "unit": "milliseconds",
+      "definition": "p99 of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "operations.provider.latencyMs.max",
+      "unit": "milliseconds",
+      "definition": "max of all retained provider attempt latency measurements; finite observations only. Percentiles use linear interpolation at (n\u22121)p.",
+      "source": "public/shared/operations-analytics.js",
+      "missing": "n is 0 when no measurements; other statistics are null when n=0",
+      "aggregation": "Never average percentiles to obtain a pooled percentile; pool raw measurements instead."
+    },
+    {
+      "path": "personalAnalytics.coverage.asOf",
+      "unit": "UTC epoch milliseconds",
+      "definition": "Upper bound of query snapshot.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "personalAnalytics.coverage.availableStoredMatches",
+      "unit": "matches",
+      "definition": "Owner matches visible at the snapshot before filters.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "personalAnalytics.coverage.scanned",
+      "unit": "matches",
+      "definition": "Matches scanned, at most500 for personal analytics.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "personalAnalytics.coverage.filtered",
+      "unit": "matches",
+      "definition": "Selected records after filters within the scanned window.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "personalAnalytics.coverage.truncated",
+      "unit": "boolean",
+      "definition": "True when stored history exceeds the scan/export limit.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "personalAnalytics.coverage.retention",
+      "unit": "text",
+      "definition": "Deployment detail-history retention caveat.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.ranking_value",
+      "unit": "ratio",
+      "definition": "Lower Wilson bound of eligible wins/games, computed in SQL before pagination.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.games",
+      "unit": "matches",
+      "definition": "Eligible verified records in the selected league/scope/period.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.wins",
+      "unit": "matches",
+      "definition": "Eligible human wins.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.losses",
+      "unit": "matches",
+      "definition": "Eligible human losses.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.winRate",
+      "unit": "ratio",
+      "definition": "wins/games.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.provisional",
+      "unit": "boolean",
+      "definition": "games<20 in selected period.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.rank",
+      "unit": "ordinal",
+      "definition": "Rank for qualified entries; null for provisional.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    },
+    {
+      "path": "leaderboard.cutoff",
+      "unit": "result row ID",
+      "definition": "Pagination result snapshot maximum ID, not a timestamp.",
+      "source": "server/matches.js",
+      "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
+      "aggregation": "See definition and cohort selection"
+    }
+  ]
+}

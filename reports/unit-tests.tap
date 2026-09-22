@@ -1,0 +1,332 @@
+
+> jev-guess-who@1.0.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: quantiles are interpolated and missing data remains null
+ok 1 - quantiles are interpolated and missing data remains null
+  ---
+  duration_ms: 0.77201
+  type: 'test'
+  ...
+# Subtest: Wilson boundaries and small samples
+ok 2 - Wilson boundaries and small samples
+  ---
+  duration_ms: 0.617718
+  type: 'test'
+  ...
+# Subtest: public information analytics never use a hidden answer to score question quality
+ok 3 - public information analytics never use a hidden answer to score question quality
+  ---
+  duration_ms: 0.969316
+  type: 'test'
+  ...
+# Subtest: guess probability is uniform prior, not model selection confidence
+ok 4 - guess probability is uniform prior, not model selection confidence
+  ---
+  duration_ms: 1.485071
+  type: 'test'
+  ...
+# Subtest: partial provider usage cannot be presented as a complete bill
+ok 5 - partial provider usage cannot be presented as a complete bill
+  ---
+  duration_ms: 0.342144
+  type: 'test'
+  ...
+# Subtest: selection entropy and probability margin are measured separately
+ok 6 - selection entropy and probability margin are measured separately
+  ---
+  duration_ms: 0.205208
+  type: 'test'
+  ...
+# Subtest: CSV quotes safely and neutralizes spreadsheet formula injection
+ok 7 - CSV quotes safely and neutralizes spreadsheet formula injection
+  ---
+  duration_ms: 0.418088
+  type: 'test'
+  ...
+# (node:3017) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: strict schema accepts a real-shape mocked Choice with usage
+ok 8 - strict schema accepts a real-shape mocked Choice with usage
+  ---
+  duration_ms: 9.881916
+  type: 'test'
+  ...
+# Subtest: provider rejects invented actions, model mismatch, missing/invalid probabilities and invalid confidence
+ok 9 - provider rejects invented actions, model mismatch, missing/invalid probabilities and invalid confidence
+  ---
+  duration_ms: 0.59916
+  type: 'test'
+  ...
+# Subtest: equal max-probability ties use stable action ID
+ok 10 - equal max-probability ties use stable action ID
+  ---
+  duration_ms: 0.154793
+  type: 'test'
+  ...
+# Subtest: missing credentials trigger explicit fallback, not a fabricated JEV decision
+ok 11 - missing credentials trigger explicit fallback, not a fabricated JEV decision
+  ---
+  duration_ms: 6.999856
+  type: 'test'
+  ...
+# Subtest: successful mocked provider call returns a legal JEV decision and safe input
+ok 12 - successful mocked provider call returns a legal JEV decision and safe input
+  ---
+  duration_ms: 21.325053
+  type: 'test'
+  ...
+# Subtest: invalid output retries once then records explicit fallback
+ok 13 - invalid output retries once then records explicit fallback
+  ---
+  duration_ms: 202.504279
+  type: 'test'
+  ...
+# Subtest: authentication failure does not retry
+ok 14 - authentication failure does not retry
+  ---
+  duration_ms: 1.520574
+  type: 'test'
+  ...
+# Subtest: Retry-After beyond remaining budget uses fallback immediately
+ok 15 - Retry-After beyond remaining budget uses fallback immediately
+  ---
+  duration_ms: 2.593016
+  type: 'test'
+  ...
+# Subtest: timeout is bounded and categorized
+ok 16 - timeout is bounded and categorized
+  ---
+  duration_ms: 50.682379
+  type: 'test'
+  ...
+# Subtest: singleton is forced through rules without billing the provider
+ok 17 - singleton is forced through rules without billing the provider
+  ---
+  duration_ms: 1.645221
+  type: 'test'
+  ...
+# Subtest: operator activity separates guest sessions and Discord players
+ok 18 - operator activity separates guest sessions and Discord players
+  ---
+  duration_ms: 2.103771
+  type: 'test'
+  ...
+# Subtest: retention excludes unmatured dates and measures exact-day returns
+ok 19 - retention excludes unmatured dates and measures exact-day returns
+  ---
+  duration_ms: 0.413481
+  type: 'test'
+  ...
+# Subtest: all provider attempts, including orphaned/stale calls, contribute to operations
+ok 20 - all provider attempts, including orphaned/stale calls, contribute to operations
+  ---
+  duration_ms: 0.3795
+  type: 'test'
+  ...
+# Subtest: roster has 24 unique distinguishable identities and balanced trait coverage
+ok 21 - roster has 24 unique distinguishable identities and balanced trait coverage
+  ---
+  duration_ms: 1.173583
+  type: 'test'
+  ...
+# Subtest: all 1,152 initial secret/starter combinations terminate and replay deterministically
+ok 22 - all 1,152 initial secret/starter combinations terminate and replay deterministically
+  ---
+  duration_ms: 380.29335
+  type: 'test'
+  ...
+# Subtest: correct and incorrect guesses consume one turn and end play
+ok 23 - correct and incorrect guesses consume one turn and end play
+  ---
+  duration_ms: 0.686081
+  type: 'test'
+  ...
+# Subtest: redundant questions, invalid keys, wrong actor and eliminated guesses are illegal
+ok 24 - redundant questions, invalid keys, wrong actor and eliminated guesses are illegal
+  ---
+  duration_ms: 0.327172
+  type: 'test'
+  ...
+# Subtest: singleton requires a final guess and allows equal secrets
+ok 25 - singleton requires a final guess and allows equal secrets
+  ---
+  duration_ms: 0.516356
+  type: 'test'
+  ...
+# Subtest: live human projection has no JEV secret or seed; decision view has neither secret
+ok 26 - live human projection has no JEV secret or seed; decision view has neither secret
+  ---
+  duration_ms: 7.795382
+  type: 'test'
+  ...
+# Subtest: decision inputs are identical for secrets consistent with identical observations
+ok 27 - decision inputs are identical for secrets consistent with identical observations
+  ---
+  duration_ms: 4.422915
+  type: 'test'
+  ...
+# Subtest: replay rejects altered answers and revisions; expiration is an explicit terminal event
+ok 28 - replay rejects altered answers and revisions; expiration is an explicit terminal event
+  ---
+  duration_ms: 0.339891
+  type: 'test'
+  ...
+# Subtest: question features match exact information formulas
+ok 29 - question features match exact information formulas
+  ---
+  duration_ms: 0.333751
+  type: 'test'
+  ...
+# Subtest: all difficulty candidate sets are legal, bounded, deterministic and secret-free
+ok 30 - all difficulty candidate sets are legal, bounded, deterministic and secret-free
+  ---
+  duration_ms: 104.43554
+  type: 'test'
+  ...
+# Subtest: two-candidate race yields exact 1/2 guess value and a guaranteed singleton win
+ok 31 - two-candidate race yields exact 1/2 guess value and a guaranteed singleton win
+  ---
+  duration_ms: 0.560903
+  type: 'test'
+  ...
+# (node:3055) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: signed launch token rejects tampering and expiry
+ok 32 - signed launch token rejects tampering and expiry
+  ---
+  duration_ms: 8.987943
+  type: 'test'
+  ...
+# Subtest: Discord Ed25519 validates timestamp plus exact body and rejects stale timestamps
+ok 33 - Discord Ed25519 validates timestamp plus exact body and rejects stale timestamps
+  ---
+  duration_ms: 5.129687
+  type: 'test'
+  ...
+# Subtest: origin and CSRF checks are both mandatory
+ok 34 - origin and CSRF checks are both mandatory
+  ---
+  duration_ms: 15.699477
+  type: 'test'
+  ...
+# Subtest: streamed request body limits apply without Content-Length
+ok 35 - streamed request body limits apply without Content-Length
+  ---
+  duration_ms: 1.996139
+  type: 'test'
+  ...
+# Subtest: OAuth rejects missing, expired, foreign-session and already consumed state
+ok 36 - OAuth rejects missing, expired, foreign-session and already consumed state
+  ---
+  duration_ms: 6.259179
+  type: 'test'
+  ...
+# Subtest: mocked Discord OAuth rotates the session without storing provider tokens
+ok 37 - mocked Discord OAuth rotates the session without storing provider tokens
+  ---
+  duration_ms: 6.711132
+  type: 'test'
+  ...
+# Subtest: launch redemption requires matching identity and consumes exactly once
+ok 38 - launch redemption requires matching identity and consumes exactly once
+  ---
+  duration_ms: 4.833232
+  type: 'test'
+  ...
+# Subtest: unsigned interaction cannot forge channel context
+ok 39 - unsigned interaction cannot forge channel context
+  ---
+  duration_ms: 2.963543
+  type: 'test'
+  ...
+# (node:3071) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: server creates secret-safe snapshots; other sessions cannot read a match
+ok 40 - server creates secret-safe snapshots; other sessions cannot read a match
+  ---
+  duration_ms: 13.870499
+  type: 'test'
+  ...
+# Subtest: create idempotency does not create extra games and rejects conflicting reuse
+ok 41 - create idempotency does not create extra games and rejects conflicting reuse
+  ---
+  duration_ms: 4.743537
+  type: 'test'
+  ...
+# Subtest: duplicate human action is idempotent; altered payload and stale revision fail
+ok 42 - duplicate human action is idempotent; altered payload and stale revision fail
+  ---
+  duration_ms: 11.583463
+  type: 'test'
+  ...
+# Subtest: persisted lease suppresses concurrent JEV advances
+ok 43 - persisted lease suppresses concurrent JEV advances
+  ---
+  duration_ms: 4.075904
+  type: 'test'
+  ...
+# Subtest: completed replay is validated and rejects seed, event, difficulty and state tampering
+ok 44 - completed replay is validated and rejects seed, event, difficulty and state tampering
+  ---
+  duration_ms: 5.55794
+  type: 'test'
+  ...
+# Subtest: ranked match requires identity, configured JEV and pinned model; one active ranked attempt
+ok 45 - ranked match requires identity, configured JEV and pinned model; one active ranked attempt
+  ---
+  duration_ms: 4.008813
+  type: 'test'
+  ...
+# Subtest: mocked JEV ranked completion inserts one official result, never two
+ok 46 - mocked JEV ranked completion inserts one official result, never two
+  ---
+  duration_ms: 32.314138
+  type: 'test'
+  ...
+# Subtest: fallback permanently disqualifies a ranked game
+ok 47 - fallback permanently disqualifies a ranked game
+  ---
+  duration_ms: 5.077819
+  type: 'test'
+  ...
+# Subtest: compare-and-swap loser cannot insert an unrelated result in D1 batch
+ok 48 - compare-and-swap loser cannot insert an unrelated result in D1 batch
+  ---
+  duration_ms: 2.379445
+  type: 'test'
+  ...
+# Subtest: expired eligible match becomes a verified loss
+ok 49 - expired eligible match becomes a verified loss
+  ---
+  duration_ms: 5.174273
+  type: 'test'
+  ...
+# Subtest: leaderboard scopes and difficulty separate cohorts, reject stale context and bind cursors
+ok 50 - leaderboard scopes and difficulty separate cohorts, reject stale context and bind cursors
+  ---
+  duration_ms: 26.050313
+  type: 'test'
+  ...
+# Subtest: analytics is owner-scoped and carries explicit coverage
+ok 51 - analytics is owner-scoped and carries explicit coverage
+  ---
+  duration_ms: 3.048089
+  type: 'test'
+  ...
+# Subtest: HTTP layer rejects absent CSRF, cross-origin, unknown endpoints and score forgery
+ok 52 - HTTP layer rejects absent CSRF, cross-origin, unknown endpoints and score forgery
+  ---
+  duration_ms: 12.784928
+  type: 'test'
+  ...
+1..52
+# tests 52
+# suites 0
+# pass 52
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 620.038982

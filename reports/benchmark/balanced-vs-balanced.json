@@ -1,0 +1,394 @@
+{
+  "analyticsVersion": "analytics-1",
+  "overall": {
+    "started": 1152,
+    "finished": 1152,
+    "active": 0,
+    "wins": 576,
+    "losses": 576,
+    "winRate": 0.5,
+    "winInterval": {
+      "lower": 0.471174495624431,
+      "upper": 0.528825504375569
+    },
+    "averageHumanQuestions": 4.537326388888889,
+    "averageJevQuestions": 4.537326388888889,
+    "eligible": 0,
+    "expirations": 0,
+    "resignations": 0
+  },
+  "streaks": {
+    "current": 0,
+    "best": 25
+  },
+  "byDifficulty": {
+    "normal": {
+      "started": 1152,
+      "finished": 1152,
+      "active": 0,
+      "wins": 576,
+      "losses": 576,
+      "winRate": 0.5,
+      "winInterval": {
+        "lower": 0.471174495624431,
+        "upper": 0.528825504375569
+      },
+      "averageHumanQuestions": 4.537326388888889,
+      "averageJevQuestions": 4.537326388888889,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    }
+  },
+  "byStarter": {
+    "human": {
+      "started": 576,
+      "finished": 576,
+      "active": 0,
+      "wins": 415,
+      "losses": 161,
+      "winRate": 0.7204861111111112,
+      "winInterval": {
+        "lower": 0.6824689776060279,
+        "upper": 0.7555816900245803
+      },
+      "averageHumanQuestions": 4.677083333333333,
+      "averageJevQuestions": 4.397569444444445,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    },
+    "jev": {
+      "started": 576,
+      "finished": 576,
+      "active": 0,
+      "wins": 161,
+      "losses": 415,
+      "winRate": 0.2795138888888889,
+      "winInterval": {
+        "lower": 0.24441830997541975,
+        "upper": 0.3175310223939722
+      },
+      "averageHumanQuestions": 4.397569444444445,
+      "averageJevQuestions": 4.677083333333333,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    }
+  },
+  "bySource": {
+    "local_heuristic": {
+      "started": 1152,
+      "finished": 1152,
+      "active": 0,
+      "wins": 576,
+      "losses": 576,
+      "winRate": 0.5,
+      "winInterval": {
+        "lower": 0.471174495624431,
+        "upper": 0.528825504375569
+      },
+      "averageHumanQuestions": 4.537326388888889,
+      "averageJevQuestions": 4.537326388888889,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    }
+  },
+  "byMode": {
+    "benchmark": {
+      "started": 1152,
+      "finished": 1152,
+      "active": 0,
+      "wins": 576,
+      "losses": 576,
+      "winRate": 0.5,
+      "winInterval": {
+        "lower": 0.471174495624431,
+        "upper": 0.528825504375569
+      },
+      "averageHumanQuestions": 4.537326388888889,
+      "averageJevQuestions": 4.537326388888889,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    }
+  },
+  "byLeague": {
+    "13cdd45f89c51d2a3e005ddb": {
+      "started": 1152,
+      "finished": 1152,
+      "active": 0,
+      "wins": 576,
+      "losses": 576,
+      "winRate": 0.5,
+      "winInterval": {
+        "lower": 0.471174495624431,
+        "upper": 0.528825504375569
+      },
+      "averageHumanQuestions": 4.537326388888889,
+      "averageJevQuestions": 4.537326388888889,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    }
+  },
+  "byDay": {
+    "2026-09-22": {
+      "started": 1152,
+      "finished": 1152,
+      "active": 0,
+      "wins": 576,
+      "losses": 576,
+      "winRate": 0.5,
+      "winInterval": {
+        "lower": 0.471174495624431,
+        "upper": 0.528825504375569
+      },
+      "averageHumanQuestions": 4.537326388888889,
+      "averageJevQuestions": 4.537326388888889,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    }
+  },
+  "byDifficultyAndStarter": {
+    "normal/human": {
+      "started": 576,
+      "finished": 576,
+      "active": 0,
+      "wins": 415,
+      "losses": 161,
+      "winRate": 0.7204861111111112,
+      "winInterval": {
+        "lower": 0.6824689776060279,
+        "upper": 0.7555816900245803
+      },
+      "averageHumanQuestions": 4.677083333333333,
+      "averageJevQuestions": 4.397569444444445,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    },
+    "normal/jev": {
+      "started": 576,
+      "finished": 576,
+      "active": 0,
+      "wins": 161,
+      "losses": 415,
+      "winRate": 0.2795138888888889,
+      "winInterval": {
+        "lower": 0.24441830997541975,
+        "upper": 0.3175310223939722
+      },
+      "averageHumanQuestions": 4.397569444444445,
+      "averageJevQuestions": 4.677083333333333,
+      "eligible": 0,
+      "expirations": 0,
+      "resignations": 0
+    }
+  },
+  "predicates": {
+    "beard": {
+      "uses": 1728,
+      "yes": 672,
+      "no": 1056,
+      "meanEliminated": 4,
+      "meanInformationGain": 0.9182958340545025,
+      "meanRegret": 0,
+      "humanUses": 864,
+      "jevUses": 864
+    },
+    "curly_hair": {
+      "uses": 1404,
+      "yes": 750,
+      "no": 654,
+      "meanEliminated": 2.572649572649573,
+      "meanInformationGain": 0.9583151812350793,
+      "meanRegret": 0,
+      "humanUses": 702,
+      "jevUses": 702
+    },
+    "earrings": {
+      "uses": 1056,
+      "yes": 480,
+      "no": 576,
+      "meanEliminated": 1.8181818181818181,
+      "meanInformationGain": 0.9422298160545518,
+      "meanRegret": 0,
+      "humanUses": 528,
+      "jevUses": 528
+    },
+    "glasses": {
+      "uses": 2304,
+      "yes": 1152,
+      "no": 1152,
+      "meanEliminated": 12,
+      "meanInformationGain": 1,
+      "meanRegret": 0,
+      "humanUses": 1152,
+      "jevUses": 1152
+    },
+    "hair_black": {
+      "uses": 348,
+      "yes": 174,
+      "no": 174,
+      "meanEliminated": 1,
+      "meanInformationGain": 1,
+      "meanRegret": 0,
+      "humanUses": 174,
+      "jevUses": 174
+    },
+    "hair_blond": {
+      "uses": 732,
+      "yes": 366,
+      "no": 366,
+      "meanEliminated": 2.5737704918032787,
+      "meanInformationGain": 1,
+      "meanRegret": 0,
+      "humanUses": 366,
+      "jevUses": 366
+    },
+    "hair_brown": {
+      "uses": 390,
+      "yes": 234,
+      "no": 156,
+      "meanEliminated": 1.2,
+      "meanInformationGain": 0.9509775004326929,
+      "meanRegret": 0,
+      "humanUses": 195,
+      "jevUses": 195
+    },
+    "hat": {
+      "uses": 1308,
+      "yes": 654,
+      "no": 654,
+      "meanEliminated": 5.4036697247706424,
+      "meanInformationGain": 1,
+      "meanRegret": 0,
+      "humanUses": 654,
+      "jevUses": 654
+    },
+    "long_hair": {
+      "uses": 1116,
+      "yes": 558,
+      "no": 558,
+      "meanEliminated": 2.3763440860215055,
+      "meanInformationGain": 1,
+      "meanRegret": 0,
+      "humanUses": 558,
+      "jevUses": 558
+    },
+    "moustache": {
+      "uses": 68,
+      "yes": 34,
+      "no": 34,
+      "meanEliminated": 1,
+      "meanInformationGain": 1,
+      "meanRegret": 0,
+      "humanUses": 34,
+      "jevUses": 34
+    }
+  },
+  "guessCalibration": {
+    "1": {
+      "guesses": 1152,
+      "correct": 1152,
+      "expectedProbability": 1,
+      "observedRate": 1,
+      "interval": {
+        "lower": 0.9966763611899763,
+        "upper": 1
+      }
+    }
+  },
+  "durationMs": {
+    "n": 1152,
+    "min": 0,
+    "mean": 0.2864583333333333,
+    "p50": 0,
+    "p90": 1,
+    "p95": 1,
+    "p99": 1,
+    "max": 1
+  },
+  "humanWallTurnMs": {
+    "n": 5803,
+    "min": 0,
+    "mean": 0.027054971566431156,
+    "p50": 0,
+    "p90": 0,
+    "p95": 0,
+    "p99": 1,
+    "max": 1
+  },
+  "jevLatencyMs": {
+    "n": 0,
+    "min": null,
+    "mean": null,
+    "p50": null,
+    "p90": null,
+    "p95": null,
+    "p99": null,
+    "max": null
+  },
+  "confidence": {
+    "n": 0,
+    "min": null,
+    "mean": null,
+    "p50": null,
+    "p90": null,
+    "p95": null,
+    "p99": null,
+    "max": null
+  },
+  "candidateCount": {
+    "n": 0,
+    "min": null,
+    "mean": null,
+    "p50": null,
+    "p90": null,
+    "p95": null,
+    "p99": null,
+    "max": null
+  },
+  "provider": {
+    "attempts": 0,
+    "failures": 0,
+    "invalid": 0,
+    "timeouts": 0,
+    "fallbackDecisions": 0,
+    "knownInputTokens": 0,
+    "measuredCostMatches": 0,
+    "measuredInputCostUsd": null
+  },
+  "caveats": [
+    "Mixed-cohort overall statistics are descriptive, not an opponent-strength ranking.",
+    "Wall-turn time includes idle time, network transit and reconnections.",
+    "Selection confidence is not a predicted win probability.",
+    "Unknown measurements are null; partial usage is not a complete bill.",
+    "Search estimates and question-information regret are policy-relative, not proofs of optimal play.",
+    "Binomial intervals are descriptive; repeated players and decisions are not independent observations."
+  ],
+  "policy": {
+    "human": "balanced",
+    "opponent": "balanced",
+    "difficulty": "normal"
+  },
+  "strictOpponent": {
+    "games": 1152,
+    "wins": 576,
+    "winRate": 0.5,
+    "interval": {
+      "lower": 0.471174495624431,
+      "upper": 0.528825504375569
+    }
+  },
+  "scenarioCoverage": {
+    "possible": 1152,
+    "tested": 1152,
+    "repeats": 1,
+    "exhaustiveInitialPositions": true
+  },
+  "interpretation": "Scripted/local simulation only. Not evidence of live JEV strength."
+}

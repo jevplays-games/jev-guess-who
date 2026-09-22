@@ -1,0 +1,18 @@
+
+> jev-guess-who@1.0.0 check
+> node scripts/check.mjs
+
+{
+  "syntaxModules": 26,
+  "rosterValid": true,
+  "publicGzipBytes": 40757,
+  "publicJavaScriptGzipBytes": 20601,
+  "budgets": {
+    "javaScript": 60000,
+    "allPublicAssets": 150000
+  },
+  "limitations": [
+    "Gzip sums are theoretical file-by-file sizes, not measured CDN transfer sizes.",
+    "This is a syntax, roster and asset-budget check; not a security audit or comprehensive linter."
+  ]
+}

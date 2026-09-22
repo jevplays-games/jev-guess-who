@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-09-22T05:30:53.924424+00:00",
+  "node": "v22.16.0",
+  "tests": {
+    "total": 52,
+    "passed": 52,
+    "failed": 0,
+    "initialConfigurations": 1152
+  },
+  "scriptedBenchmark": {
+    "matches": 5760,
+    "decisionRows": 48374,
+    "matchups": 5,
+    "configurationsPerMatchup": 1152,
+    "liveProviderCalls": 0
+  },
+  "browser": {
+    "checksPassed": 11,
+    "javascriptErrors": 0,
+    "transport": "inline assets + Python HTTP bridge",
+    "mobileWidth": 390
+  },
+  "static": {
+    "syntaxModules": 26,
+    "publicGzipBytes": 40757,
+    "publicJavaScriptGzipBytes": 20601
+  },
+  "sampleReplayVerified": true,
+  "operatorExportCommandPassed": true,
+  "externalValidation": {
+    "typeSafeLive": false,
+    "discordLive": false,
+    "cloudflareDeployment": false,
+    "realOriginBrowserTransport": false,
+    "independentSecurityAudit": false
+  },
+  "notes": [
+    "The included benchmark uses scripted opponents; no live JEV strength claim.",
+    "Browser interaction checks used inline assets with a Python-to-HTTP API bridge.",
+    "All starting positions were covered for selected policies, not all possible game trees.",
+    "Gzip totals are file-by-file compression estimates, not measured network transfers."
+  ]
+}

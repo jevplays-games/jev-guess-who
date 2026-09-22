@@ -1,0 +1,542 @@
+{
+  "formatVersion": 1,
+  "mode": "practice",
+  "config": {
+    "rulesVersion": "gw-1",
+    "rosterVersion": "original24-1",
+    "difficulty": "normal",
+    "model": "jev-1.13.0",
+    "promptVersion": "choice-1",
+    "policyVersion": "race-1",
+    "rngVersion": "gw-rng-1",
+    "opponent": "local",
+    "inputUsdPerMillion": null
+  },
+  "leagueId": "13cdd45f89c51d2a3e005ddb",
+  "createdAt": 1790054849117,
+  "expiresAt": 1790141249117,
+  "finishedAt": 1790054849132,
+  "eligible": false,
+  "eligibilityReason": "local_practice",
+  "context": null,
+  "initial": {
+    "human": "c16",
+    "jev": "c02",
+    "starter": "human",
+    "matchId": "27651b8d-a832-4f1b-9940-b503e5815e4f"
+  },
+  "seed": "d1357c58847413a596373999dd8f9be119cf369aef9ef756398fb3bf5c95992c",
+  "commitment": "081e6b2a965dbdbe4972287f80eefb2df5afe8cf1b7a3e864edbd7f3f942ab1d",
+  "state": {
+    "gameId": "guess-who",
+    "rulesVersion": "gw-1",
+    "rosterVersion": "original24-1",
+    "matchId": "27651b8d-a832-4f1b-9940-b503e5815e4f",
+    "revision": 10,
+    "phase": "finished",
+    "turn": null,
+    "secrets": {
+      "human": "c16",
+      "jev": "c02"
+    },
+    "possible": {
+      "human": 2,
+      "jev": 32768
+    },
+    "asked": {
+      "human": [
+        "glasses",
+        "hat",
+        "long_hair",
+        "beard",
+        "hair_black"
+      ],
+      "jev": [
+        "glasses",
+        "beard",
+        "curly_hair",
+        "earrings"
+      ]
+    },
+    "questionsAsked": {
+      "human": 5,
+      "jev": 4
+    },
+    "turnsTaken": {
+      "human": 5,
+      "jev": 5
+    },
+    "outcome": {
+      "winner": "jev",
+      "reason": "correct_guess"
+    }
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "actor": "human",
+      "action": {
+        "type": "ask",
+        "predicateId": "glasses"
+      },
+      "answer": true,
+      "timestamp": 1790054849125,
+      "requestId": "sample-action-0",
+      "metrics": {
+        "beforeCount": 24,
+        "afterCount": 12,
+        "opponentBeforeCount": 24,
+        "eliminated": 12,
+        "entropyBefore": 4.584962500721156,
+        "entropyAfter": 3.584962500721156,
+        "realizedInformationGain": 1,
+        "wallTurnMs": 8,
+        "expectedInformationGain": 1,
+        "informationGainRegret": 0,
+        "splitBalance": 1,
+        "expectedRemaining": 12,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 12,
+        "singletonProbability": 0,
+        "searchRegret": null
+      },
+      "decision": null
+    },
+    {
+      "sequence": 2,
+      "actor": "jev",
+      "action": {
+        "type": "ask",
+        "predicateId": "glasses"
+      },
+      "answer": false,
+      "timestamp": 1790054849127,
+      "requestId": null,
+      "metrics": {
+        "beforeCount": 24,
+        "afterCount": 12,
+        "opponentBeforeCount": 12,
+        "eliminated": 12,
+        "entropyBefore": 4.584962500721156,
+        "entropyAfter": 3.584962500721156,
+        "realizedInformationGain": 1,
+        "wallTurnMs": 2,
+        "expectedInformationGain": 1,
+        "informationGainRegret": 0,
+        "splitBalance": 1,
+        "expectedRemaining": 12,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 12,
+        "singletonProbability": 0,
+        "searchRegret": null
+      },
+      "decision": {
+        "action": {
+          "type": "ask",
+          "predicateId": "glasses"
+        },
+        "actionId": "ask:glasses",
+        "source": "local_heuristic",
+        "candidateCount": 12,
+        "selectedFeatures": {
+          "id": "ask:glasses",
+          "action": {
+            "type": "ask",
+            "predicateId": "glasses"
+          },
+          "label": "Does your character wear glasses?",
+          "before": 24,
+          "yes": 12,
+          "no": 12,
+          "yesProbability": 0.5,
+          "expectedRemaining": 12,
+          "worstCaseRemaining": 12,
+          "informationGain": 1,
+          "balance": 1,
+          "singletonProbability": 0
+        },
+        "search": null,
+        "confidence": null,
+        "probabilities": null,
+        "latencyMs": 0.261683000000005,
+        "usage": null,
+        "entropy": null,
+        "normalizedEntropy": null,
+        "topMargin": null
+      }
+    },
+    {
+      "sequence": 3,
+      "actor": "human",
+      "action": {
+        "type": "ask",
+        "predicateId": "hat"
+      },
+      "answer": true,
+      "timestamp": 1790054849129,
+      "requestId": "sample-action-2",
+      "metrics": {
+        "beforeCount": 12,
+        "afterCount": 6,
+        "opponentBeforeCount": 12,
+        "eliminated": 6,
+        "entropyBefore": 3.584962500721156,
+        "entropyAfter": 2.584962500721156,
+        "realizedInformationGain": 1,
+        "wallTurnMs": 2,
+        "expectedInformationGain": 1,
+        "informationGainRegret": 0,
+        "splitBalance": 1,
+        "expectedRemaining": 6,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 6,
+        "singletonProbability": 0,
+        "searchRegret": null
+      },
+      "decision": null
+    },
+    {
+      "sequence": 4,
+      "actor": "jev",
+      "action": {
+        "type": "ask",
+        "predicateId": "beard"
+      },
+      "answer": false,
+      "timestamp": 1790054849129,
+      "requestId": null,
+      "metrics": {
+        "beforeCount": 12,
+        "afterCount": 8,
+        "opponentBeforeCount": 6,
+        "eliminated": 4,
+        "entropyBefore": 3.584962500721156,
+        "entropyAfter": 3,
+        "realizedInformationGain": 0.5849625007211562,
+        "wallTurnMs": 0,
+        "expectedInformationGain": 0.9182958340544896,
+        "informationGainRegret": 0,
+        "splitBalance": 0.6666666666666667,
+        "expectedRemaining": 6.666666666666667,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 8,
+        "singletonProbability": 0,
+        "searchRegret": null
+      },
+      "decision": {
+        "action": {
+          "type": "ask",
+          "predicateId": "beard"
+        },
+        "actionId": "ask:beard",
+        "source": "local_heuristic",
+        "candidateCount": 11,
+        "selectedFeatures": {
+          "id": "ask:beard",
+          "action": {
+            "type": "ask",
+            "predicateId": "beard"
+          },
+          "label": "Does your character have a beard?",
+          "before": 12,
+          "yes": 4,
+          "no": 8,
+          "yesProbability": 0.3333333333333333,
+          "expectedRemaining": 6.666666666666667,
+          "worstCaseRemaining": 8,
+          "informationGain": 0.9182958340544896,
+          "balance": 0.6666666666666667,
+          "singletonProbability": 0
+        },
+        "search": null,
+        "confidence": null,
+        "probabilities": null,
+        "latencyMs": 0.08620900000000375,
+        "usage": null,
+        "entropy": null,
+        "normalizedEntropy": null,
+        "topMargin": null
+      }
+    },
+    {
+      "sequence": 5,
+      "actor": "human",
+      "action": {
+        "type": "ask",
+        "predicateId": "long_hair"
+      },
+      "answer": true,
+      "timestamp": 1790054849130,
+      "requestId": "sample-action-4",
+      "metrics": {
+        "beforeCount": 6,
+        "afterCount": 3,
+        "opponentBeforeCount": 8,
+        "eliminated": 3,
+        "entropyBefore": 2.584962500721156,
+        "entropyAfter": 1.584962500721156,
+        "realizedInformationGain": 1,
+        "wallTurnMs": 1,
+        "expectedInformationGain": 1,
+        "informationGainRegret": 0,
+        "splitBalance": 1,
+        "expectedRemaining": 3,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 3,
+        "singletonProbability": 0,
+        "searchRegret": null
+      },
+      "decision": null
+    },
+    {
+      "sequence": 6,
+      "actor": "jev",
+      "action": {
+        "type": "ask",
+        "predicateId": "curly_hair"
+      },
+      "answer": false,
+      "timestamp": 1790054849130,
+      "requestId": null,
+      "metrics": {
+        "beforeCount": 8,
+        "afterCount": 3,
+        "opponentBeforeCount": 3,
+        "eliminated": 5,
+        "entropyBefore": 3,
+        "entropyAfter": 1.584962500721156,
+        "realizedInformationGain": 1.4150374992788437,
+        "wallTurnMs": 0,
+        "expectedInformationGain": 0.954434002924965,
+        "informationGainRegret": 0,
+        "splitBalance": 0.75,
+        "expectedRemaining": 4.25,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 5,
+        "singletonProbability": 0,
+        "searchRegret": null
+      },
+      "decision": {
+        "action": {
+          "type": "ask",
+          "predicateId": "curly_hair"
+        },
+        "actionId": "ask:curly_hair",
+        "source": "local_heuristic",
+        "candidateCount": 9,
+        "selectedFeatures": {
+          "id": "ask:curly_hair",
+          "action": {
+            "type": "ask",
+            "predicateId": "curly_hair"
+          },
+          "label": "Does your character have curly hair?",
+          "before": 8,
+          "yes": 5,
+          "no": 3,
+          "yesProbability": 0.625,
+          "expectedRemaining": 4.25,
+          "worstCaseRemaining": 5,
+          "informationGain": 0.954434002924965,
+          "balance": 0.75,
+          "singletonProbability": 0
+        },
+        "search": null,
+        "confidence": null,
+        "probabilities": null,
+        "latencyMs": 0.05808699999999334,
+        "usage": null,
+        "entropy": null,
+        "normalizedEntropy": null,
+        "topMargin": null
+      }
+    },
+    {
+      "sequence": 7,
+      "actor": "human",
+      "action": {
+        "type": "ask",
+        "predicateId": "beard"
+      },
+      "answer": true,
+      "timestamp": 1790054849131,
+      "requestId": "sample-action-6",
+      "metrics": {
+        "beforeCount": 3,
+        "afterCount": 2,
+        "opponentBeforeCount": 3,
+        "eliminated": 1,
+        "entropyBefore": 1.584962500721156,
+        "entropyAfter": 1,
+        "realizedInformationGain": 0.5849625007211562,
+        "wallTurnMs": 1,
+        "expectedInformationGain": 0.9182958340544896,
+        "informationGainRegret": 0,
+        "splitBalance": 0.6666666666666667,
+        "expectedRemaining": 1.6666666666666667,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 2,
+        "singletonProbability": 0.3333333333333333,
+        "searchRegret": null
+      },
+      "decision": null
+    },
+    {
+      "sequence": 8,
+      "actor": "jev",
+      "action": {
+        "type": "ask",
+        "predicateId": "earrings"
+      },
+      "answer": true,
+      "timestamp": 1790054849131,
+      "requestId": null,
+      "metrics": {
+        "beforeCount": 3,
+        "afterCount": 1,
+        "opponentBeforeCount": 2,
+        "eliminated": 2,
+        "entropyBefore": 1.584962500721156,
+        "entropyAfter": 0,
+        "realizedInformationGain": 1.584962500721156,
+        "wallTurnMs": 0,
+        "expectedInformationGain": 0.9182958340544896,
+        "informationGainRegret": 0,
+        "splitBalance": 0.6666666666666667,
+        "expectedRemaining": 1.6666666666666667,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 2,
+        "singletonProbability": 0.3333333333333333,
+        "searchRegret": null
+      },
+      "decision": {
+        "action": {
+          "type": "ask",
+          "predicateId": "earrings"
+        },
+        "actionId": "ask:earrings",
+        "source": "local_heuristic",
+        "candidateCount": 2,
+        "selectedFeatures": {
+          "id": "ask:earrings",
+          "action": {
+            "type": "ask",
+            "predicateId": "earrings"
+          },
+          "label": "Does your character wear earrings?",
+          "before": 3,
+          "yes": 1,
+          "no": 2,
+          "yesProbability": 0.3333333333333333,
+          "expectedRemaining": 1.6666666666666667,
+          "worstCaseRemaining": 2,
+          "informationGain": 0.9182958340544896,
+          "balance": 0.6666666666666667,
+          "singletonProbability": 0.3333333333333333
+        },
+        "search": null,
+        "confidence": null,
+        "probabilities": null,
+        "latencyMs": 0.04273399999999583,
+        "usage": null,
+        "entropy": null,
+        "normalizedEntropy": null,
+        "topMargin": null
+      }
+    },
+    {
+      "sequence": 9,
+      "actor": "human",
+      "action": {
+        "type": "ask",
+        "predicateId": "hair_black"
+      },
+      "answer": false,
+      "timestamp": 1790054849132,
+      "requestId": "sample-action-8",
+      "metrics": {
+        "beforeCount": 2,
+        "afterCount": 1,
+        "opponentBeforeCount": 1,
+        "eliminated": 1,
+        "entropyBefore": 1,
+        "entropyAfter": 0,
+        "realizedInformationGain": 1,
+        "wallTurnMs": 1,
+        "expectedInformationGain": 1,
+        "informationGainRegret": 0,
+        "splitBalance": 1,
+        "expectedRemaining": 1,
+        "guessWinProbability": null,
+        "riskyGuess": null,
+        "worstCaseRemaining": 1,
+        "singletonProbability": 1,
+        "searchRegret": null
+      },
+      "decision": null
+    },
+    {
+      "sequence": 10,
+      "actor": "jev",
+      "action": {
+        "type": "guess",
+        "characterId": "c16"
+      },
+      "correct": true,
+      "timestamp": 1790054849132,
+      "requestId": null,
+      "metrics": {
+        "beforeCount": 1,
+        "afterCount": 1,
+        "opponentBeforeCount": 1,
+        "eliminated": 0,
+        "entropyBefore": 0,
+        "entropyAfter": 0,
+        "realizedInformationGain": null,
+        "wallTurnMs": 0,
+        "expectedInformationGain": null,
+        "informationGainRegret": null,
+        "splitBalance": null,
+        "expectedRemaining": null,
+        "guessWinProbability": 1,
+        "riskyGuess": false,
+        "searchRegret": null
+      },
+      "decision": {
+        "action": {
+          "type": "guess",
+          "characterId": "c16"
+        },
+        "actionId": "guess:c16",
+        "source": "local_heuristic",
+        "candidateCount": 1,
+        "selectedFeatures": {
+          "id": "guess:c16",
+          "action": {
+            "type": "guess",
+            "characterId": "c16"
+          },
+          "label": "Final guess c16; wrong guesses lose",
+          "before": 1,
+          "guessWinProbability": 1
+        },
+        "search": null,
+        "confidence": null,
+        "probabilities": null,
+        "latencyMs": 0.08711100000000016,
+        "usage": null,
+        "entropy": null,
+        "normalizedEntropy": null,
+        "topMargin": null
+      }
+    }
+  ]
+}
