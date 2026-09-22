@@ -1,7 +1,7 @@
 {
   "syntaxModules": 27,
   "rosterValid": true,
-  "publicGzipBytes": 118002,
+  "publicGzipBytes": 118471,
   "publicJavaScriptGzipBytes": 22025,
   "budgets": {
     "javaScript": 60000,
@@ -10,8 +10,8 @@
   "assets": [
     {
       "path": "public\\brand\\brand.css",
-      "bytes": 12030,
-      "gzipBytes": 4479
+      "bytes": 13100,
+      "gzipBytes": 4948
     },
     {
       "path": "public\\brand\\brand.js",

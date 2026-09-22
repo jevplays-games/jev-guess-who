@@ -103,8 +103,8 @@
     },
     {
       "path": "public/brand/brand.css",
-      "bytes": 12030,
-      "sha256": "371e6d2220e955e84459dc61c3073870f815c9bb0c49ca725e00513740ace7f6"
+      "bytes": 13100,
+      "sha256": "55d30782d94ad8d72b6a4c5aead5b5a3ae3bc4be3694cae498dc57a18fc80f2d"
     },
     {
       "path": "public/brand/brand.js",
@@ -389,7 +389,7 @@
     {
       "path": "reports/static-checks.json",
       "bytes": 4248,
-      "sha256": "1753dad9e73c8a620fdabf5b053d577819a1a0186282a6add6354399d6ad7181"
+      "sha256": "9480daf4f8ee586b15dc8d64dc5cbcc941573db302afd5ad37722ca35b5af069"
     },
     {
       "path": "reports/unit-tests.tap",
