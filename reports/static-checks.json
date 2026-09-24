@@ -1,8 +1,8 @@
 {
-  "syntaxModules": 27,
+  "syntaxModules": 29,
   "rosterValid": true,
-  "publicGzipBytes": 119951,
-  "publicJavaScriptGzipBytes": 22403,
+  "publicGzipBytes": 123019,
+  "publicJavaScriptGzipBytes": 24787,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
@@ -10,8 +10,8 @@
   "assets": [
     {
       "path": "public\\brand\\brand.css",
-      "bytes": 16749,
-      "gzipBytes": 6208
+      "bytes": 17683,
+      "gzipBytes": 6570
     },
     {
       "path": "public\\brand\\brand.js",
@@ -40,18 +40,18 @@
     },
     {
       "path": "public\\game.css",
-      "bytes": 10951,
-      "gzipBytes": 3140
+      "bytes": 11728,
+      "gzipBytes": 3342
     },
     {
       "path": "public\\game.js",
-      "bytes": 29717,
-      "gzipBytes": 10149
+      "bytes": 31707,
+      "gzipBytes": 10835
     },
     {
       "path": "public\\index.html",
-      "bytes": 10706,
-      "gzipBytes": 3583
+      "bytes": 11030,
+      "gzipBytes": 3703
     },
     {
       "path": "public\\portraits\\c01.svg",
@@ -182,6 +182,11 @@
       "path": "public\\shared\\operations-analytics.js",
       "bytes": 4020,
       "gzipBytes": 1593
+    },
+    {
+      "path": "public\\shared\\question-parse.js",
+      "bytes": 3933,
+      "gzipBytes": 1698
     },
     {
       "path": "public\\shared\\roster.js",

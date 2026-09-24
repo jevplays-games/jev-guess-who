@@ -44,8 +44,9 @@
         <div class="section-heading"><div><p class="eyebrow">YOUR DEDUCTION BOARD</p><h2 id="turn-status" aria-live="polite">Ready when you are</h2></div><span class="remaining"><strong id="remaining">24</strong> remaining</span></div>
         <div class="board-options"><label><input type="checkbox" id="show-eliminated" checked> Show eliminated</label><label><input type="checkbox" id="text-mode"> Text cards</label></div>
         <div id="board" class="board jv-fit" tabindex="-1" aria-label="Character candidates"></div>
-        <div class="action-bar"><label class="question-label">Ask a yes / no question<select id="question" disabled aria-label="Question"></select></label><button id="ask" class="primary" disabled>Ask question</button></div>
-        <p id="question-preview" class="muted">Each question takes one turn. Select a character to make a final guess.</p>
+        <div class="action-bar"><label class="question-label">Ask a yes / no question<input id="question" type="text" list="question-options" autocomplete="off" spellcheck="false" disabled placeholder="e.g. does your character wear glasses?" aria-describedby="question-preview"><datalist id="question-options"></datalist></label><button id="ask" class="primary" disabled>Ask question</button></div>
+        <p id="question-preview" class="muted" role="status" aria-live="polite">Type a question in your own words. Each question takes one turn; select a character to make a final guess.</p>
+        <div id="question-suggestions" class="question-suggestions" hidden></div>
         <div id="result" class="result" hidden></div>
       </section>
       <aside class="sidebar">

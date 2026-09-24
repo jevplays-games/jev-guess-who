@@ -63,8 +63,8 @@
     },
     {
       "path": "docs/ENGINEERING.md",
-      "bytes": 23573,
-      "sha256": "8952e85d17c1e96c630d33b95f91b612937ef9d2587ce634381227e65565daf7"
+      "bytes": 24027,
+      "sha256": "51b0152253e71bd11f8257924990b314655602d5275e202d2de2a31b001087f2"
     },
     {
       "path": "docs/SECURITY.md",
@@ -103,8 +103,8 @@
     },
     {
       "path": "public/brand/brand.css",
-      "bytes": 16749,
-      "sha256": "5893cbe3da470de337b4c1d50573aa99fb9b4fd084bbbf68870758931508f3cf"
+      "bytes": 17683,
+      "sha256": "47a9a1dd23a93d08d61bc1ff28cc84e64b07c3ddefb0e24506960e51ce6cbf65"
     },
     {
       "path": "public/brand/brand.js",
@@ -128,18 +128,18 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 10951,
-      "sha256": "844c8860b3ef8f6eca08553133edb2a048595ab6c5b8d2fa923286a2f66c0aa4"
+      "bytes": 11728,
+      "sha256": "29687cbd5751d47e14be57d321204c2bc302a44e525dbbfed79dcbd438b9d1d3"
     },
     {
       "path": "public/game.js",
-      "bytes": 29717,
-      "sha256": "24789bb0bbb6c88d41adf028f43094d4efd5d8d90262b1989bb179d4e23506aa"
+      "bytes": 31707,
+      "sha256": "edc7d2616da55a92548f2ac2907a413c7a2b0ebe1788fd235e5181a173eb4ca2"
     },
     {
       "path": "public/index.html",
-      "bytes": 10706,
-      "sha256": "6d8c536ffcd64c8b77e7c1ad477507b5dcd049bdb49ec2d0207238f3310d36b2"
+      "bytes": 11030,
+      "sha256": "9480fef23957a73c3208e1132f305146242939ea607b0cc02bb7a408d0299e4e"
     },
     {
       "path": "public/portraits/c01.svg",
@@ -388,8 +388,8 @@
     },
     {
       "path": "reports/static-checks.json",
-      "bytes": 4249,
-      "sha256": "e760c67afbf7b3716cd74739d161a9a25da5b640306285634bd9288136a3624c"
+      "bytes": 4358,
+      "sha256": "573456fe6e98cecf7e070bf0bac5767fb98d0193f7ed5ce8f036a1555db7de04"
     },
     {
       "path": "reports/unit-tests.tap",
