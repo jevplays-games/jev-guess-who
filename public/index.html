@@ -40,7 +40,7 @@
   </div>
   <section id="panel-play" class="jv-first" role="tabpanel" aria-labelledby="tab-play">
     <div class="game-layout">
-      <section class="board-panel card">
+      <section class="board-panel jv-panel">
         <div class="section-heading"><div><p class="eyebrow">YOUR DEDUCTION BOARD</p><h2 id="turn-status" aria-live="polite">Ready when you are</h2></div><span class="remaining"><strong id="remaining">24</strong> remaining</span></div>
         <div class="board-options"><label><input type="checkbox" id="show-eliminated" checked> Show eliminated</label><label><input type="checkbox" id="text-mode"> Text cards</label></div>
         <div id="board" class="board jv-fit" tabindex="-1" aria-label="Character candidates"></div>
@@ -49,22 +49,22 @@
         <div id="result" class="result" hidden></div>
       </section>
       <aside class="sidebar">
-        <section class="card secret-panel"><p class="eyebrow">YOUR SECRET IDENTITY</p><div id="secret" class="secret-content"><span class="unknown">?</span><p>Start a game to receive your character.</p></div><p class="muted">The opponent must identify this character.</p></section>
-        <section class="card opponent-panel"><div class="section-heading"><h2>Opponent</h2><span id="opponent-source" class="tag">Local heuristic</span></div><div class="stat-pair"><div><strong id="jev-remaining">24</strong><span>candidates left</span></div><div><strong id="jev-questions">0</strong><span>questions asked</span></div></div><p id="last-answer" class="muted">Questions and answers appear here.</p><details><summary>Opponent's deduction board</summary><div id="opponent-board" class="mini-board"></div></details></section>
-        <section class="card analysis-panel"><div class="section-heading"><h2>Decision evidence</h2><label><input type="checkbox" id="analysis-toggle" checked><span class="sr-only">Show decision evidence</span></label></div><div id="decision-evidence"><p class="muted">After the opponent moves, inspect the action, candidate count, evidence and decision source.</p></div></section>
+        <section class="jv-panel secret-panel"><p class="eyebrow">YOUR SECRET IDENTITY</p><div id="secret" class="secret-content"><span class="unknown">?</span><p>Start a game to receive your character.</p></div><p class="muted">The opponent must identify this character.</p></section>
+        <section class="jv-panel opponent-panel"><div class="section-heading"><h2>Opponent</h2><span id="opponent-source" class="tag">Local heuristic</span></div><div class="stat-pair"><div><strong id="jev-remaining">24</strong><span>candidates left</span></div><div><strong id="jev-questions">0</strong><span>questions asked</span></div></div><p id="last-answer" class="muted">Questions and answers appear here.</p><details><summary>Opponent's deduction board</summary><div id="opponent-board" class="mini-board"></div></details></section>
+        <section class="jv-panel analysis-panel"><div class="section-heading"><h2>Decision evidence</h2><label><input type="checkbox" id="analysis-toggle" checked><span class="sr-only">Show decision evidence</span></label></div><div id="decision-evidence"><p class="muted">After the opponent moves, inspect the action, candidate count, evidence and decision source.</p></div></section>
         <div class="side-actions"><button id="resume" class="quiet">Refresh / reconnect</button><button id="resign" class="danger" disabled>Resign</button></div>
       </aside>
     </div>
-    <section class="card history-panel"><div class="section-heading"><h2>Turn history</h2><div><button id="export-turns" class="quiet" disabled>Export turns CSV</button><button id="export-replay" class="quiet" disabled>Export replay JSON</button></div></div><div id="history" class="history"><p class="muted">Your first question starts the story.</p></div></section>
+    <section class="jv-panel history-panel"><div class="section-heading"><h2>Turn history</h2><div><button id="export-turns" class="quiet" disabled>Export turns CSV</button><button id="export-replay" class="quiet" disabled>Export replay JSON</button></div></div><div id="history" class="history"><p class="muted">Your first question starts the story.</p></div></section>
   </section>
   <section id="panel-analytics" role="tabpanel" aria-labelledby="tab-analytics" hidden>
-    <section class="card"><div class="section-heading"><div><p class="eyebrow">MEASURE EVERY DECISION</p><h2>Match & player analytics</h2></div><div><button id="refresh-analytics" class="quiet">Refresh</button><button id="export-analytics" class="quiet">Export analytics JSON</button><button id="export-matches" class="quiet">Export matches CSV</button></div></div>
+    <section class="jv-panel"><div class="section-heading"><div><p class="eyebrow">MEASURE EVERY DECISION</p><h2>Match & player analytics</h2></div><div><button id="refresh-analytics" class="quiet">Refresh</button><button id="export-analytics" class="quiet">Export analytics JSON</button><button id="export-matches" class="quiet">Export matches CSV</button></div></div>
       <div class="analytics-filters"><label>Difficulty<select id="analytics-difficulty"><option value="all">All difficulties</option><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev">JEV</option></select></label><label>Mode<select id="analytics-mode"><option value="all">All match types</option><option value="practice">Practice</option><option value="casual">Casual</option><option value="ranked">Ranked</option></select></label><label>Starter<select id="analytics-starter"><option value="all">Either starter</option><option value="human">Human first</option><option value="jev">Opponent first</option></select></label></div>
       <p id="coverage" class="muted">No analytics loaded.</p><div id="analytics-content"></div>
     </section>
   </section>
   <section id="panel-leaderboard" role="tabpanel" aria-labelledby="tab-leaderboard" hidden>
-    <section class="card"><div class="section-heading"><div><p class="eyebrow">VERIFIED RESULTS ONLY</p><h2>Leaderboards</h2></div></div>
+    <section class="jv-panel"><div class="section-heading"><div><p class="eyebrow">VERIFIED RESULTS ONLY</p><h2>Leaderboards</h2></div></div>
       <div class="analytics-filters"><label>Scope<select id="leaderboard-scope"><option value="world">World</option><option value="server">Discord server</option><option value="channel">Discord channel</option></select></label><label>Period<select id="leaderboard-period"><option value="week">This week · UTC</option><option value="all">All retained results</option></select></label><button id="refresh-leaderboard" class="quiet">Refresh</button></div>
       <p class="muted">Uses the difficulty selected above. Minimum 20 verified games to qualify. Practice and fallback games never enter the rankings.</p><div id="leaderboard-content"></div><button id="leaderboard-more" class="quiet" hidden>Next page</button>
     </section>
