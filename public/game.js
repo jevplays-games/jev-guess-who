@@ -155,13 +155,26 @@ async function sendAction(action){
 }
 $('ask').addEventListener('click',()=>guarded(()=>sendAction({type:'ask',predicateId:$('question').value})));
 $('resign').addEventListener('click',()=>guarded(async()=>{if(await confirm('Resign this match?','Resignation is recorded as a loss in an eligible ranked match.'))await sendAction({type:'resign'});}));
-$('new-game').addEventListener('click',()=>guarded(async()=>{
+async function startGame(){
   const difficulty=$('difficulty').value,mode=$('mode').value;persistSetting('difficulty',difficulty);
   if(current?.phase==='active'&&current.mode==='ranked')throw Error('Resume or finish your active ranked match before starting another.');
   if(offline){offlineStart(difficulty);notice('Offline practice: a local heuristic, not JEV. Results remain in this browser.');}
   else current=await api('/api/games',{method:'POST',body:{gameId:'guess-who',difficulty,mode,requestId:crypto.randomUUID()}});
   activate('play');render();await progressOpponent();
-}));
+}
+$('new-game').addEventListener('click',()=>guarded(startGame));
+/* Auto-start: the board is playable as soon as the page is, with no click.
+   Returns early if a game is already live, because initialize() has just
+   resumed any active match -- so a reload rejoins rather than opening a second
+   one, and the ranked guard above still applies.
+   Ranked needs a signed-in Discord account AND hosted JEV; anything less falls
+   back to casual, or to practice offline, so an auto-started game is never
+   relabeled as JEV and never claims a rank the player could not claim by hand. */
+async function autoStart(){
+  if(current&&current.phase!=='complete')return;
+  if(!offline)$('mode').value=me?.user&&me?.jevConfigured?'ranked':me?.jevConfigured?'casual':'practice';
+  await guarded(startGame);
+}
 $('resume').addEventListener('click',()=>guarded(async()=>{
   if(offline){await progressOpponent();return;}
   me=await api('/api/me');
@@ -263,9 +276,11 @@ async function initialize(){
     if(me.activeMatchId){current=await api(`/api/games/${me.activeMatchId}`);$('difficulty').value=current.config.difficulty;render();await guarded(progressOpponent);}
   }catch(error){
     // An HTTP authorization/service error is not permission to relabel an existing ranked game.
-    if(error.status){notice(error.message);return;}
+    if(error.status){notice(error.message);await autoStart();return;}
     offline=true;$('login').disabled=true;$('mode').value='practice';$('mode').disabled=true;
-    notice('Server unavailable. Offline practice is available with a local heuristic. No official results can be submitted.');
+    notice('Offline practice with a local heuristic. No official results can be submitted.');
   }
+  // Outside the try: a server that is down must still leave a playable board.
+  await autoStart();
 }
 initialize();

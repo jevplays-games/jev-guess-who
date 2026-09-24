@@ -103,8 +103,8 @@
     },
     {
       "path": "public/brand/brand.css",
-      "bytes": 13100,
-      "sha256": "55d30782d94ad8d72b6a4c5aead5b5a3ae3bc4be3694cae498dc57a18fc80f2d"
+      "bytes": 16749,
+      "sha256": "5893cbe3da470de337b4c1d50573aa99fb9b4fd084bbbf68870758931508f3cf"
     },
     {
       "path": "public/brand/brand.js",
@@ -128,18 +128,18 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 11134,
-      "sha256": "e07de4510ad70b69327b184804f7eb951aa73277fbfd2397e76cff6f1b794d90"
+      "bytes": 10951,
+      "sha256": "844c8860b3ef8f6eca08553133edb2a048595ab6c5b8d2fa923286a2f66c0aa4"
     },
     {
       "path": "public/game.js",
-      "bytes": 28873,
-      "sha256": "aacffa06f6abc25b4bbb30baac2452a19552d48d087b58094cc82eeebd2cb260"
+      "bytes": 29717,
+      "sha256": "24789bb0bbb6c88d41adf028f43094d4efd5d8d90262b1989bb179d4e23506aa"
     },
     {
       "path": "public/index.html",
-      "bytes": 10678,
-      "sha256": "246c8dd4c80d87a8c03f74596c20d1fd1bb321ebe016dc2a06e72e4378a6dc71"
+      "bytes": 10706,
+      "sha256": "6d8c536ffcd64c8b77e7c1ad477507b5dcd049bdb49ec2d0207238f3310d36b2"
     },
     {
       "path": "public/portraits/c01.svg",
@@ -388,8 +388,8 @@
     },
     {
       "path": "reports/static-checks.json",
-      "bytes": 4248,
-      "sha256": "b5c59646b060b67dfada351b0ed2ade4c9943ccd634e874e6e116fde3124f809"
+      "bytes": 4249,
+      "sha256": "e760c67afbf7b3716cd74739d161a9a25da5b640306285634bd9288136a3624c"
     },
     {
       "path": "reports/unit-tests.tap",

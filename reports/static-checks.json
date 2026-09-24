@@ -1,8 +1,8 @@
 {
   "syntaxModules": 27,
   "rosterValid": true,
-  "publicGzipBytes": 118470,
-  "publicJavaScriptGzipBytes": 22024,
+  "publicGzipBytes": 119951,
+  "publicJavaScriptGzipBytes": 22403,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
@@ -10,8 +10,8 @@
   "assets": [
     {
       "path": "public\\brand\\brand.css",
-      "bytes": 13100,
-      "gzipBytes": 4948
+      "bytes": 16749,
+      "gzipBytes": 6208
     },
     {
       "path": "public\\brand\\brand.js",
@@ -40,18 +40,18 @@
     },
     {
       "path": "public\\game.css",
-      "bytes": 11134,
-      "gzipBytes": 3301
+      "bytes": 10951,
+      "gzipBytes": 3140
     },
     {
       "path": "public\\game.js",
-      "bytes": 28873,
-      "gzipBytes": 9770
+      "bytes": 29717,
+      "gzipBytes": 10149
     },
     {
       "path": "public\\index.html",
-      "bytes": 10678,
-      "gzipBytes": 3580
+      "bytes": 10706,
+      "gzipBytes": 3583
     },
     {
       "path": "public\\portraits\\c01.svg",
