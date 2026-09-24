@@ -2,6 +2,7 @@ import {ROSTER,PREDICATES,FULL_MASK,MASKS,character,describe,count,ids} from './
 import {createInitialState,applyAction,projectForHuman,projectForDecision,actionId} from './shared/rules.js';
 import {localDecision,questionFeatures} from './shared/strategy.js';
 import {analyzeAction,analyzeMatch,aggregateAnalytics,decisionRows,csv} from './shared/analytics.js';
+import {matchQuestion} from './shared/question-parse.js';
 const $=id=>document.getElementById(id);
 const f=(n,d=2)=>typeof n==='number'&&Number.isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:d}):'—';
 const pct=n=>typeof n==='number'?`${f(n*100,1)}%`:'—';
@@ -10,6 +11,7 @@ const humanName=actor=>actor==='human'?'You':actor==='jev'?'Opponent':'System';
 const el=(tag,text,className)=>{const n=document.createElement(tag);if(text!=null)n.textContent=text;if(className)n.className=className;return n;};
 const option=(value,label)=>{const n=el('option',label);n.value=value;return n;};
 const labelAction=a=>a.type==='ask'?PREDICATES.find(p=>p.id===a.predicateId)?.label:a.type==='guess'?`Guess ${character(a.characterId)?.name||a.characterId}`:a.type==='expire'?'Match expired':'Resign';
+let questionMatch={status:'empty',options:[]};
 let me=null,current=null,busy=false,offline=false,offlineMatch=null,analyticsData=null,lastPending=null,leaderboardCursor=null;
 let exportedOffline=new Set();
 function notice(message=''){ $('notice').textContent=message;$('notice').hidden=!message; }
@@ -44,7 +46,7 @@ async function confirm(title,detail) {
 }
 function renderControls(){
   const humanTurn=current?.phase==='active'&&current.turn==='human'&&!busy;
-  $('ask').disabled=!humanTurn||!current?.legalActions.some(a=>a.type==='ask');
+  $('ask').disabled=!humanTurn||!current?.legalActions.some(a=>a.type==='ask')||questionMatch.status!=='ok';
   $('question').disabled=!humanTurn;$('resign').disabled=!humanTurn;
   $('new-game').disabled=busy;$('resume').disabled=busy;
   $('export-replay').disabled=!current||current.phase==='active';$('export-turns').disabled=!current?.history?.length;
@@ -76,10 +78,11 @@ function render(){
   $('opponent-source').textContent=fallback?'Fallback heuristic':practice?'Local heuristic':'JEV';
   const c=character(current.ownSecret),image=el('img');image.src=`/portraits/${c.id}.svg`;image.alt=describe(c);
   const identity=el('div');identity.append(el('h3',c.name),el('p',describe(c).split('; ').slice(1).join(' · '),'identity-traits'));$('secret').replaceChildren(image,identity);
-  const selected=$('question').value;$('question').replaceChildren();
-  for(const p of PREDICATES){const item=option(p.id,p.label);item.disabled=!current.legalActions.some(a=>a.type==='ask'&&a.predicateId===p.id);$('question').append(item);}
-  if([...$('question').options].some(o=>o.value===selected&&!o.disabled))$('question').value=selected;
-  else $('question').value=[...$('question').options].find(o=>!o.disabled)?.value||'';
+  // The datalist offers the questions still open, so typing stays optional and
+  // a player can pick from the list exactly as before.
+  // value, not id: a datalist inserts the option's VALUE into the input, and
+  // the input holds what the player typed, not a predicate id.
+  $('question-options').replaceChildren(...PREDICATES.filter(p=>isAskable(p.id)).map(p=>option(p.label,p.label)));
   previewQuestion();
   $('opponent-board').replaceChildren(...ROSTER.map((c,i)=>el('span',c.name,current.possible.jev&(1<<i)?'':'eliminated')));
   const last=current.history.at(-1);
@@ -97,13 +100,42 @@ function render(){
   }
   renderControls();
 }
+const isAskable=id=>!!current?.legalActions.some(a=>a.type==='ask'&&a.predicateId===id);
 function previewQuestion(){
-  if(!current)return;const id=$('question').value;
-  if(!id){$('question-preview').textContent='Only one candidate remains. Select that character to make your final guess.';return;}
-  const features=questionFeatures(current.possible.human,id);
-  $('question-preview').textContent=`Public split: ${features.yes} yes / ${features.no} no · expected ${f(features.expectedRemaining)} remaining · ${f(features.informationGain)} bits of expected information.`;
+  if(!current)return;
+  questionMatch=matchQuestion($('question').value,isAskable);
+  const preview=$('question-preview'),suggestions=$('question-suggestions');
+  suggestions.replaceChildren();suggestions.hidden=true;
+  if(!current.legalActions.some(a=>a.type==='ask')){
+    preview.textContent='No questions remain. Select a character to make your final guess.';renderControls();return;
+  }
+  if(questionMatch.status==='ok'){
+    const {id,label}=questionMatch.predicate,features=questionFeatures(current.possible.human,id);
+    preview.textContent=`${label} · public split ${features.yes} yes / ${features.no} no · expected ${f(features.expectedRemaining)} remaining · ${f(features.informationGain)} bits of expected information.`;
+  }else{
+    preview.textContent={
+      empty:'Type a question in your own words, or pick one from the list.',
+      unknown:'No rule can answer that. This game only reads glasses, hats, earrings, scarves, beards, moustaches, and hair length, curl and colour.',
+      ambiguous:'That could mean more than one question. Choose which you meant:',
+      spent:'You have already asked that one. Still open:',
+    }[questionMatch.status];
+    // Offer the legal questions as one-click buttons rather than making the
+    // player guess the wording a second time.
+    const options=(questionMatch.options??[]).slice(0,6);
+    if(options.length){
+      suggestions.hidden=false;
+      for(const p of options){
+        const b=el('button',p.label,'jv-link-btn');b.type='button';
+        b.addEventListener('click',()=>{$('question').value=p.label;previewQuestion();$('question').focus();});
+        suggestions.append(b);
+      }
+    }
+  }
+  renderControls();
 }
+$('question').addEventListener('input',previewQuestion);
 $('question').addEventListener('change',previewQuestion);
+$('question').addEventListener('keydown',event=>{if(event.key==='Enter'&&!$('ask').disabled){event.preventDefault();$('ask').click();}});
 function evidenceRow(label,value){const r=el('div',null,'evidence-row');r.append(el('span',label),el('strong',value));return r;}
 function renderEvidence(){
   const panel=$('decision-evidence');panel.hidden=!$('analysis-toggle').checked;
@@ -153,7 +185,14 @@ async function sendAction(action){
   }
   render();await progressOpponent();
 }
-$('ask').addEventListener('click',()=>guarded(()=>sendAction({type:'ask',predicateId:$('question').value})));
+$('ask').addEventListener('click',()=>guarded(async()=>{
+  // Re-resolve at the moment of asking: the legal set may have moved since
+  // the text was typed. Only a predicateId from that set is ever sent.
+  const resolved=matchQuestion($('question').value,isAskable);
+  if(resolved.status!=='ok'){previewQuestion();throw Error('Pick a question the rules can answer.');}
+  await sendAction({type:'ask',predicateId:resolved.predicate.id});
+  $('question').value='';previewQuestion();
+}));
 $('resign').addEventListener('click',()=>guarded(async()=>{if(await confirm('Resign this match?','Resignation is recorded as a loss in an eligible ranked match.'))await sendAction({type:'resign'});}));
 async function startGame(){
   const difficulty=$('difficulty').value,mode=$('mode').value;persistSetting('difficulty',difficulty);
