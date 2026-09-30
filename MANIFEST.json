@@ -63,8 +63,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 12161,
-      "sha256": "a3a2b78d682c0ec29e10fc0a3292e725a2e0d21f9349188aa7af743bd97e6a05"
+      "bytes": 12305,
+      "sha256": "36f1520c89b9361087f02eedd6636eea6d9f4527e276f01ee105e2828e937680"
     },
     {
       "path": "docs/ENGINEERING.md",
@@ -453,8 +453,8 @@
     },
     {
       "path": "server/app.js",
-      "bytes": 7192,
-      "sha256": "9e52f5aac2b7370834a3741aca180512ebc171a1699fab7a77a561bf292bba3e"
+      "bytes": 7429,
+      "sha256": "b6e75e66dbc20dfa0180a3973e0c6aba6efc2c3ff6d690e2b533b1ae94aac27f"
     },
     {
       "path": "server/discord.js",
@@ -528,8 +528,8 @@
     },
     {
       "path": "tests/server.test.mjs",
-      "bytes": 11947,
-      "sha256": "38ef5be23de5c462735e0f5e7cb90721b2b835679f6fc41a3c971dd3efd85a6d"
+      "bytes": 12305,
+      "sha256": "5901c0b7e3821e8d5d5ed2521e534277807c80928e29e9564ad1694bd8298f9f"
     },
     {
       "path": "wrangler.jsonc",

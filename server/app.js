@@ -9,7 +9,9 @@ export async function handle(request,env) {
   try {
     // Platform health checks arrive with the platform's own Host; only GET /api/health (static, no data) is exempt.
     if(path==='/api/health'&&request.method==='GET')return json({ok:true,game:'guess-who',version:'1.0.0'});
-    assert(env.ORIGIN&&url.origin===env.ORIGIN,403,'host_rejected');
+    // The static home document has no session, secret or Host-derived content; platform probes load it with their own Host.
+    const staticHome=['GET','HEAD'].includes(request.method)&&(path==='/'||path==='/index.html');
+    assert(staticHome||(env.ORIGIN&&url.origin===env.ORIGIN),403,'host_rejected');
     if(!path.startsWith('/api/')) {
       assert(['GET','HEAD'].includes(request.method),405,'method_not_allowed');
       const asset=await env.ASSETS.fetch(request),headers=safeHeaders({'Content-Type':asset.headers.get('Content-Type')||'application/octet-stream'});
