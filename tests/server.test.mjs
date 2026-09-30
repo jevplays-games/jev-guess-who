@@ -125,5 +125,8 @@ test('HTTP layer rejects absent CSRF, cross-origin, unknown endpoints and score 
     const bad=await handle(new Request(env.ORIGIN+'/api/games',{method:'POST',headers:{cookie,Origin:env.ORIGIN,'Content-Type':'application/json'},body:JSON.stringify(input())}),env);assert.equal(bad.status,403);
     const forged=await handle(new Request(env.ORIGIN+'/api/game/result',{method:'POST',headers:{cookie,Origin:env.ORIGIN,'X-CSRF-Token':data.csrf,'Content-Type':'application/json'},body:'{"winner":"human"}'}),env);assert.equal(forged.status,404);
     const wrongHost=await handle(new Request('https://attacker.example/api/me'),env);assert.equal(wrongHost.status,403);
+    const health=await handle(new Request('https://platform.preview.example/api/health'),env);assert.equal(health.status,200);assert.deepEqual(await health.json(),{ok:true,game:'guess-who',version:'1.0.0'});
+    assert.equal((await handle(new Request('https://platform.preview.example/api/health',{method:'POST'}),env)).status,403);
+    assert.equal((await handle(new Request('https://platform.preview.example/'),env)).status,403);
   }finally{DB.close();}
 });
