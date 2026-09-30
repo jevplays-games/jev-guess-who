@@ -133,8 +133,8 @@
     },
     {
       "path": "public/game.js",
-      "bytes": 31707,
-      "sha256": "edc7d2616da55a92548f2ac2907a413c7a2b0ebe1788fd235e5181a173eb4ca2"
+      "bytes": 32068,
+      "sha256": "1e87bee50d25f54b7c0678f22eee586be9f3ac5d59d8803883db2ef96c12407b"
     },
     {
       "path": "public/index.html",
@@ -389,7 +389,7 @@
     {
       "path": "reports/static-checks.json",
       "bytes": 4358,
-      "sha256": "573456fe6e98cecf7e070bf0bac5767fb98d0193f7ed5ce8f036a1555db7de04"
+      "sha256": "aa101c354b191afb7b1e9e285d165b643c04554184f1b94c94bf25666be9eccb"
     },
     {
       "path": "reports/unit-tests.tap",

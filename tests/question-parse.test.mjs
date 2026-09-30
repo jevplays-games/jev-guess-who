@@ -62,3 +62,37 @@ test('scoring prefers the more specific phrase', () => {
   const scores = scoreQuestion('long hair');
   assert.equal(scores[0].id, 'long_hair');
 });
+
+test('two questions joined into one are refused, not half-answered', () => {
+  // Reported: "Does the character have glasses, and have earrings?" silently
+  // resolved to earrings alone and spent the turn on it.
+  for (const q of ['Does the character have glasses, and have earrings?',
+                   'glasses and earrings',
+                   'does your character wear glasses or a hat',
+                   'a hat, plus a scarf']) {
+    const r = matchQuestion(q);
+    assert.equal(r.status, 'compound', q);
+    assert.ok(r.options.length >= 2, q);
+  }
+});
+
+test('a joined question with only one half recognised warns instead of going quiet', () => {
+  // The other half was a typo ("earlings"), so only glasses resolves. It may be
+  // asked, but the player has to be told the rest is being dropped.
+  const r = matchQuestion('Does the character have glasses, and have earlings?');
+  assert.equal(r.status, 'ok');
+  assert.equal(r.predicate.id, 'glasses');
+  assert.equal(r.warning, 'one_per_turn');
+});
+
+test('a plain single question carries no warning', () => {
+  const r = matchQuestion('does your character wear glasses');
+  assert.equal(r.status, 'ok');
+  assert.equal(r.warning, undefined);
+});
+
+test('phrases match on whole words only', () => {
+  // "earlings", "early" and "earnest" must not hit the `ear` phrase.
+  for (const q of ['early riser?', 'is he earnest', 'earlings'])
+    assert.notEqual(matchQuestion(q).status, 'ok', q);
+});

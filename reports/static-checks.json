@@ -1,8 +1,8 @@
 {
   "syntaxModules": 29,
   "rosterValid": true,
-  "publicGzipBytes": 123019,
-  "publicJavaScriptGzipBytes": 24787,
+  "publicGzipBytes": 123629,
+  "publicJavaScriptGzipBytes": 25397,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
@@ -45,8 +45,8 @@
     },
     {
       "path": "public\\game.js",
-      "bytes": 31707,
-      "gzipBytes": 10835
+      "bytes": 32068,
+      "gzipBytes": 10996
     },
     {
       "path": "public\\index.html",
@@ -185,8 +185,8 @@
     },
     {
       "path": "public\\shared\\question-parse.js",
-      "bytes": 3933,
-      "gzipBytes": 1698
+      "bytes": 4977,
+      "gzipBytes": 2147
     },
     {
       "path": "public\\shared\\roster.js",

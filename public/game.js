@@ -111,12 +111,16 @@ function previewQuestion(){
   }
   if(questionMatch.status==='ok'){
     const {id,label}=questionMatch.predicate,features=questionFeatures(current.possible.human,id);
-    preview.textContent=`${label} · public split ${features.yes} yes / ${features.no} no · expected ${f(features.expectedRemaining)} remaining · ${f(features.informationGain)} bits of expected information.`;
+    // A turn answers one predicate. If they joined two clauses, say which one
+    // is actually going to be asked before it costs them the turn.
+    const warn=questionMatch.warning==='one_per_turn'?'One question per turn, so only this one will be asked. ':'';
+    preview.textContent=`${warn}${label} · public split ${features.yes} yes / ${features.no} no · expected ${f(features.expectedRemaining)} remaining · ${f(features.informationGain)} bits of expected information.`;
   }else{
     preview.textContent={
       empty:'Type a question in your own words, or pick one from the list.',
       unknown:'No rule can answer that. This game only reads glasses, hats, earrings, scarves, beards, moustaches, and hair length, curl and colour.',
       ambiguous:'That could mean more than one question. Choose which you meant:',
+      compound:'That is two questions, and a turn answers only one. Pick the one to ask:',
       spent:'You have already asked that one. Still open:',
     }[questionMatch.status];
     // Offer the legal questions as one-click buttons rather than making the
