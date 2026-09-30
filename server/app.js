@@ -7,6 +7,8 @@ export async function handle(request,env) {
   const url=new URL(request.url),path=url.pathname;
   const store=new Store(env.DB);
   try {
+    // Platform health checks arrive with the platform's own Host; only GET /api/health (static, no data) is exempt.
+    if(path==='/api/health'&&request.method==='GET')return json({ok:true,game:'guess-who',version:'1.0.0'});
     assert(env.ORIGIN&&url.origin===env.ORIGIN,403,'host_rejected');
     if(!path.startsWith('/api/')) {
       assert(['GET','HEAD'].includes(request.method),405,'method_not_allowed');
@@ -17,7 +19,6 @@ export async function handle(request,env) {
       return new Response(asset.body,{status:asset.status,headers});
     }
     const method=request.method;
-    if(path==='/api/health'&&method==='GET')return json({ok:true,version:'1.0.0',database:!!env.DB});
     if(path==='/api/discord/interactions'&&method==='POST')return await interaction(store,request,env);
     // CF-Connecting-IP is used only on Workers. Local adapters strip forwarded client headers.
     const ip=request.headers.get('CF-Connecting-IP')||'local';
