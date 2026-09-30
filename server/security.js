@@ -49,8 +49,11 @@ export function safeHeaders(headers={}) {return new Headers({
   'Permissions-Policy':'camera=(), microphone=(), geolocation=()',...headers});}
 export const json=(data,status=200,headers={})=>new Response(JSON.stringify(data),{status,headers:safeHeaders(headers)});
 export function cookieHeader(value,{secure=true,maxAge=604800}={}) {return `jev_session=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure?'; Secure':''}`;}
+export const activityOrigin=env=>/^\d{16,22}$/.test(env.DISCORD_CLIENT_ID??'')?`https://${env.DISCORD_CLIENT_ID}.discordsays.com`:null;
+export const ACTIVITY_FRAME_ANCESTORS='frame-ancestors https://discord.com https://ptb.discord.com https://canary.discord.com';
 export function checkMutation(request,session,env) {
-  assert(request.headers.get('Origin')===env.ORIGIN,403,'origin_rejected');
+  const origin=request.headers.get('Origin'),framed=session.via==='bearer'?activityOrigin(env):null;
+  assert(origin===env.ORIGIN||(framed&&origin===framed),403,'origin_rejected');
   assert(request.headers.get('X-CSRF-Token')===session.csrf,403,'csrf_rejected');
 }
 export async function initializeFromSeed(seed,matchId,config) {

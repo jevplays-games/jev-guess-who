@@ -11,7 +11,8 @@ for(const f of modules){const r=spawnSync(process.execPath,['--check',f],{encodi
 validateRoster();
 const publicFiles=files.filter(f=>f.startsWith(path.join(root,'public')+path.sep));
 let total=0,js=0;const assets=[];
-for(const f of publicFiles){const b=await readFile(f),gzipBytes=gzipSync(b).length;assets.push({path:path.relative(root,f),bytes:b.length,gzipBytes});total+=gzipBytes;if(f.endsWith('.js'))js+=gzipBytes;}
+for(const f of publicFiles){const b=await readFile(f),gzipBytes=gzipSync(b).length;const vendored=f.startsWith(path.join(root,'public','vendor')+path.sep);assets.push({path:path.relative(root,f),bytes:b.length,gzipBytes,...(vendored?{lazyVendored:true}:{})});if(vendored)continue; // loaded only inside a Discord Activity, so it is listed but outside the first-load budgets
+  total+=gzipBytes;if(f.endsWith('.js'))js+=gzipBytes;}
 const checks={syntaxModules:modules.length,rosterValid:true,publicGzipBytes:total,publicJavaScriptGzipBytes:js,budgets:{javaScript:60000,allPublicAssets:150000},assets,limitations:['Gzip sums are theoretical file-by-file sizes, not measured CDN transfer sizes.','This is a syntax, roster and asset-budget check; not a security audit or comprehensive linter.']};
 await writeFile(path.join(root,'reports','static-checks.json'),JSON.stringify(checks,null,2)+'\n');
 if(js>60000||total>150000)throw Error('Asset budget exceeded; see reports/static-checks.json');

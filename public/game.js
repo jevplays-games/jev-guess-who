@@ -12,12 +12,13 @@ const el=(tag,text,className)=>{const n=document.createElement(tag);if(text!=nul
 const option=(value,label)=>{const n=el('option',label);n.value=value;return n;};
 const labelAction=a=>a.type==='ask'?PREDICATES.find(p=>p.id===a.predicateId)?.label:a.type==='guess'?`Guess ${character(a.characterId)?.name||a.characterId}`:a.type==='expire'?'Match expired':'Resign';
 let questionMatch={status:'empty',options:[]};
+let bearer=null; // set only inside a Discord Activity, where cookies are not sent
 let me=null,current=null,busy=false,offline=false,offlineMatch=null,analyticsData=null,lastPending=null,leaderboardCursor=null;
 let exportedOffline=new Set();
 function notice(message=''){ $('notice').textContent=message;$('notice').hidden=!message; }
 const readable={discord_required:'Sign in with Discord to use this feature.',jev_not_configured:'The JEV API key is not configured. Choose Practice to play the local opponent.',active_ranked_match:'Finish or resume your existing ranked match first.',fresh_discord_context_required:'Launch /play-jev from the relevant Discord channel to establish fresh context.',csrf_rejected:'Your session changed. Use Refresh / reconnect.',stale_revision:'The match changed in another request or tab. Use Refresh / reconnect.',rate_limit:'Request limit reached. Retry after the cooldown.',session_required:'Your session expired. Use Refresh / reconnect.',discord_not_configured:'Discord credentials have not been configured by the host.'};
 async function api(url,{method='GET',body}={}) {
-  const response=await fetch(url,{method,credentials:'same-origin',headers:method==='POST'?{'Content-Type':'application/json','X-CSRF-Token':me?.csrf||''}:{},...(body?{body:JSON.stringify(body)}:{})});
+  const response=await fetch(url,{method,credentials:'same-origin',headers:{...(bearer?{Authorization:`Bearer ${bearer}`}:{}),...(method==='POST'?{'Content-Type':'application/json','X-CSRF-Token':me?.csrf||''}:{})},...(body?{body:JSON.stringify(body)}:{})});
   let data;try{data=await response.json();}catch{throw Error('The server returned an unreadable response.');}
   if(!response.ok)throw Object.assign(Error(readable[data.error]||data.error||'Request failed'),{code:data.error,status:response.status});return data;
 }
@@ -309,6 +310,10 @@ async function initialize(){
   $('analysis-toggle').checked=setting('analysis','true')==='true';$('text-mode').checked=setting('text-mode','false')==='true';renderBoard();
   const launch=new URLSearchParams(location.hash.slice(1)).get('launch');
   if(launch){try{sessionStorage.setItem('gw:launch',launch);}catch{}history.replaceState(null,'',location.pathname);}
+  if(new URLSearchParams(location.search).has('frame_id')){
+    try{bearer=(await (await import('/activity.js')).signInWithDiscord(api)).token;}
+    catch(error){notice(`Could not sign in through Discord. ${error.message}`);}
+  }
   try{
     me=await api('/api/me');$('identity').textContent=me.user?.name||'Guest';$('login').hidden=!!me.user;$('logout').hidden=!me.user;
     if(!me.discordConfigured)$('login').textContent='Discord setup required';

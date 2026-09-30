@@ -1,6 +1,7 @@
 import {Store} from './store.js';
-import {HttpError,assert,json,bodyJson,safeHeaders,checkMutation,cookieHeader,sha256} from './security.js';
+import {HttpError,assert,json,bodyJson,safeHeaders,checkMutation,cookieHeader,sha256,ACTIVITY_FRAME_ANCESTORS} from './security.js';
 import {readSession,beginOAuth,completeOAuth,interaction,redeemContext} from './discord.js';
+import {activityConfig,createActivitySession} from './activity.js';
 import {createMatch,ownedMatch,snapshot,humanAction,advance,personalAnalytics,leaderboard,verifyMatch} from './matches.js';
 export async function handle(request,env) {
   const url=new URL(request.url),path=url.pathname;
@@ -10,7 +11,10 @@ export async function handle(request,env) {
     if(!path.startsWith('/api/')) {
       assert(['GET','HEAD'].includes(request.method),405,'method_not_allowed');
       const asset=await env.ASSETS.fetch(request),headers=safeHeaders({'Content-Type':asset.headers.get('Content-Type')||'application/octet-stream'});
-      headers.set('Cache-Control','no-cache');return new Response(asset.body,{status:asset.status,headers});
+      headers.set('Cache-Control','no-cache');
+      // Discord frames an Activity only when it launches the page with frame_id; only Discord may frame it.
+      if(url.searchParams.has('frame_id')){headers.delete('X-Frame-Options');headers.set('Content-Security-Policy',headers.get('Content-Security-Policy').replace("frame-ancestors 'none'",ACTIVITY_FRAME_ANCESTORS));}
+      return new Response(asset.body,{status:asset.status,headers});
     }
     const method=request.method;
     if(path==='/api/health'&&method==='GET')return json({ok:true,version:'1.0.0',database:!!env.DB});
@@ -19,6 +23,8 @@ export async function handle(request,env) {
     const ip=request.headers.get('CF-Connecting-IP')||'local';
     const ipKey=await sha256(`${env.RATE_LIMIT_HASH_KEY}|${ip}`);
     await store.quota(`api:${ipKey}`,240,60000);
+    if(path==='/api/activity/config'&&method==='GET')return activityConfig(env);
+    if(path==='/api/activity/session'&&method==='POST'){await store.quota(`activity-session:${ipKey}`,60,3600000);return await createActivitySession(store,request,env);}
     const {session,setCookie}=await readSession(store,request,env,{create:path==='/api/me'&&method==='GET'});
     const headers=setCookie?{'Set-Cookie':setCookie}:{};
     if(method==='POST') {
