@@ -40,7 +40,10 @@ export function scoreQuestion(text) {
   return PREDICATES.map(p => {
     let score = 0;
     for (const phrase of PHRASES[p.id] ?? []) {
-      if (!haystack.includes(` ${phrase} `) && !haystack.includes(` ${phrase}`)) continue;
+      // Both boundaries required. normalise() already wraps the text in spaces,
+      // so a trailing phrase still matches -- while an unbounded prefix test
+      // made "earlings" hit `ear`, and would have hit "early" and "earnest" too.
+      if (!haystack.includes(` ${phrase} `)) continue;
       // Word count is the specificity signal: "black hair" must beat "hair".
       score = Math.max(score, phrase.split(' ').length * 10 + phrase.length);
     }
@@ -48,20 +51,33 @@ export function scoreQuestion(text) {
   }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
 }
 
+// "and", "or", a comma: the player joined two questions into one.
+const JOINER = /(^| )(and|or|plus|also|as well as|both)( |$)|,/;
+
 /**
  * Resolve typed text to a single predicate.
  * @param {string} text what the player typed
  * @param {(id:string)=>boolean} [isLegal] narrows to questions still allowed
- * @returns {{status:'ok',predicate:object}
- *          |{status:'ambiguous'|'unknown'|'empty'|'spent',options:object[]}}
+ * @returns {{status:'ok',predicate:object,warning?:string}
+ *          |{status:'ambiguous'|'unknown'|'empty'|'spent'|'compound',options:object[]}}
  */
 export function matchQuestion(text, isLegal = () => true) {
   const all = scoreQuestion(text);
   if (!String(text).trim()) return {status: 'empty', options: PREDICATES.filter(p => isLegal(p.id))};
   if (all.length === 0) return {status: 'unknown', options: PREDICATES.filter(p => isLegal(p.id))};
+  // Two questions in one. A turn answers exactly one predicate, so answering
+  // half of it and silently dropping the rest would spend the turn on a
+  // question the player did not ask. Refuse and let them pick which half.
+  if (all.length > 1 && JOINER.test(normalise(text))) {
+    return {status: 'compound', options: all.filter(p => isLegal(p.id))};
+  }
   // A tie on the top score means the text did not say which one it meant.
   const top = all.filter(x => x.score === all[0].score);
   if (top.length > 1) return {status: 'ambiguous', options: top.filter(p => isLegal(p.id))};
   if (!isLegal(all[0].id)) return {status: 'spent', options: PREDICATES.filter(p => isLegal(p.id))};
+  // Joined two clauses but only one resolved -- often a typo in the other half
+  // ("glasses, and have earlings"). Ask the one that resolved, but say so, so
+  // the turn is not quietly spent on half the question.
+  if (JOINER.test(normalise(text))) return {status: 'ok', predicate: all[0], warning: 'one_per_turn'};
   return {status: 'ok', predicate: all[0]};
 }
