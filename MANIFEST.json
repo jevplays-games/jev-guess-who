@@ -63,8 +63,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 10483,
-      "sha256": "4978626576121cdb7bf64dc9a195c0d0dbe6a0461cfd89243c0071ac9b6bf6f3"
+      "bytes": 11709,
+      "sha256": "151d1faa3a52d6aebc4822066f6c2e3a73ed5677df4615ac33276ae1fccdd126"
     },
     {
       "path": "docs/ENGINEERING.md",
@@ -98,8 +98,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 641,
-      "sha256": "8c1ecfd2f59293b26276ea204f0135798bbe173cdc425584fcd652bfb8fd74d8"
+      "bytes": 685,
+      "sha256": "3ea55a4539fa4b0d6c98ea80a354e3a45ad2765f32c801049f87aa0aa21391d9"
     },
     {
       "path": "public/activity.js",
@@ -433,8 +433,8 @@
     },
     {
       "path": "scripts/serve.mjs",
-      "bytes": 3466,
-      "sha256": "d5ffb4582b96c31a6716cad636e0b450c34e7ca6bfc3480d69be2701d8078ecc"
+      "bytes": 4291,
+      "sha256": "a3471ccc7fecaed08215fdcdebe65c0130cb880c209464c47622bf46b90f7458"
     },
     {
       "path": "scripts/sqlite-adapter.mjs",

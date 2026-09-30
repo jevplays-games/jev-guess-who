@@ -107,6 +107,12 @@ Keep the Node process bound to loopback where practical. Set `ORIGIN` to the HTT
 
 The Node adapter strips forwarded IP headers. It intentionally uses one local IP bucket rather than trusting arbitrary forwarded headers. For a multi-user reverse-proxy deployment, add a deliberate trusted-proxy IP configuration before treating per-IP rate limits as production-quality.
 
+## GoDaddy Node.js hosting
+
+The same `scripts/serve.mjs` runs as a plain Node app: `npm run build` (no-op) then `npm start` (`node --env-file-if-exists=.env scripts/serve.mjs`). With `NODE_ENV=production` it binds `0.0.0.0` (or `HOST`) on the platform-injected `PORT`. Zip layout: repo root files (`package.json`, `server/`, `public/`, `migrations/`, `scripts/`) plus a root `.env`. Required `.env` keys: `ORIGIN` (exact HTTPS public origin), `NODE_ENV=production`, `HOST=0.0.0.0`, `TYPESAFE_API_KEY`, `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`, `DISCORD_PUBLIC_KEY`, `LAUNCH_SIGNING_KEY`, `RATE_LIMIT_HASH_KEY`; optional `DB_PATH` (default `data/guess-who.sqlite`, private, never under `public/`), `JEV_MODEL`, `JEV_TIMEOUT_MS`, retention days. Real process env vars override `.env`.
+
+The HTTPS `ORIGIN` makes the app non-local, so ranked play and Discord are enabled as on Workers. The hourly maintenance timer runs in-process. SQLite data lives on the ephemeral filesystem and is lost on redeploy (accepted). Without `TRUST_PROXY=1` all users share one IP rate-limit bucket; set `TRUST_PROXY=1` only if the proxy overwrites `X-Forwarded-For`/`X-Forwarded-Host` (rightmost hop is used). Origin/CSRF checks are unchanged.
+
 ## Rate limits and recovery
 
 Application defaults: 240 API requests/minute per IP-derived bucket; 60 browser mutations/minute per session; 10 guest or 30 signed-in game creations/hour per actor/session; one active ranked game per Discord account. Session/IP rotations can bypass some application-only limits. Add edge controls for public anonymous inference exposure.
