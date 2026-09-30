@@ -1,9 +1,10 @@
 {
   "name": "jev-guess-who",
   "main": "server/app.js",
+  "routes": [{ "pattern": "guess-who.jevplay.games", "custom_domain": true }],
   "compatibility_date": "2026-09-22",
   "assets": {"directory": "./public", "binding": "ASSETS", "run_worker_first": true},
-  "d1_databases": [{"binding":"DB","database_name":"jev-guess-who","database_id":"REPLACE_WITH_D1_DATABASE_ID","migrations_dir":"migrations"}],
-  "vars": {"ORIGIN":"https://REPLACE_WITH_YOUR_HOST","JEV_MODEL":"jev-1.13.0","JEV_TIMEOUT_MS":"3000","MATCH_RETENTION_DAYS":"90","RESULT_RETENTION_DAYS":"730"},
+  "d1_databases": [{"binding":"DB","database_name":"jev-guess-who","database_id":"34047787-000e-4822-a515-e2ccd69d8542","migrations_dir":"migrations"}],
+  "vars": {"ORIGIN":"https://guess-who.jevplay.games","JEV_MODEL":"jev-1.13.0","JEV_TIMEOUT_MS":"3000","MATCH_RETENTION_DAYS":"90","RESULT_RETENTION_DAYS":"730"},
   "triggers": {"crons":["0 * * * *"]}
 }
