@@ -1,13 +1,18 @@
 {
-  "syntaxModules": 29,
+  "syntaxModules": 33,
   "rosterValid": true,
-  "publicGzipBytes": 123629,
-  "publicJavaScriptGzipBytes": 25397,
+  "publicGzipBytes": 124233,
+  "publicJavaScriptGzipBytes": 26001,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
   },
   "assets": [
+    {
+      "path": "public\\activity.js",
+      "bytes": 768,
+      "gzipBytes": 440
+    },
     {
       "path": "public\\brand\\brand.css",
       "bytes": 17683,
@@ -45,8 +50,8 @@
     },
     {
       "path": "public\\game.js",
-      "bytes": 32068,
-      "gzipBytes": 10996
+      "bytes": 32438,
+      "gzipBytes": 11160
     },
     {
       "path": "public\\index.html",
@@ -202,6 +207,12 @@
       "path": "public\\shared\\strategy.js",
       "bytes": 5864,
       "gzipBytes": 2162
+    },
+    {
+      "path": "public\\vendor\\discord-embedded-app-sdk.js",
+      "bytes": 158033,
+      "gzipBytes": 47849,
+      "lazyVendored": true
     }
   ],
   "limitations": [
