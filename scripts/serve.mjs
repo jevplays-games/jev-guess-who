@@ -7,7 +7,9 @@ import {randomBytes} from 'node:crypto';
 import {handle,maintenance} from '../server/app.js';
 import {openDatabase} from './sqlite-adapter.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const port=Number(process.env.PORT)||8787,production=process.env.NODE_ENV==='production',host=process.env.HOST||(production?'0.0.0.0':'127.0.0.1'),trustProxy=process.env.TRUST_PROXY==='1',origin=process.env.ORIGIN||`http://localhost:${port}`;
+const port=Number(process.env.PORT)||8787,origin=process.env.ORIGIN||`http://localhost:${port}`,loopbackNames=['localhost','127.0.0.1','[::1]','::1'];
+// GoDaddy may override NODE_ENV, so an HTTPS non-loopback ORIGIN also means production.
+const originUrl=new URL(origin),production=process.env.NODE_ENV==='production'||(originUrl.protocol==='https:'&&!loopbackNames.includes(originUrl.hostname)),host=process.env.HOST||(production?'0.0.0.0':'127.0.0.1'),trustProxy=process.env.TRUST_PROXY==='1';
 if(!['127.0.0.1','localhost','::1'].includes(host)&&!origin.startsWith('https://'))throw Error('Non-loopback hosting requires an HTTPS ORIGIN and reverse proxy.');
 const local=new URL(origin).protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(new URL(origin).hostname);
 const database=path.resolve(root,process.env.DB_PATH||'data/guess-who.sqlite');await mkdir(path.dirname(database),{recursive:true});
