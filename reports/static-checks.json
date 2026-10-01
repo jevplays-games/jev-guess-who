@@ -1,8 +1,8 @@
 {
-  "syntaxModules": 33,
+  "syntaxModules": 35,
   "rosterValid": true,
-  "publicGzipBytes": 124233,
-  "publicJavaScriptGzipBytes": 26001,
+  "publicGzipBytes": 124964,
+  "publicJavaScriptGzipBytes": 26732,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
@@ -195,8 +195,8 @@
     },
     {
       "path": "public\\shared\\roster.js",
-      "bytes": 8249,
-      "gzipBytes": 1493
+      "bytes": 8329,
+      "gzipBytes": 1535
     },
     {
       "path": "public\\shared\\rules.js",
@@ -205,8 +205,8 @@
     },
     {
       "path": "public\\shared\\strategy.js",
-      "bytes": 5864,
-      "gzipBytes": 2162
+      "bytes": 7447,
+      "gzipBytes": 2851
     },
     {
       "path": "public\\vendor\\discord-embedded-app-sdk.js",

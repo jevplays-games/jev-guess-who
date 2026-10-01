@@ -328,7 +328,7 @@ export const FULL_MASK = (1 << ROSTER.length) - 1;
 export const character = id => ROSTER.find(c => c.id === id);
 export const hasTrait = (c, id) => id.startsWith('hair_') ? c.hairColor === id.slice(5) : c[id] === true;
 export const MASKS = Object.freeze(Object.fromEntries(PREDICATES.map(p => [p.id, ROSTER.reduce((m,c,i) => m | (hasTrait(c,p.id) ? 1<<i : 0),0)])));
-export function count(mask) { let n=0; for (let x=mask>>>0; x; x&=x-1) n++; return n; }
+export function count(mask) { let x=mask>>>0; x-=(x>>>1)&0x55555555; x=(x&0x33333333)+((x>>>2)&0x33333333); return Math.imul((x+(x>>>4))&0x0f0f0f0f,0x01010101)>>>24; }
 export const ids = mask => ROSTER.filter((_,i) => mask & (1<<i)).map(c=>c.id);
 export const bit = id => { const i=ROSTER.findIndex(c=>c.id===id); return i<0 ? 0 : 1<<i; };
 export function describe(c) {

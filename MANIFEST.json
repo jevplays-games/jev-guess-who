@@ -283,8 +283,8 @@
     },
     {
       "path": "public/shared/roster.js",
-      "bytes": 8249,
-      "sha256": "e53ea504b1ae6ce2a72b68254922cbc16304decfcdfc6ef4b449d83dfdfb58af"
+      "bytes": 8329,
+      "sha256": "b2bec925b00d48f6109470df6ea767f1fedfa33acc87026b4b1a25fbb875fcb5"
     },
     {
       "path": "public/shared/rules.js",
@@ -293,8 +293,8 @@
     },
     {
       "path": "public/shared/strategy.js",
-      "bytes": 5864,
-      "sha256": "62ad83aea2cd2d2ea4abdb9e1163c2ffc87c021d622196e0bf1c0b71c4a0485d"
+      "bytes": 7447,
+      "sha256": "4004afd79df2d086a900ec86d411c144ef1099e93e0638e53b33e12a70ed97c0"
     },
     {
       "path": "public/vendor/discord-embedded-app-sdk.js",
@@ -404,7 +404,7 @@
     {
       "path": "reports/static-checks.json",
       "bytes": 4601,
-      "sha256": "6ecb69b50daa3bbfa2a43d71379ab0fb8455a82df2970a1a5e13e4ec253c4991"
+      "sha256": "e27cc60180e049b059f49fd64a5192ba72d14e4e339ca0dc517393de75134c5b"
     },
     {
       "path": "reports/unit-tests.tap",
@@ -517,9 +517,19 @@
       "sha256": "232061345f1ecbed417cef8e1fa762ef7e94d761773dcc228dd34f581da5b1dd"
     },
     {
+      "path": "tests/reference-strategy.mjs",
+      "bytes": 6105,
+      "sha256": "f7c8f98e573ac9a65225eaf185d4e48bf2cf3f49bc4fbf1379abf6306e9e5144"
+    },
+    {
       "path": "tests/rules.test.mjs",
       "bytes": 6187,
       "sha256": "9b2853700ceda691ff4ad8a42e375cfb227c7c29343f5e676d7a41d618d9f9b2"
+    },
+    {
+      "path": "tests/search-equivalence.test.mjs",
+      "bytes": 4472,
+      "sha256": "ca42c15b428092c8b6f5915dcadb5af5c87c6377b9527b5a216dba79e36e7b5d"
     },
     {
       "path": "tests/security.test.mjs",

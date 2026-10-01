@@ -1,6 +1,8 @@
-import {MASKS,FULL_MASK,PREDICATES,count,ids} from './roster.js';
-import {legalForMask,actionId} from './rules.js';
+import {MASKS,FULL_MASK,PREDICATES,ids} from '../public/shared/roster.js';
+import {legalForMask,actionId} from '../public/shared/rules.js';
 export const POLICY_VERSION='race-1';
+// Original (pre-optimization) implementation, kept verbatim as the equivalence oracle for the fast paths in public/shared/strategy.js.
+function count(mask) { let n=0; for (let x=mask>>>0; x; x&=x-1) n++; return n; }
 export const DIFFICULTIES=Object.freeze(['easy','normal','hard','jev']);
 const label=id=>PREDICATES.find(p=>p.id===id)?.label||id;
 export function questionFeatures(mask,id) {
@@ -19,23 +21,9 @@ function canonicalQuestions(mask) {
     if(seen.has(key))return false;seen.add(key);return true;
   });
 }
-// Predicates in the same order canonicalQuestions() sorts them (by action id), as parallel arrays.
-const ORDER=PREDICATES.map(p=>p.id).sort((x,y)=>`ask:${x}`.localeCompare(`ask:${y}`));
-const PN=ORDER.length,PM=Int32Array.from(ORDER,id=>MASKS[id]);
 export function balancedAction(mask) {
   if(count(mask)===1)return {type:'guess',characterId:ids(mask)[0]};
-  return {type:'ask',predicateId:ORDER[balancedIndex(mask)]};
-}
-// First legal question (in id order) with the smallest worst-case remaining set: the same winner as sorting by (worstCase,id).
-function balancedIndex(mask) {
-  let best=-1,bestWorst=0;
-  for(let k=0;k<PN;k++) {
-    const yes=mask&PM[k];if(yes===0||yes===mask)continue;
-    const n=count(mask),y=count(yes),worst=Math.max(y,n-y);
-    if(best<0||worst<bestWorst){best=k;bestWorst=worst;}
-  }
-  if(best<0)throw new TypeError("Cannot read properties of undefined (reading 'action')");
-  return best;
+  return questionCandidates(mask).sort((a,b)=>a.worstCaseRemaining-b.worstCaseRemaining||a.id.localeCompare(b.id))[0].action;
 }
 export function fallbackAction(view) {
   if(count(view.myMask)===1||count(view.opponentMask)===1)return {type:'guess',characterId:ids(view.myMask)[0]};
@@ -46,7 +34,7 @@ const completionMemo=new Map();
 export function completionDistribution(mask) {
   if(completionMemo.has(mask))return completionMemo.get(mask);
   if(count(mask)===1)return [0,1];
-  const yes=mask&PM[balancedIndex(mask)],no=mask^yes,n=count(mask),out=[];
+  const a=balancedAction(mask),yes=mask&MASKS[a.predicateId],no=mask^yes,n=count(mask),out=[];
   for(const branch of [yes,no]) {
     const probability=count(branch)/n,dist=completionDistribution(branch);
     dist.forEach((p,i)=>{out[i+1]=(out[i+1]||0)+p*probability;});
@@ -54,33 +42,22 @@ export function completionDistribution(mask) {
   const normalized=Array.from({length:out.length},(_,i)=>out[i]||0);
   completionMemo.set(mask,normalized);return normalized;
 }
-const frontierMemo=new Map(),FRONTIER_CACHE_LIMIT=200000;
 export function frontierWinProbability(myMask,opponentMask) {
-  const key=myMask>=0&&opponentMask>=0&&myMask<=FULL_MASK&&opponentMask<=FULL_MASK?myMask*16777216+opponentMask:null;
-  if(key!==null){const hit=frontierMemo.get(key);if(hit!==undefined)return hit;}
   const me=completionDistribution(myMask),them=completionDistribution(opponentMask);let win=0;
-  for(let t=0;t<me.length;t++)for(let u=t;u<them.length;u++)win+=me[t]*them[u];
-  if(key!==null){if(frontierMemo.size>=FRONTIER_CACHE_LIMIT)frontierMemo.clear();frontierMemo.set(key,win);}
-  return win;
+  me.forEach((p,t)=>them.forEach((q,u)=>{if(t<=u)win+=p*q;}));return win;
 }
-/** Bounded expectiminimax. Uniform independent surviving secrets; actor moves next.
-    Allocation-free inner loop; node accounting, memo semantics and float operation order match the reference in tests/reference-strategy.mjs. */
+/** Bounded expectiminimax. Uniform independent surviving secrets; actor moves next. */
 export function searchActions(view,candidates,{maxDepth=6,nodeBudget=50000}={}) {
   let nodes=0,completedDepth=0;const memo=new Map();
   const budget=Symbol('search budget');
-  const seen=new Int32Array(PN*(Math.max(0,Math.floor(maxDepth))+2));
   function value(my,opp,depth) {
     if(++nodes>nodeBudget)throw budget;
     const n=count(my);if(n===1)return 1;
     if(depth<=0)return frontierWinProbability(my,opp);
-    const key=depth<32&&my>=0&&opp>=0&&my<=FULL_MASK&&opp<=FULL_MASK?(depth*16777216+my)*16777216+opp:`${my}:${opp}:${depth}`;
-    const cached=memo.get(key);if(cached!==undefined)return cached;
-    let best=1/n,seenCount=0;const base=depth*PN;
-    for(let k=0;k<PN;k++) {
-      const yes=my&PM[k];if(yes===0||yes===my)continue;
-      const no=my^yes,dedupe=yes<no?yes:no;
-      let dup=false;for(let j=0;j<seenCount;j++)if(seen[base+j]===dedupe){dup=true;break;}
-      if(dup)continue;seen[base+seenCount++]=dedupe;
+    const key=`${my}:${opp}:${depth}`;if(memo.has(key))return memo.get(key);
+    let best=1/n;
+    for(const c of canonicalQuestions(my)) {
+      const yes=my&MASKS[c.action.predicateId],no=my^yes;
       const v=1-(count(yes)*value(opp,yes,depth-1)+count(no)*value(opp,no,depth-1))/n;
       best=Math.max(best,v);
     }
