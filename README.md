@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.jpg" alt="Pixel-art robot Jev facing a board of cartoon faces with flip-down panels in a neon cyan and magenta arcade" width="100%"></p>
+
 # Guess Who — Human vs JEV
 
 A runnable, server-authoritative deduction game with **detailed gameplay, provider, cohort, and operational analytics**. Vanilla HTML/CSS/JavaScript, 24 original SVG portraits, a shared deterministic engine, SQLite for local development, and Cloudflare Workers + D1 deployment files.
