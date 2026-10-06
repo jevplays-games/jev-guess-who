@@ -1,1 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true"><rect width="64" height="64" rx="15" fill="currentColor" opacity=".1"/><path d="M34 14v20.5c0 5.2-4.2 9.5-9.5 9.5S15 39.7 15 34.5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" aria-hidden="true">
+  <defs>
+    <radialGradient id="ground" cx="0.28" cy="0.2" r="1">
+      <stop offset="0" stop-color="#d4691a"/>
+      <stop offset="0.45" stop-color="#4a230b"/>
+      <stop offset="1" stop-color="#0c0d17"/>
+    </radialGradient>
+    <linearGradient id="edge" gradientUnits="userSpaceOnUse" x1="16" y1="10" x2="42" y2="52">
+      <stop offset="0" stop-color="#ffe8d0"/>
+      <stop offset="0.4" stop-color="#fb923c"/>
+      <stop offset="1" stop-color="#b4540f"/>
+    </linearGradient>
+    <linearGradient id="win" gradientUnits="userSpaceOnUse" x1="20" y1="14" x2="36" y2="40">
+      <stop offset="0" stop-color="#fff3e4"/>
+      <stop offset="1" stop-color="#ffcf9c"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#ground)"/>
+  <g transform="rotate(-8 32 32)">
+    <rect x="35" y="13" width="18" height="30" rx="4" fill="#a0510f" opacity="0.8"/>
+    <rect x="17" y="9" width="26" height="42" rx="5" fill="#2a1203" opacity="0.55" transform="translate(1.5 2)"/>
+    <rect x="17" y="9" width="26" height="42" rx="5" fill="url(#edge)"/>
+    <rect x="20" y="12" width="20" height="26" rx="3" fill="url(#win)"/>
+    <circle cx="30" cy="22" r="6.5" fill="#2a1203"/>
+    <path d="M21 38Q21 31 30 30Q39 31 39 38Z" fill="#2a1203"/>
+    <path d="M27.4 20.6C27.4 17.6 32.6 17.6 32.6 20.6C32.6 22.6 30 22.4 30 24.6" fill="none" stroke="#fb923c" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="30" cy="27.4" r="1.2" fill="#fb923c"/>
+    <rect x="21" y="42" width="18" height="5" rx="2.5" fill="#4a230b"/>
+    <rect x="12" y="49" width="36" height="7" rx="3.5" fill="#4a230b"/>
+    <path d="M16 51H44" stroke="#ffb066" stroke-opacity="0.7" stroke-width="1.4" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,8 +1,8 @@
 {
   "syntaxModules": 35,
   "rosterValid": true,
-  "publicGzipBytes": 124964,
-  "publicJavaScriptGzipBytes": 26732,
+  "publicGzipBytes": 147702,
+  "publicJavaScriptGzipBytes": 26944,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
@@ -14,9 +14,24 @@
       "gzipBytes": 440
     },
     {
+      "path": "public\\art\\card-back.svg",
+      "bytes": 1253,
+      "gzipBytes": 446
+    },
+    {
+      "path": "public\\art\\down.svg",
+      "bytes": 793,
+      "gzipBytes": 354
+    },
+    {
+      "path": "public\\brand\\apple-touch-icon.png",
+      "bytes": 10359,
+      "gzipBytes": 9523
+    },
+    {
       "path": "public\\brand\\brand.css",
-      "bytes": 17683,
-      "gzipBytes": 6570
+      "bytes": 25412,
+      "gzipBytes": 9149
     },
     {
       "path": "public\\brand\\brand.js",
@@ -24,9 +39,14 @@
       "gzipBytes": 1404
     },
     {
+      "path": "public\\brand\\favicon-32.png",
+      "bytes": 1666,
+      "gzipBytes": 812
+    },
+    {
       "path": "public\\brand\\icon.svg",
-      "bytes": 601,
-      "gzipBytes": 301
+      "bytes": 1792,
+      "gzipBytes": 660
     },
     {
       "path": "public\\brand\\inter-var.woff2",
@@ -35,8 +55,8 @@
     },
     {
       "path": "public\\brand\\mark.svg",
-      "bytes": 314,
-      "gzipBytes": 229
+      "bytes": 1834,
+      "gzipBytes": 679
     },
     {
       "path": "public\\brand\\OFL.txt",
@@ -44,139 +64,154 @@
       "gzipBytes": 1969
     },
     {
-      "path": "public\\game.css",
-      "bytes": 11728,
-      "gzipBytes": 3342
+      "path": "public\\brand\\result-draw.svg",
+      "bytes": 1004,
+      "gzipBytes": 416
     },
     {
-      "path": "public\\game.js",
-      "bytes": 32438,
-      "gzipBytes": 11160
+      "path": "public\\brand\\result-loss.svg",
+      "bytes": 1048,
+      "gzipBytes": 428
     },
     {
-      "path": "public\\index.html",
-      "bytes": 11030,
-      "gzipBytes": 3703
-    },
-    {
-      "path": "public\\portraits\\c01.svg",
-      "bytes": 1793,
-      "gzipBytes": 590
-    },
-    {
-      "path": "public\\portraits\\c02.svg",
-      "bytes": 1675,
-      "gzipBytes": 688
-    },
-    {
-      "path": "public\\portraits\\c03.svg",
-      "bytes": 1163,
-      "gzipBytes": 507
-    },
-    {
-      "path": "public\\portraits\\c04.svg",
-      "bytes": 1682,
-      "gzipBytes": 690
-    },
-    {
-      "path": "public\\portraits\\c05.svg",
-      "bytes": 1354,
-      "gzipBytes": 566
-    },
-    {
-      "path": "public\\portraits\\c06.svg",
-      "bytes": 1082,
+      "path": "public\\brand\\result-win.svg",
+      "bytes": 1203,
       "gzipBytes": 474
     },
     {
+      "path": "public\\game.css",
+      "bytes": 19841,
+      "gzipBytes": 5434
+    },
+    {
+      "path": "public\\game.js",
+      "bytes": 32975,
+      "gzipBytes": 11372
+    },
+    {
+      "path": "public\\index.html",
+      "bytes": 12326,
+      "gzipBytes": 4039
+    },
+    {
+      "path": "public\\portraits\\c01.svg",
+      "bytes": 2427,
+      "gzipBytes": 768
+    },
+    {
+      "path": "public\\portraits\\c02.svg",
+      "bytes": 2309,
+      "gzipBytes": 867
+    },
+    {
+      "path": "public\\portraits\\c03.svg",
+      "bytes": 1797,
+      "gzipBytes": 682
+    },
+    {
+      "path": "public\\portraits\\c04.svg",
+      "bytes": 2316,
+      "gzipBytes": 870
+    },
+    {
+      "path": "public\\portraits\\c05.svg",
+      "bytes": 1988,
+      "gzipBytes": 742
+    },
+    {
+      "path": "public\\portraits\\c06.svg",
+      "bytes": 1716,
+      "gzipBytes": 646
+    },
+    {
       "path": "public\\portraits\\c07.svg",
-      "bytes": 1196,
-      "gzipBytes": 513
+      "bytes": 1830,
+      "gzipBytes": 688
     },
     {
       "path": "public\\portraits\\c08.svg",
-      "bytes": 1516,
-      "gzipBytes": 501
+      "bytes": 2150,
+      "gzipBytes": 674
     },
     {
       "path": "public\\portraits\\c09.svg",
-      "bytes": 1850,
-      "gzipBytes": 633
+      "bytes": 2484,
+      "gzipBytes": 813
     },
     {
       "path": "public\\portraits\\c10.svg",
-      "bytes": 1661,
-      "gzipBytes": 560
+      "bytes": 2295,
+      "gzipBytes": 742
     },
     {
       "path": "public\\portraits\\c11.svg",
-      "bytes": 1369,
-      "gzipBytes": 586
+      "bytes": 2003,
+      "gzipBytes": 761
     },
     {
       "path": "public\\portraits\\c12.svg",
-      "bytes": 1919,
-      "gzipBytes": 646
+      "bytes": 2553,
+      "gzipBytes": 823
     },
     {
       "path": "public\\portraits\\c13.svg",
-      "bytes": 1227,
-      "gzipBytes": 546
+      "bytes": 1861,
+      "gzipBytes": 724
     },
     {
       "path": "public\\portraits\\c14.svg",
-      "bytes": 1885,
-      "gzipBytes": 647
+      "bytes": 2519,
+      "gzipBytes": 825
     },
     {
       "path": "public\\portraits\\c15.svg",
-      "bytes": 1818,
-      "gzipBytes": 621
+      "bytes": 2452,
+      "gzipBytes": 805
     },
     {
       "path": "public\\portraits\\c16.svg",
-      "bytes": 1000,
-      "gzipBytes": 443
+      "bytes": 1634,
+      "gzipBytes": 616
     },
     {
       "path": "public\\portraits\\c17.svg",
-      "bytes": 1533,
-      "gzipBytes": 630
+      "bytes": 2167,
+      "gzipBytes": 811
     },
     {
       "path": "public\\portraits\\c18.svg",
-      "bytes": 1919,
-      "gzipBytes": 646
+      "bytes": 2553,
+      "gzipBytes": 823
     },
     {
       "path": "public\\portraits\\c19.svg",
-      "bytes": 1312,
-      "gzipBytes": 542
+      "bytes": 1946,
+      "gzipBytes": 719
     },
     {
       "path": "public\\portraits\\c20.svg",
-      "bytes": 1312,
-      "gzipBytes": 541
+      "bytes": 1946,
+      "gzipBytes": 720
     },
     {
       "path": "public\\portraits\\c21.svg",
-      "bytes": 1029,
-      "gzipBytes": 470
+      "bytes": 1663,
+      "gzipBytes": 648
     },
     {
       "path": "public\\portraits\\c22.svg",
-      "bytes": 1674,
-      "gzipBytes": 566
+      "bytes": 2308,
+      "gzipBytes": 744
     },
     {
       "path": "public\\portraits\\c23.svg",
-      "bytes": 1971,
-      "gzipBytes": 646
+      "bytes": 2605,
+      "gzipBytes": 825
     },
     {
       "path": "public\\portraits\\c24.svg",
-      "bytes": 1106,
-      "gzipBytes": 507
+      "bytes": 1740,
+      "gzipBytes": 680
     },
     {
       "path": "public\\shared\\analytics.js",
