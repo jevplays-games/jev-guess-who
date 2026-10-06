@@ -53,12 +53,15 @@ function renderControls(){
   $('export-replay').disabled=!current||current.phase==='active';$('export-turns').disabled=!current?.history?.length;
   for(const card of $('board').querySelectorAll('button'))card.disabled=!humanTurn||!(current.possible.human&(1<<Number(card.dataset.index)));
 }
+let shownMask=null,shownMatch=null;
 function renderBoard(){
   const mask=current?.possible.human??FULL_MASK,showEliminated=$('show-eliminated').checked,textMode=$('text-mode').checked;
-  const board=$('board');board.replaceChildren();board.classList.toggle('text-mode',textMode);
+  const board=$('board');board.replaceChildren();
+  // Only cards eliminated since the last paint of this match flip; a re-render must not replay old flips.
+  const freshOut=shownMask!==null&&shownMatch===current?.matchId?shownMask&~mask:0;shownMask=mask;shownMatch=current?.id??null;board.classList.toggle('text-mode',textMode);
   ROSTER.forEach((c,index)=>{
     const remaining=!!(mask&(1<<index));if(!showEliminated&&!remaining)return;
-    const button=el('button',null,`character${remaining?'':' eliminated'}`);button.dataset.index=index;
+    const button=el('button',null,`character${remaining?'':' eliminated'}${freshOut&(1<<index)?' just-flipped':''}`);button.dataset.index=index;
     button.setAttribute('aria-label',`${describe(c)}. ${remaining?'Select to make a final guess.':'Eliminated.'}`);
     if(!textMode){const image=el('img');image.src=`/portraits/${c.id}.svg`;image.alt='';image.width=120;image.height=120;button.append(image);}
     button.append(el('span',c.name,'name'));
@@ -73,7 +76,9 @@ function render(){
   const practice=current.config.opponent==='local'||offline;
   const humanRemaining=count(current.possible.human);
   $('remaining').textContent=humanRemaining;$('remaining-count').textContent=humanRemaining;$('jev-remaining').textContent=count(current.possible.jev);$('jev-questions').textContent=current.questionsAsked.jev;
-  $('turn-status').textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):(current.outcome.winner==='human'?'You found the answer.':'Match complete.');
+  const over=current.phase!=='active',status=$('turn-status');
+  status.className=over?`jv-plaque ${current.outcome.winner==='human'?'is-win':'is-loss'}`:'';document.querySelector('.board-panel').dataset.turn=over?'over':current.turn;
+  status.textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):(current.outcome.winner==='human'?'You found the answer.':'Match complete.');
   $('eligibility').textContent=current.eligible?'Ranked · eligible':current.eligibilityReason?.startsWith('jev_fallback')?'Unranked · JEV fallback':practice?(offline?'Offline practice':'Practice · local heuristic'):'Casual · not ranked';
   const fallback=current.history.some(e=>e.decision?.source==='fallback');
   $('opponent-source').textContent=fallback?'Fallback heuristic':practice?'Local heuristic':'JEV';

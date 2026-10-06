@@ -6,8 +6,15 @@
   <title>Guess Who · JEV Arcade</title>
   <meta name="description" content="A game of questions, information and calculated risk. Play Guess Who against JEV, inspect decisions and analyze every match.">
   <link rel="preload" href="/brand/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content="website"><meta property="og:site_name" content="JevPlay Arcade"><meta property="og:title" content="Guess Who · JEV Arcade">
+  <meta property="og:description" content="Find the hidden character in fewer questions than JEV. Inspect structured decisions and analyze every match.">
+  <meta property="og:url" content="https://guess-who.jevplay.games/"><meta property="og:image" content="https://jevplay.games/brand/og/guess-who.png">
+  <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Guess Who on JevPlay Arcade: a standing flip card showing a silhouette head with an orange question mark.">
+  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://jevplay.games/brand/og/guess-who.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
   <link rel="icon" type="image/svg+xml" href="/brand/icon.svg">
-  <link rel="apple-touch-icon" href="/brand/icon.svg">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="preload" href="/art/card-back.svg" as="image" type="image/svg+xml"><link rel="preload" href="/art/down.svg" as="image" type="image/svg+xml">
   <link rel="stylesheet" href="/brand/brand.css">
   <link rel="stylesheet" href="/game.css"><script type="module" src="/brand/brand.js"></script><script type="module" src="/game.js"></script>
 </head>
@@ -16,7 +23,7 @@
 <div class="jv-app">
   <header class="jv-header">
     <a class="jv-brand" href="/" aria-label="JEV Arcade home">
-      <img class="jv-mark" src="/brand/mark.svg" alt="" width="28" height="28">
+      <img class="jv-mark" src="/brand/mark.svg" alt="" width="32" height="32">
       <span class="jv-wordmark">JEV ARCADE</span>
       <span class="jv-sep" aria-hidden="true"></span>
       <span class="jv-title">Guess Who</span>
@@ -30,10 +37,10 @@
   <main class="jv-main" id="main">
   <div class="title-row jv-hero"><div><p class="eyebrow">DEDUCTION LAB / 01</p><h1>Guess <span>Who.</span></h1><p class="subtitle">24 characters. One hidden identity. Make every question count.</p></div></div>
   <section class="toolbar" aria-label="Game settings">
-    <button id="new-game" class="primary">New game</button><label>Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>JEV</option></select></label><label>Match type<select id="mode"><option value="practice">Practice · local opponent</option><option value="casual">Casual · online JEV</option><option value="ranked">Ranked · Discord + JEV</option></select></label><span class="mode-badge" id="eligibility">Unranked practice</span>
+    <button id="new-game" class="primary">New game</button><label class="jv-pip-hide">Difficulty<select id="difficulty"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="jev" selected>JEV</option></select></label><label class="jv-pip-hide">Match type<select id="mode"><option value="practice">Practice · local opponent</option><option value="casual">Casual · online JEV</option><option value="ranked">Ranked · Discord + JEV</option></select></label><span class="mode-badge jv-pip-hide" id="eligibility">Unranked practice</span>
   </section>
   <p id="notice" class="notice" role="alert" hidden></p>
-  <div class="tabs" role="tablist" aria-label="Workspace">
+  <div class="tabs jv-pip-hide" role="tablist" aria-label="Workspace">
     <button id="tab-play" role="tab" aria-selected="true" aria-controls="panel-play">Play</button>
     <button id="tab-analytics" role="tab" aria-selected="false" aria-controls="panel-analytics">Analytics</button>
     <button id="tab-leaderboard" role="tab" aria-selected="false" aria-controls="panel-leaderboard">Leaderboards</button>
@@ -41,22 +48,22 @@
   <section id="panel-play" class="jv-first" role="tabpanel" aria-labelledby="tab-play">
     <div class="game-layout">
       <section class="board-panel jv-panel">
-        <div class="section-heading"><div><p class="eyebrow">YOUR DEDUCTION BOARD</p><h2 id="turn-status" aria-live="polite">Ready when you are</h2></div><span class="remaining"><strong id="remaining">24</strong> remaining</span></div>
-        <div class="board-options"><label><input type="checkbox" id="show-eliminated" checked> Show eliminated</label><label><input type="checkbox" id="text-mode"> Text cards</label></div>
-        <div id="board" class="board jv-fit" tabindex="-1" aria-label="Character candidates"></div>
-        <div class="action-bar"><label class="question-label">Ask a yes / no question<input id="question" type="text" list="question-options" autocomplete="off" spellcheck="false" disabled placeholder="e.g. does your character wear glasses?" aria-describedby="question-preview"><datalist id="question-options"></datalist></label><button id="ask" class="primary" disabled>Ask question</button></div>
-        <p id="question-preview" class="muted" role="status" aria-live="polite">Type a question in your own words. Each question takes one turn; select a character to make a final guess.</p>
-        <div id="question-suggestions" class="question-suggestions" hidden></div>
-        <div id="result" class="result" hidden></div>
+        <div class="section-heading"><div><p class="eyebrow jv-pip-hide">YOUR DEDUCTION BOARD</p><h2 id="turn-status" aria-live="polite">Ready when you are</h2></div><span class="remaining jv-pip-hide"><strong id="remaining">24</strong> remaining</span></div>
+        <div class="board-options jv-pip-hide"><label><input type="checkbox" id="show-eliminated" checked> Show eliminated</label><label><input type="checkbox" id="text-mode"> Text cards</label></div>
+        <div id="board" class="board jv-fit jv-tray" tabindex="-1" aria-label="Character candidates"></div>
+        <div class="action-bar jv-pip-hide"><label class="question-label">Ask a yes / no question<input id="question" type="text" list="question-options" autocomplete="off" spellcheck="false" disabled placeholder="e.g. does your character wear glasses?" aria-describedby="question-preview"><datalist id="question-options"></datalist></label><button id="ask" class="primary" disabled>Ask question</button></div>
+        <p id="question-preview" class="muted jv-pip-hide" role="status" aria-live="polite">Type a question in your own words. Each question takes one turn; select a character to make a final guess.</p>
+        <div id="question-suggestions" class="question-suggestions jv-pip-hide" hidden></div>
+        <div id="result" class="result jv-pip-hide" hidden></div>
       </section>
-      <aside class="sidebar">
+      <aside class="sidebar jv-pip-hide">
         <section class="jv-panel secret-panel"><p class="eyebrow">YOUR SECRET IDENTITY</p><div id="secret" class="secret-content"><span class="unknown">?</span><p>Start a game to receive your character.</p></div><p class="muted">The opponent must identify this character.</p></section>
         <section class="jv-panel opponent-panel"><div class="section-heading"><h2>Opponent</h2><span id="opponent-source" class="tag">Local heuristic</span></div><div class="stat-pair"><div><strong id="jev-remaining">24</strong><span>candidates left</span></div><div><strong id="jev-questions">0</strong><span>questions asked</span></div></div><p id="last-answer" class="muted">Questions and answers appear here.</p><details><summary>Opponent's deduction board</summary><div id="opponent-board" class="mini-board"></div></details></section>
         <section class="jv-panel analysis-panel"><div class="section-heading"><h2>Decision evidence</h2><label><input type="checkbox" id="analysis-toggle" checked><span class="sr-only">Show decision evidence</span></label></div><div id="decision-evidence"><p class="muted">After the opponent moves, inspect the action, candidate count, evidence and decision source.</p></div></section>
         <div class="side-actions"><button id="resume" class="quiet">Refresh / reconnect</button><button id="resign" class="danger" disabled>Resign</button></div>
       </aside>
     </div>
-    <section class="jv-panel history-panel"><div class="section-heading"><h2>Turn history</h2><div><button id="export-turns" class="quiet" disabled>Export turns CSV</button><button id="export-replay" class="quiet" disabled>Export replay JSON</button></div></div><div id="history" class="history"><p class="muted">Your first question starts the story.</p></div></section>
+    <section class="jv-panel history-panel jv-pip-hide"><div class="section-heading"><h2>Turn history</h2><div><button id="export-turns" class="quiet" disabled>Export turns CSV</button><button id="export-replay" class="quiet" disabled>Export replay JSON</button></div></div><div id="history" class="history"><p class="muted">Your first question starts the story.</p></div></section>
   </section>
   <section id="panel-analytics" role="tabpanel" aria-labelledby="tab-analytics" hidden>
     <section class="jv-panel"><div class="section-heading"><div><p class="eyebrow">MEASURE EVERY DECISION</p><h2>Match & player analytics</h2></div><div><button id="refresh-analytics" class="quiet">Refresh</button><button id="export-analytics" class="quiet">Export analytics JSON</button><button id="export-matches" class="quiet">Export matches CSV</button></div></div>
@@ -70,7 +77,7 @@
       <p class="muted">Uses the difficulty selected above. Minimum 20 verified games to qualify. Practice and fallback games never enter the rankings.</p><div id="leaderboard-content"></div><button id="leaderboard-more" class="quiet" hidden>Next page</button>
     </section>
   </section>
-  <footer><p>JEV decides. The engine enforces. Every result has a record.</p><p>Original character set. Independent project; not affiliated with Hasbro, Discord, or TypeSafe.</p></footer>
+  <footer class="jv-pip-hide"><p>JEV decides. The engine enforces. Every result has a record.</p><p>Original character set. Independent project; not affiliated with Hasbro, Discord, or TypeSafe.</p></footer>
   </main>
   <div class="jv-scrim" id="jv-scrim"></div>
   <div class="jv-sheet" id="jv-sheet" role="dialog" aria-modal="true" aria-label="Menu">
