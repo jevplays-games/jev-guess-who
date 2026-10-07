@@ -12,14 +12,18 @@ export function buildRequest(view,difficulty,model) {
 }
 export function validateResponse(data,candidates,model) {
   const answer=data?.answers?.action,keys=candidates.map(c=>c.id).sort();
-  const fail=()=>{throw Error('invalid_response');};
-  if(data?.model!==model||answer?.type!=='choice'||!answer.probabilities||typeof answer.probabilities!=='object')fail();
-  if(JSON.stringify(Object.keys(answer.probabilities).sort())!==JSON.stringify(keys))fail();
+  // The reason travels on the error as `detail` so a rejected reply is diagnosable from the recorded attempt.
+  const fail=detail=>{throw Object.assign(Error('invalid_response'),{detail});};
+  if(data?.model!==model||answer?.type!=='choice'||!answer.probabilities||typeof answer.probabilities!=='object')fail('shape_or_model');
+  if(JSON.stringify(Object.keys(answer.probabilities).sort())!==JSON.stringify(keys))fail('option_set');
   const probs=Object.values(answer.probabilities);
-  if(probs.some(p=>typeof p!=='number'||!Number.isFinite(p)||p<0||p>1)||Math.abs(probs.reduce((a,b)=>a+b,0)-1)>.001)fail();
-  if(!Number.isFinite(answer.confidence)||answer.confidence<0||answer.confidence>1)fail();
+  if(probs.some(p=>typeof p!=='number'||!Number.isFinite(p)||p<0||p>1))fail('probability_range');
+  // Up to 24 options, each typically reported to two or three decimals: rounding alone can move the sum by more than
+  // the old 0.001, which rejected honest replies and sent the turn to the fallback. 0.02 still catches a broken distribution.
+  if(Math.abs(probs.reduce((a,b)=>a+b,0)-1)>.02)fail('probability_sum');
+  if(!Number.isFinite(answer.confidence)||answer.confidence<0||answer.confidence>1)fail('confidence_range');
   const max=Math.max(...probs),tied=keys.filter(id=>answer.probabilities[id]===max);
-  if(!tied.includes(answer.choice))fail();
+  if(!tied.includes(answer.choice))fail('choice_not_max');
   return {selected:candidates.find(c=>c.id===tied[0]),probabilities:answer.probabilities,confidence:answer.confidence,
     usage:data.usage&&Number.isInteger(data.usage.input_tokens)&&data.usage.input_tokens>=0&&Number.isInteger(data.usage.output_tokens)&&data.usage.output_tokens>=0?data.usage:null};
 }
@@ -53,7 +57,7 @@ export async function chooseJevAction(view,config,env,{fetchImpl=fetch}={}) {
         confidence:checked.confidence,probabilities:checked.probabilities,latencyMs:performance.now()-started};
     }catch(error){
       reason=controller.signal.aborted?'timeout':['invalid_response','authentication_error','request_schema_error'].includes(error.message)||/^http_\d+$/.test(error.message)?error.message:'network_error';
-      base.attempts.push({attempt:attempt+1,status,latencyMs:performance.now()-start,error:reason,usage});
+      base.attempts.push({attempt:attempt+1,status,latencyMs:performance.now()-start,error:reason,detail:error.detail??null,usage});
       if(['authentication_error','request_schema_error'].includes(reason))break;
     }finally{clearTimeout(timer);}
     if(attempt===0){if(!Number.isFinite(retryDelay)||performance.now()+retryDelay>=deadline)break;await pause(retryDelay);}

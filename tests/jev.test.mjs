@@ -15,6 +15,13 @@ test('provider rejects invented actions, model mismatch, missing/invalid probabi
   const mutations=[r=>r.model='jev-other',r=>r.answers.action.choice='invented',r=>r.answers.action.confidence=2,r=>delete r.answers.action.probabilities[candidates[0].id],r=>r.answers.action.probabilities[candidates[0].id]=NaN,r=>r.answers.action.probabilities.extra=0];
   for(const mutate of mutations){const response=providerMock(payload);mutate(response);assert.throws(()=>validateResponse(response,candidates,'jev-1.13.0'),/invalid_response/);}
 });
+test('a distribution off by rounding is accepted, a broken one is rejected with a detail',()=>{
+  const {payload,candidates}=buildRequest(view,'normal','jev-1.13.0');
+  const ok=providerMock(payload);const ids=Object.keys(ok.answers.action.probabilities);ok.answers.action.probabilities[ids[ids.length-1]]+=0.012;
+  assert.ok(validateResponse(ok,candidates,'jev-1.13.0'));
+  const bad=providerMock(payload);bad.answers.action.probabilities[ids[ids.length-1]]+=0.3;
+  assert.throws(()=>validateResponse(bad,candidates,'jev-1.13.0'),e=>e.message==='invalid_response'&&e.detail==='probability_sum');
+});
 test('equal max-probability ties use stable action ID',()=>{
   const candidates=[{id:'b'},{id:'a'}];const r={model:'pin',answers:{action:{type:'choice',choice:'b',confidence:0,probabilities:{a:.5,b:.5}}}};
   assert.equal(validateResponse(r,candidates,'pin').selected.id,'a');

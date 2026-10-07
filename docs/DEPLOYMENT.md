@@ -42,7 +42,7 @@ Never place `.env`, `.dev.vars`, databases, credentials, or private logs inside 
 
 ## TypeSafe / JEV
 
-The adapter sends a bounded `Choice` request to `POST https://api.typesafe.ai/v1/systemone`, with Bearer authentication. It validates the returned model, answer type, exact option set, selected maximum-probability option, finite normalized probabilities, confidence range, and optional usage.
+The adapter sends a bounded `Choice` request to `POST https://api.typesafe.ai/v1/systemone`, with Bearer authentication. It validates the returned model, answer type, exact option set, selected maximum-probability option, finite probabilities that sum to 1 within 0.02 (rounding across up to 24 options), confidence range, and optional usage. A rejected reply is recorded as a failed attempt with a `detail` naming the check that failed.
 
 The provider receives public candidate masks, public question counts, legal candidate actions, computed features, and fixed instructions. It does not receive either secret, Discord identity, community metadata, random seed, or browser-supplied prose.
 
