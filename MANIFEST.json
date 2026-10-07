@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-guess-who",
-  "generatedAt": "2026-10-06T18:18:48.606812+00:00",
+  "generatedAt": "2026-10-07T07:22:37.832881+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -73,8 +73,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 12305,
-      "sha256": "36f1520c89b9361087f02eedd6636eea6d9f4527e276f01ee105e2828e937680"
+      "bytes": 12450,
+      "sha256": "699b78efe9307e1beb42f7bd247086a47dd291e4521df6183bb46a7a2c9b767b"
     },
     {
       "path": "docs/ENGINEERING.md",
@@ -513,8 +513,8 @@
     },
     {
       "path": "server/jev.js",
-      "bytes": 5643,
-      "sha256": "0834eea70fcd84ae8973c2dfdb6d7a635a8cffdd3184f036f51cbd0a92bfdd2f"
+      "bytes": 6162,
+      "sha256": "c4edd4a6b7283ef3399b6af086f9051a2ca01e726025580ca88657699ac59777"
     },
     {
       "path": "server/matches.js",
@@ -558,8 +558,8 @@
     },
     {
       "path": "tests/jev.test.mjs",
-      "bytes": 4316,
-      "sha256": "3eafbc37cca55b489363e545b03b23d0a25224c2a2a448f090ca51fdb90caa35"
+      "bytes": 4917,
+      "sha256": "f3519a42ba55b31ca39e23cf7224974595a4764aaa0fc407fae1ce9f9a9b7738"
     },
     {
       "path": "tests/operations.test.mjs",
