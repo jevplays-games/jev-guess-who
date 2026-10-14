@@ -8,7 +8,12 @@ export async function handle(request,env) {
   const store=new Store(env.DB);
   try {
     // Platform health checks arrive with the platform's own Host; only GET /api/health (static, no data) is exempt.
-    if(path==='/api/health'&&request.method==='GET')return json({ok:true,game:'guess-who',version:'1.0.0'});
+    if(path==='/api/health'&&request.method==='GET')return json({ok:true,game:'noul-who',version:'1.0.0'});
+    // The pre-rename host keeps working under its own origin until cutover ('serve'), then forwards to ORIGIN ('redirect').
+    if(env.LEGACY_ORIGIN&&url.origin===env.LEGACY_ORIGIN) {
+      if(env.LEGACY_ORIGIN_MODE==='redirect')return new Response(null,{status:['GET','HEAD'].includes(request.method)?301:308,headers:safeHeaders({Location:env.ORIGIN+path+url.search})});
+      env={...env,ORIGIN:env.LEGACY_ORIGIN};
+    }
     // The static home document has no session, secret or Host-derived content; platform probes load it with their own Host.
     const staticHome=['GET','HEAD'].includes(request.method)&&(path==='/'||path==='/index.html');
     assert(staticHome||(env.ORIGIN&&url.origin===env.ORIGIN),403,'host_rejected');

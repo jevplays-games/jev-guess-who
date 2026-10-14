@@ -2,9 +2,9 @@
 
 ## User-provided basis
 
-`source/original-requirements.md` is the uploaded **JEV Single-Page Game — Architecture & Implementation Planning Prompt**. It supplies the vanilla single-page philosophy, structured legal-action JEV boundary, Discord identity/community scopes, backend trust model, verified rankings, replay/testing requirements, and required A–Z organization.
+`source/original-requirements.md` is the uploaded **JEV Single-Page Game — Architecture & Implementation Planning Prompt**. It supplies the vanilla single-page philosophy, structured legal-action Jev boundary, Discord identity/community scopes, backend trust model, verified rankings, replay/testing requirements, and required A–Z organization.
 
-The prior Guess Who design in the conversation supplies the selected 24-character rules, separate question/final-guess turns, independent secrets, 12 predicates, four difficulties, server projections, Wilson ranking, and minimal deployment direction.
+The prior design of this game in the conversation supplies the selected 24-character rules, separate question/final-guess turns, independent secrets, 12 predicates, four difficulties, server projections, Wilson ranking, and minimal deployment direction.
 
 The request to “have exhaustive analytics, create this and zip it up” authorizes the implementation and analytics additions. Additions and unimplemented release responsibilities are called out in the engineering, analytics and security documents rather than silently attributed to the original prompt.
 

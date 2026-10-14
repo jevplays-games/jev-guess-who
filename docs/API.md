@@ -22,7 +22,7 @@ Every browser POST requires the correct `Origin`, `Content-Type: application/jso
 | POST `/api/games` | `{gameId,difficulty,mode,requestId}` | Authoritative creation; 201 snapshot |
 | GET `/api/games/:id` | Owner session | Secret-safe state snapshot; expiration checked |
 | POST `/api/games/:id/actions` | `{actionId,expectedRevision,action}` | One authoritative human action; safe duplicate-key retries |
-| POST `/api/games/:id/advance` | `{}` | One leased JEV/local turn, or 202 pending; no client-selected opponent action |
+| POST `/api/games/:id/advance` | `{}` | One leased Jev/local turn, or 202 pending; no client-selected opponent action |
 | GET `/api/games/:id/replay` | Owner; terminal match | Complete private replay export; never while active |
 | GET `/api/analytics` | Session; optional difficulty/mode/starter/from | Owner-only bounded history and aggregate analytics |
 | GET `/api/leaderboard` | Session; scope/period/difficulty/cursor | World or verified community cohort; up to 50 entries |
@@ -32,10 +32,10 @@ There is intentionally **no client score-submission endpoint**, arbitrary SQL en
 ## Create
 
 ```json
-{"gameId":"guess-who","difficulty":"normal","mode":"practice","requestId":"b71ab189-40f4-4ae1-aa46-426936b42940"}
+{"gameId":"noul-who","difficulty":"normal","mode":"practice","requestId":"b71ab189-40f4-4ae1-aa46-426936b42940"}
 ```
 
-Mode is `practice`, `casual` or `ranked`. Ranked creation requires a Discord identity, a configured JEV key and a pinned versioned model. Difficulty is `easy`, `normal`, `hard` or `jev`. A request ID must be 8–80 ASCII alphanumeric/hyphen/underscore characters. Reuse with different mode/difficulty is rejected.
+Mode is `practice`, `casual` or `ranked`. Ranked creation requires a Discord identity, a configured Jev key and a pinned versioned model. Difficulty is `easy`, `normal`, `hard` or `jev`. A request ID must be 8–80 ASCII alphanumeric/hyphen/underscore characters. Reuse with different mode/difficulty is rejected.
 
 ## Human action
 

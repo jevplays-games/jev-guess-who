@@ -1,4 +1,4 @@
-import {createInitialState,applyAction,projectForHuman,projectForDecision,replay,expire,actionId,getLegalActions,RULES_VERSION} from '../public/shared/rules.js';
+import {createInitialState,applyAction,projectForHuman,projectForDecision,replay,expire,actionId,getLegalActions,RULES_VERSION,GAME_IDS} from '../public/shared/rules.js';
 import {ROSTER_VERSION} from '../public/shared/roster.js';
 import {DIFFICULTIES,localDecision,POLICY_VERSION} from '../public/shared/strategy.js';
 import {analyzeAction,analyzeMatch,aggregateAnalytics,wilson} from '../public/shared/analytics.js';
@@ -25,7 +25,7 @@ export async function ownedMatch(store,id,session,env) {
   return loaded;
 }
 export async function createMatch(store,session,input,env) {
-  assert(input.gameId==='guess-who',400,'unknown_game');
+  assert(GAME_IDS.includes(input.gameId),400,'unknown_game'); // 'guess-who' alias kept for old clients
   assert(DIFFICULTIES.includes(input.difficulty),400,'invalid_difficulty');
   assert(['practice','casual','ranked'].includes(input.mode),400,'invalid_mode');
   assert(typeof input.requestId==='string'&&/^[a-zA-Z0-9_-]{8,80}$/.test(input.requestId),400,'invalid_request_id');
@@ -63,7 +63,8 @@ export async function verifyMatch(match) {
   const derived=await initializeFromSeed(match.seed,match.state.matchId,match.config);
   assert(derived.commitment===match.commitment&&canonical(derived.initial)===canonical(match.initial),422,'commitment_mismatch');
   assert(match.leagueId===await leagueFor(match.config),422,'league_mismatch');
-  let priorState=createInitialState(match.initial),priorTimestamp=match.createdAt;
+  const gameId=match.state?.gameId;assert(GAME_IDS.includes(gameId),422,'unknown_game'); // replays exported before the rename say 'guess-who'
+  let priorState=createInitialState(match.initial,gameId),priorTimestamp=match.createdAt;
   for(const event of match.events) {
     assert(Number.isFinite(event.timestamp)&&event.timestamp>=priorTimestamp,422,'event_timestamp_invalid');
     if(event.actor==='jev'&&['jev','forced_rule'].includes(event.decision?.source)) {
@@ -81,7 +82,7 @@ export async function verifyMatch(match) {
     assert(canonical(checkedEvent.metrics)===canonical(event.metrics),422,'analytics_mismatch');
     priorState=step.state;priorTimestamp=event.timestamp;
   }
-  const state=replay(match.initial,match.events);
+  const state=replay(match.initial,match.events,gameId);
   assert(canonical(state)===canonical(match.state),422,'replay_state_mismatch');
   if(match.eligible) {
     assert(match.mode==='ranked'&&match.config.opponent==='jev',422,'eligibility_mismatch');

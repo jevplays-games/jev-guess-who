@@ -1,4 +1,5 @@
 import {assert,randomHex,sha256,sign,unsign,cookieHeader,verifyDiscordSignature,boundedText,json} from './security.js';
+import {GAME_ID,GAME_IDS} from '../public/shared/rules.js';
 const SNOWFLAKE=/^\d{16,22}$/;
 export async function readSession(store,request,env,{create=false}={}) {
   // Inside a Discord Activity the browser will not send our SameSite cookie, so the game holds a bearer token in memory instead.
@@ -73,22 +74,22 @@ export async function interaction(store,request,env) {
   const guildId=input.guild_id,channelId=input.channel_id,subject=input.member?.user?.id;
   assert(SNOWFLAKE.test(guildId)&&SNOWFLAKE.test(channelId)&&SNOWFLAKE.test(subject),403,'guild_context_required');
   assert(input.authorizing_integration_owners?.['0']===guildId,403,'guild_installation_required');
-  assert(!input.data.options?.some(o=>o.name!=='game'||o.value!=='guess-who'),400,'unknown_game');
+  assert(!input.data.options?.some(o=>o.name!=='game'||!GAME_IDS.includes(o.value)),400,'unknown_game'); // 'guess-who' until /play-jev is re-registered
   const existing=await store.one('SELECT payload_json,expires_at FROM grants WHERE source_id=? AND kind=\'launch\'',input.id);
   let token;
   if(existing&&existing.expires_at>Date.now())token=await sign(JSON.parse(existing.payload_json),env.LAUNCH_SIGNING_KEY);
   else {
-    const now=Date.now(),payload={version:1,kind:'launch',subject,guildId,channelId,gameId:'guess-who',interactionId:input.id,issuedAt:now,expiresAt:now+300000,nonce:randomHex(16)};
+    const now=Date.now(),payload={version:1,kind:'launch',subject,guildId,channelId,gameId:GAME_ID,interactionId:input.id,issuedAt:now,expiresAt:now+300000,nonce:randomHex(16)};
     token=await sign(payload,env.LAUNCH_SIGNING_KEY);
     await store.run('INSERT INTO grants(token_hash,kind,source_id,payload_json,expires_at) VALUES(?,?,?,?,?)',await sha256(token),'launch',input.id,JSON.stringify(payload),payload.expiresAt);
   }
   // Fragment token avoids normal URL query logging; it is stripped immediately by the client.
   const url=`${env.ORIGIN}/#launch=${encodeURIComponent(token)}`;
-  return json({type:4,data:{content:'Play Guess Who against JEV. Sign in with the Discord account that invoked this command.',flags:64,components:[{type:1,components:[{type:2,style:5,label:'Play Guess Who',url}]}]}});
+  return json({type:4,data:{content:'Play Noul Who against Jev. Sign in with the Discord account that invoked this command.',flags:64,components:[{type:1,components:[{type:2,style:5,label:'Play Noul Who',url}]}]}});
 }
 export async function redeemContext(store,session,token,env) {
   assert(session.user_id,401,'discord_required');const payload=await unsign(token,env.LAUNCH_SIGNING_KEY);
-  assert(payload.kind==='launch'&&payload.version===1&&payload.subject===session.user_id&&payload.gameId==='guess-who',403,'launch_subject_rejected');
+  assert(payload.kind==='launch'&&payload.version===1&&payload.subject===session.user_id&&GAME_IDS.includes(payload.gameId),403,'launch_subject_rejected'); // launch tokens issued before the rename say 'guess-who' (5-minute life)
   assert(SNOWFLAKE.test(payload.guildId)&&SNOWFLAKE.test(payload.channelId)&&payload.expiresAt-payload.issuedAt<=300000,403,'invalid_launch_context');
   const hash=await sha256(token),now=Date.now(),consumeMarker=randomHex(16);
   const grant=await store.one("SELECT * FROM grants WHERE token_hash=? AND kind='launch'",hash);

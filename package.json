@@ -1,9 +1,10 @@
 {
-  "name": "jev-guess-who",
+  "name": "jev-noul-who",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Server-authoritative Guess Who with JEV, Discord, replay verification and detailed analytics",
+  "description": "Server-authoritative Noul Who, a yes/no deduction duel against Jev, with Discord, replay verification and detailed analytics",
+  "license": "MIT",
   "engines": {
     "node": ">=22.13.0"
   },

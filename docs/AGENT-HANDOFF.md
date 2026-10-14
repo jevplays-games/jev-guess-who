@@ -21,7 +21,7 @@ Open localhost:8787 and play Practice. For full browser HTTP testing in a normal
 2. The deterministic rules engine remains DOM/network/storage/clock independent. Replays reconstruct the same state.
 3. The browser cannot submit an outcome or official score. Ranked results require server verification and exactly-once guarded SQL insertion.
 4. Discord OAuth identity does not prove arbitrary channel context. Keep signature validation, subject binding, state/nonce consumption and context expiration.
-5. Missing provider data is null/unknown, not zero. Confidence is not win probability; local/fallback are never labeled actual JEV.
+5. Missing provider data is null/unknown, not zero. Confidence is not win probability; local/fallback are never labeled actual Jev.
 6. Preserve cohort/version separation, history caps, retention labels and explicit cost coverage. Do not merge measurements across incompatible opponent revisions.
 7. Do not add client secrets, credentials, local database files or personal data to the archive or Git.
 
@@ -35,7 +35,7 @@ For every metric: define the denominator, unit, measurement boundary, source, nu
 
 ## Benchmark protocol
 
-The default 5,760-match suite uses no inference calls. Live requests require `--live --confirm-paid` plus the operator's key. Start with `--limit=24`, inspect reliability and usage, and only then increase coverage. Distinguish all 1,152 starting positions from every possible strategy. Exclude fallback games from strict JEV results, but include failed attempts in cost/reliability diagnostics.
+The default 5,760-match suite uses no inference calls. Live requests require `--live --confirm-paid` plus the operator's key. Start with `--limit=24`, inspect reliability and usage, and only then increase coverage. Distinguish all 1,152 starting positions from every possible strategy. Exclude fallback games from strict Jev results, but include failed attempts in cost/reliability diagnostics.
 
 ## Version and compatibility protocol
 

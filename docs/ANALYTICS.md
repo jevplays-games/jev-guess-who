@@ -10,7 +10,7 @@ There are four distinct populations. Keep them separate in any claim about stren
 |---|---|---|
 | Server gameplay | Authoritative state transitions and accepted decisions | Trusted state; ranked only when eligibility remains true |
 | Browser-only practice | Local rules engine and browser storage | Untrusted, unranked, device-local |
-| Scripted benchmarks | Enumerated scenarios and controlled policies | Synthetic tests, not real users or live JEV |
+| Scripted benchmarks | Enumerated scenarios and controlled policies | Synthetic tests, not real users or live Jev |
 | Operational telemetry | Server-generated allowlisted events | Operational evidence with retention and write-failure limitations |
 
 The player dashboard provides descriptive all-cohort totals and separate difficulty, starter, source, mode, league, and daily cohorts. The official leaderboard never combines different leagues. Do not compare a mixed-cohort top-line win rate as if it measured one opponent.
@@ -19,7 +19,7 @@ The player dashboard provides descriptive all-cohort totals and separate difficu
 
 `analyzeAction()` derives per-turn facts from public masks before and after an accepted transition. `analyzeMatch()` derives match-level metrics. `aggregateAnalytics()` derives player/cohort summaries. `aggregateOperations()` derives operational activity and reliability.
 
-Analytics never asks JEV to count characters or calculate metrics. The values are computed in JavaScript. Search estimates and returned provider distributions are explicitly marked as different evidence classes.
+Analytics never asks Jev to count characters or calculate metrics. The values are computed in JavaScript. Search estimates and returned provider distributions are explicitly marked as different evidence classes.
 
 A completed replay can recompute the game and per-action analytical facts. A live player projection contains no opponent secret, secret seed, raw authorization token, or private initialization object.
 
@@ -39,11 +39,11 @@ Times are milliseconds. Provider timing uses a monotonic process clock. Persiste
 |---|---|
 | `matchId` | Server-issued or locally generated identifier, not a Discord identity |
 | `createdAt`, `finishedAt` | Authoritative creation/terminal timestamps; unfinished completion is null |
-| `difficulty` | Easy / Normal / Hard / JEV configuration fixed at creation |
+| `difficulty` | Easy / Normal / Hard / Jev configuration fixed at creation |
 | `leagueId` | Fingerprint of competitive rules, roster, model, prompt, policy, randomness format, and opponent mode |
 | `starter` | First actor selected at initialization |
 | `mode` | Practice, casual, ranked, or synthetic benchmark |
-| `source` | JEV, fallback, or local heuristic, with fallback taking precedence at match level |
+| `source` | Jev, fallback, or local heuristic, with fallback taking precedence at match level |
 | `phase` | Active or finished in normal operation |
 | `winner`, `reason` | Native game outcome and terminal reason; absent while active |
 | `eligible` | Whether the match still qualifies for official results; not a synonym for “human won” |
@@ -101,11 +101,11 @@ Let n be candidates before the question, y the yes branch, z=n−y, and r the ob
 
 Question efficiency is evaluated using the pre-action public mask. It does not peek at the actual secret to determine which question should have been selected.
 
-## 7. JEV decision evidence
+## 7. Jev decision evidence
 
 A decision records selected action, source, pinned model, prompt/policy versions, input hash, candidate count, candidate evidence, optional search metadata, request size, feature-build time, attempts, distribution, confidence, and elapsed decision time.
 
-`candidateEvidence` includes every candidate admitted by that difficulty, not just the winner. Hard/JEV candidates carry bounded-search estimates. Equivalent partitions may be canonicalized. Easy limits the question set. The raw legal surface never exceeds 36 actions.
+`candidateEvidence` includes every candidate admitted by that difficulty, not just the winner. Hard/Jev candidates carry bounded-search estimates. Equivalent partitions may be canonicalized. Easy limits the question set. The raw legal surface never exceeds 36 actions.
 
 The input hash is over the canonical redacted request payload. It commits to the public evidence sent for that decision, not the secret identity. Raw provider credentials and authorization headers are never recorded.
 
@@ -113,10 +113,10 @@ The input hash is over the canonical redacted request payload. It commits to the
 
 - `jev`: validated provider Choice.
 - `forced_rule`: only one admitted action exists; no provider request is made.
-- `fallback`: failed/unconfigured JEV path followed by deterministic fallback.
+- `fallback`: failed/unconfigured Jev path followed by deterministic fallback.
 - `local_heuristic`: explicitly selected local practice/synthetic policy.
 
-A forced action is not counted as a successful provider call. A fallback is not credited to JEV strength.
+A forced action is not counted as a successful provider call. A fallback is not credited to Jev strength.
 
 ## 8. Model-distribution metrics
 
@@ -140,7 +140,7 @@ Do not calibrate selection confidence against match wins as though confidence pr
 
 | Metric | Meaning |
 |---|---|
-| `decisions` | Accepted source=JEV decisions |
+| `decisions` | Accepted source=Jev decisions |
 | `forcedDecisions`, `fallbackDecisions` | Counted separately |
 | `attempts` | Provider attempts attached to accepted decisions |
 | `retries` | Sum of max(attempt count−1,0) per decision |
@@ -148,7 +148,7 @@ Do not calibrate selection confidence against match wins as though confidence pr
 | `invalidAttempts` | Failed strict-schema/selection validations |
 | `timeoutAttempts` | Aborted requests that exhausted the deadline |
 | `errorReasons` | Separate error-category counts, including HTTP categories |
-| `latencyMs` | Successful JEV decision end-to-end timing, including feature build/retry overhead |
+| `latencyMs` | Successful Jev decision end-to-end timing, including feature build/retry overhead |
 | `attemptLatencyMs` | Individual provider request/response attempt timing |
 | `buildMs` | Local candidate/evidence construction timing |
 | `requestBytes` | UTF-8 request JSON byte length; not token count |
@@ -164,7 +164,7 @@ Player/match cost fields cover **recorded accepted-decision attempts**, not a co
 
 ## 10. Player/cohort analytics
 
-For each cohort, the report includes starts, finishes, active games, human wins/losses, human win rate and Wilson interval, mean human and JEV questions, eligible games, resignations, and expirations.
+For each cohort, the report includes starts, finishes, active games, human wins/losses, human win rate and Wilson interval, mean human and Jev questions, eligible games, resignations, and expirations.
 
 Cohorts include difficulty, starting player, difficulty×starter, opponent source, match mode, league fingerprint, and UTC creation day. Daily results group by creation day, so a game finishing after midnight remains in its creation cohort.
 
@@ -200,13 +200,13 @@ Exports include JSON summaries, match CSV, per-turn CSV, completed owner replay 
 
 No third-party analytics SDK, cookie-advertising pixel, browser fingerprint, microphone/camera capture, or precise-location telemetry is included. No free-text chat enters the provider state.
 
-Live secrets remain on the authoritative server. Telemetry does not include live secrets, seeds, user names, Discord IDs, OAuth tokens, IP addresses, launch tokens, or JEV credentials. Actor keys are salted hashes. Changing the operational hashing secret breaks identity continuity and therefore affects retention calculations.
+Live secrets remain on the authoritative server. Telemetry does not include live secrets, seeds, user names, Discord IDs, OAuth tokens, IP addresses, launch tokens, or Jev credentials. Actor keys are salted hashes. Changing the operational hashing secret breaks identity continuity and therefore affects retention calculations.
 
 The server still stores the minimum Discord identity needed for account ownership and leaderboard names. This is separate from telemetry. Display names are inserted as text, not HTML. Channel/server rows require fresh verified community context.
 
 ## 14. What is not measured or claimed
 
-The implementation does not measure clinical attention, intelligence, human skill as a latent trait, unique real humans, external solver assistance, continuous guild membership, actual provider-bill reconciliation, causal feature impact, or live JEV strength without an explicitly run live benchmark.
+The implementation does not measure clinical attention, intelligence, human skill as a latent trait, unique real humans, external solver assistance, continuous guild membership, actual provider-bill reconciliation, causal feature impact, or live Jev strength without an explicitly run live benchmark.
 
 There is no browser dwell-time tracker, keystroke recorder, hidden user profiling, production administrative web console, automatic statistical experiment assignment, or claim that every possible analytic question has been anticipated. The included catalog documents the implemented metric families, statistic paths, formulas and interpretation boundaries; it is not a claim that every possible analytical question is covered.
 

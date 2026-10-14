@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "analyticsVersion": "analytics-1",
-  "generatedFor": "Guess Who Human vs JEV source package",
+  "generatedFor": "Noul Who Human vs Jev source package",
   "entryCount": 324,
   "pathNotation": "Curly braces indicate alternatives/dynamic cohort keys; [] indicates array elements. Distribution statistics are separately documented paths, not independent metric families.",
   "globalRules": [
     "Missing measurements remain null or absent; an unknown bill is not zero.",
     "Filter mode/source/league before making comparisons.",
     "Player analytics covers at most500 retained games; operations exports carry separate limits.",
-    "Default benchmarks use local policies and are not live JEV evidence.",
+    "Default benchmarks use local policies and are not live Jev evidence.",
     "All interpretations and caveats in ANALYTICS.md apply."
   ],
   "metrics": [
@@ -1463,7 +1463,7 @@
     {
       "path": "match.winner",
       "unit": "enum",
-      "definition": "Human or JEV when terminal.",
+      "definition": "Human or Jev when terminal.",
       "source": "public/shared/analytics.js",
       "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
       "aggregation": "See definition and cohort selection"
@@ -1559,7 +1559,7 @@
     {
       "path": "aggregate.{overall|cohort}.averageJevQuestions",
       "unit": "questions",
-      "definition": "Mean JEV questions among finished selected matches.",
+      "definition": "Mean Jev questions among finished selected matches.",
       "source": "public/shared/analytics.js",
       "missing": "null when unavailable or inapplicable; counts use 0 when an observed collection is empty",
       "aggregation": "See definition and cohort selection"

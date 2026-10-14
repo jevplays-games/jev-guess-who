@@ -1,4 +1,11 @@
 import {DatabaseSync} from 'node:sqlite';
+import {existsSync} from 'node:fs';
+import path from 'node:path';
+/** Default local database. Checkouts made before the Noul Who rename keep using their existing file. */
+export function defaultDatabasePath(root=process.cwd()) {
+  const current=path.resolve(root,'data/noul-who.sqlite'),legacy=path.resolve(root,'data/guess-who.sqlite');
+  return !existsSync(current)&&existsSync(legacy)?legacy:current;
+}
 /** Implements the small D1 subset consumed by Store, including atomic batch. */
 export function openDatabase(path=':memory:') {
   const sqlite=new DatabaseSync(path);sqlite.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL;');

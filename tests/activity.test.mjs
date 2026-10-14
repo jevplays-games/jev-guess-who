@@ -39,7 +39,7 @@ test('an SDK code becomes a bearer session: exchanged without a redirect uri, to
 test('the bearer session works for reads and for mutations from the activity origin',async t=>{
   const {env}=await fixture(t),s=await login(env),auth={Authorization:`Bearer ${s.token}`};
   const me=await (await get(env,'/api/me',auth)).json();assert.equal(me.user.name,'Player One');assert.equal(me.csrf,s.csrf);
-  const created=await post(env,'/api/games',{headers:{...auth,'X-CSRF-Token':s.csrf},body:{requestId:crypto.randomUUID(),gameId:'guess-who',mode:'practice',difficulty:'normal'}});
+  const created=await post(env,'/api/games',{headers:{...auth,'X-CSRF-Token':s.csrf},body:{requestId:crypto.randomUUID(),gameId:'noul-who',mode:'practice',difficulty:'normal'}});
   assert.equal(created.status,201);const match=await created.json();
   assert.equal((await get(env,`/api/games/${match.matchId}`,auth)).status,200);
   assert.equal((await post(env,'/api/logout',{headers:{...auth,'X-CSRF-Token':s.csrf}})).status,200);

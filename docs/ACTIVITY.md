@@ -16,7 +16,7 @@ New endpoints: `GET /api/activity/config` (public client id) and `POST /api/acti
 In the Discord Developer Portal for this application:
 
 - Enable **Activities**.
-- Under Activities > URL Mappings set the root mapping: prefix `/` -> `guess-who.jevplay.games` (the value of `ORIGIN`, without scheme).
+- Under Activities > URL Mappings set the root mapping: prefix `/` -> `noul-who.jevplay.games` (the value of `ORIGIN`, without scheme).
 - Make sure the OAuth2 scope `identify` is allowed. No redirect URI is needed for the SDK exchange.
 
 ## Entry Point command

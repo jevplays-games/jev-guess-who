@@ -69,3 +69,7 @@ npm run test:browser
 ```
 
 Live inference is separately opt-in and can incur provider charges; use the explicit flags and credentials described in the README. Never count a local or fallback match as an actual JEV benchmark.
+
+## Re-validation after the jevplay.games rename (2026-10-14)
+
+Runtime: Node v24.15.0. Regenerated `unit-tests.tap` (**84 passed; 0 failed**), `static-check.log` / `static-checks.json` (public assets **134,915 of 150,000** bytes gzip, including the self-hosted VT323 and a subset Inter; JavaScript 27,023 of 60,000) and `replay-verification.log` (`sample-replay.json` is kept as a pre-rename fixture with `gameId` `guess-who` and still verifies). The table above and the browser, benchmark and operator-export evidence are from the earlier build and were not re-run. `tests/browser.py` fails the same way on unmodified main in both modes (real HTTP: the board assertion; inline fixture: a 30 s wait timeout), so `browser-results.json` and the PNGs here are the earlier build's.
