@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/banner.jpg" alt="Pixel-art robot Jev facing a board of cartoon faces with flip-down panels in a neon cyan and magenta arcade" width="100%"></p>
+<p align="center"><img src="assets/banner.png" alt="Pink pixel-art banner for Noul Who: the Jev robot peers over a flat grid of 24 pixel portraits, most crossed out, beside a NOUL window asking whether the hair is red" width="100%"></p>
 
 <div align="center">
 
@@ -7,7 +7,7 @@
 **Find the hidden character in fewer yes/no questions than Jev, then read the evidence behind every one of its decisions.**
 
 ![Play: noul-who.jevplay.games](https://img.shields.io/badge/Play-noul--who.jevplay.games-F386A1?style=flat-square&labelColor=1E1E1E)
-![Status: live](https://img.shields.io/badge/Status-live-E551BA?style=flat-square&labelColor=1E1E1E)
+![Status: pre-cutover](https://img.shields.io/badge/Status-pre--cutover-E551BA?style=flat-square&labelColor=1E1E1E)
 ![Node: 22.13+](https://img.shields.io/badge/Node-22.13%2B-F386A1?style=flat-square&labelColor=1E1E1E)
 ![License: MIT](https://img.shields.io/badge/License-MIT-DEDEDE?style=flat-square&labelColor=1E1E1E)
 
@@ -17,7 +17,7 @@
 
 ---
 
-Noul Who is a yes/no deduction duel. You and Jev each hold a secret character from the same 24 original portraits; every turn is one yes/no question or one final guess, and the first correct guess wins. The name comes from Noul, one of Jev's three decision types. The server owns the secrets and the rules, and every match keeps a verifiable replay with per-turn analytics. It is part of [jevplay.games](https://jevplay.games).
+Noul Who is a yes/no deduction duel. You and Jev each hold a secret character from the same 24 original portraits; every turn is one yes/no question or one final guess, and the first correct guess wins. The name comes from Noul, one of Jev's three decision types. The server owns the secrets and the rules, and every match keeps a verifiable replay with per-turn analytics. It is part of [jevplay.games](https://jevplay.games). `noul-who.jevplay.games` goes live at the hostname cutover; until then the game is served from its previous hostname.
 
 > [!NOTE]
 > **What is measured and what is not.** Local practice runs without credentials and is labeled as a deterministic local heuristic, not Jev. The tests use mocked TypeSafe and Discord services, and the bundled benchmark plays scripted local policies: it is not evidence of live Jev strength. “Exhaustive initial-position coverage” means every secret pair and starter under the tested policies, not every strategy, browser or attack. Selection confidence is not a win probability. See [Important interpretation boundaries](#important-interpretation-boundaries).
@@ -148,7 +148,7 @@ npm run test:browser
 ## Repository layout
 
 ```text
-public/                    page, styling, authored portraits, shared rules/strategy/analytics
+public/                    page, styling, pixel-art portraits, shared rules/strategy/analytics
   brand/                   shared jevplay.games shell (brand.css, fonts, icons)
   shared/                  deterministic engine used by browser and server
 server/                    trusted API, persistence, OAuth/context, Jev adapter, replay validation
@@ -158,6 +158,8 @@ tests/                     rules, strategy, analytics, security, provider, API, 
 benchmarks/                reproducible scripted and opt-in live experiments
 docs/                      A–Z engineering reference, analytics, API, deployment, security, agent handoff
 reports/                   actual test logs, benchmark data, validation notes, sample replay, screenshots
+assets/                    README banner and GitHub social preview (sources in assets/src/)
+dist-hub/                  noul-who.png og card and alt text, copied by hand to the hub's /brand/og/
 source/original-requirements.md   supplied requirements, retained separately from authored code
 ```
 

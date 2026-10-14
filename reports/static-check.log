@@ -3,9 +3,9 @@
 > node scripts/check.mjs
 
 {
-  "syntaxModules": 36,
+  "syntaxModules": 37,
   "rosterValid": true,
-  "publicGzipBytes": 135041,
+  "publicGzipBytes": 124339,
   "publicJavaScriptGzipBytes": 27023,
   "budgets": {
     "javaScript": 60000,

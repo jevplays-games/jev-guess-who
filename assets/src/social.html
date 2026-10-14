@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noul Who — jevplay.games</title>
+<style>
+@font-face{font-family:Inter;src:url('../../public/brand/inter-var.woff2') format('woff2');font-weight:100 900;font-display:block}
+@font-face{font-family:VT323;src:url('../../public/brand/vt323.woff2') format('woff2');font-weight:400;font-display:block}
+:root{--pink:#F386A1;--ink:#1E1E1E;--grey:#DEDEDE;--paper:#FEFEFE}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{color:var(--ink);background:var(--pink);font:26px VT323,'JetBrains Mono',Consolas,monospace}.card{position:relative;width:100vw;height:100vh;isolation:isolate}.texture{position:absolute;inset:0;z-index:-2;width:100%;height:100%}.frame{position:absolute;inset:22px;border:1px solid var(--ink);pointer-events:none}.crop{position:absolute;width:15px;height:15px;border-color:var(--ink);border-style:solid}.tl{top:9px;left:9px;border-width:1px 0 0 1px}.tr{top:9px;right:9px;border-width:1px 1px 0 0}.bl{bottom:9px;left:9px;border-width:0 0 1px 1px}.br{bottom:9px;right:9px;border-width:0 1px 1px 0}.tag{position:absolute;left:52px;top:49px;background:var(--ink);color:var(--pink);border:2px dotted var(--pink);outline:1px solid var(--ink);padding:6px 13px;font-size:25px;letter-spacing:1px}.copy{position:absolute;left:52px;top:168px;width:610px}h1{font-family:Inter,sans-serif;font-size:120px;font-weight:700;letter-spacing:-.065em;line-height:1.04;margin:0 0 23px;white-space:nowrap}.subtitle{display:inline-block;background:var(--ink);color:var(--paper);font-size:30px;line-height:1.08;margin:0;padding:12px 16px 14px}.chips{display:flex;gap:10px;margin-top:28px}.chip{background:var(--grey);border:1px solid var(--ink);box-shadow:2px 2px 0 var(--ink);padding:4px 11px;font-size:25px}.url{position:absolute;left:52px;bottom:51px;font-size:28px}.domain{position:absolute;right:51px;bottom:51px;font-size:25px}.window{position:absolute;background:var(--grey);border:1px solid var(--ink);box-shadow:inset 0 0 0 2px var(--paper),3px 3px 0 var(--ink)}.bar{height:33px;background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;align-items:center;padding:0 11px;font-size:24px;letter-spacing:1px}.controls{letter-spacing:5px}.suspects{right:51px;top:110px;width:440px;height:329px}.grid{display:grid;grid-template-columns:repeat(4,81px);justify-content:center;gap:8px;padding:13px}.portrait{position:relative;height:81px;background:var(--paper);border:1px solid var(--ink);overflow:hidden}.portrait img{display:block;width:100%;height:100%;image-rendering:pixelated}.portrait.lumi{outline:2px solid #F386A1;outline-offset:2px}.portrait.out{background:var(--grey)}.portrait.out img{opacity:.36}.cross{position:absolute;inset:0;display:grid;place-items:center;font-size:31px;color:var(--ink);line-height:1;text-shadow:1px 0 var(--grey),-1px 0 var(--grey)}.noul{right:213px;top:449px;width:326px;height:140px}.question{font-size:34px;margin:12px 15px 4px}.prob{font-size:24px;margin:0 15px 10px}.meter{height:17px;margin:0 15px;border:1px solid var(--ink);background:var(--paper);padding:3px}.meter span{display:block;background:#E551BA;width:11%;height:100%}.robot{position:absolute;right:62px;top:460px;width:125px;height:85px}
+@media(max-width:1220px){.copy{top:173px}h1{font-size:112px}.subtitle{font-size:28px}.suspects{width:414px;right:44px}.noul{right:240px;top:449px}.robot{right:43px;width:114px}.domain{right:44px}}
+</style>
+</head>
+<body>
+<main class="card" aria-label="Noul Who social preview">
+<svg class="texture" aria-hidden="true"><defs><pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#1E1E1E" opacity=".4"/></pattern></defs><rect width="100%" height="100%" fill="url(#dots)"/><g id="blobs" fill="#1E1E1E"></g></svg>
+<div class="frame"></div><i class="crop tl"></i><i class="crop tr"></i><i class="crop bl"></i><i class="crop br"></i>
+<div class="tag">JEVPLAY.GAMES/NOUL-WHO</div>
+<section class="copy"><h1>Noul Who</h1><p class="subtitle">Ask yes or no.<br>Narrow it down before Jev does.</p><div class="chips"><span class="chip">+noul</span><span class="chip">+deduction</span><span class="chip">+analytics</span></div></section>
+<section class="window suspects"><div class="bar"><span>SUSPECTS</span><span class="controls">_ x</span></div><div class="grid" id="portraits"></div></section>
+<section class="window noul"><div class="bar"><span>NOUL</span><span class="controls">_ x</span></div><div class="question">is it Lumi?</div><p class="prob">p(yes) 0.11</p><div class="meter"><span></span></div></section>
+<svg class="robot" viewBox="0 0 130 90" aria-label="Friendly robot"><g stroke="#1E1E1E" stroke-width="3" stroke-linejoin="round"><path d="M65 20V9"/><circle cx="65" cy="6" r="4" fill="#F386A1"/><path d="M20 39H12V60H21M109 39H117V60H109" fill="#DEDEDE"/><rect x="21" y="20" width="88" height="57" rx="18" fill="#DEDEDE"/><rect x="31" y="32" width="68" height="32" rx="12" fill="#1E1E1E"/><path d="M42 50Q48 38 54 50M75 50Q81 38 87 50" fill="none" stroke="#FEFEFE"/><path d="M47 77V84H83V77" fill="#DEDEDE"/><path d="M60 69H70" stroke="#F386A1"/></g></svg>
+<div class="url">noul-who.jevplay.games</div><div class="domain">jevplay.games</div>
+</main>
+<script>
+// Render at ?width=1280&height=640 or ?width=1200&height=630.
+const params=new URLSearchParams(location.search);const width=Number(params.get('width'))||1280;const height=Number(params.get('height'))||640;
+document.documentElement.style.width=width+'px';document.documentElement.style.height=height+'px';document.querySelector('.card').style.width=width+'px';document.querySelector('.card').style.height=height+'px';
+const ns='http://www.w3.org/2000/svg';
+for(const [cx,cy,r] of [[width-40,95,225],[390,height+28,170]]){for(let y=-r;y<=r;y+=6){for(let x=-r;x<=r;x+=6){const d=Math.hypot(x,y)/r;if(d>1)continue;const dot=document.createElementNS(ns,'circle');dot.setAttribute('cx',cx+x);dot.setAttribute('cy',cy+y);dot.setAttribute('r',.55+1.65*(1-d));document.querySelector('#blobs').append(dot)}}}
+const eliminated=new Set([1,3,5,7,9,11]);
+for(let n=1;n<=12;n++){const out=eliminated.has(n);const node=document.createElement('div');node.className='portrait'+(out?' out':'')+(n===12?' lumi':'');node.innerHTML=`<img src="../../public/portraits/c${String(n).padStart(2,'0')}.svg" alt="${n===12?'Lumi':`Suspect ${n}`}">${out?'<span class="cross">[x]</span>':''}`;document.querySelector('#portraits').append(node)}
+</script>
+</body>
+</html>
