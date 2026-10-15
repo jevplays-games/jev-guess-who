@@ -1,5 +1,5 @@
 import {Store} from './store.js';
-import {HttpError,assert,json,bodyJson,safeHeaders,checkMutation,cookieHeader,sha256,ACTIVITY_FRAME_ANCESTORS} from './security.js';
+import {HttpError,assert,json,bodyJson,safeHeaders,checkMutation,cookieHeader,sha256,legacyOrigin,ACTIVITY_FRAME_ANCESTORS} from './security.js';
 import {readSession,beginOAuth,completeOAuth,interaction,redeemContext} from './discord.js';
 import {activityConfig,createActivitySession} from './activity.js';
 import {createMatch,ownedMatch,snapshot,humanAction,advance,personalAnalytics,leaderboard,verifyMatch} from './matches.js';
@@ -10,9 +10,11 @@ export async function handle(request,env) {
     // Platform health checks arrive with the platform's own Host; only GET /api/health (static, no data) is exempt.
     if(path==='/api/health'&&request.method==='GET')return json({ok:true,game:'noul-who',version:'1.0.0'});
     // The pre-rename host keeps working under its own origin until cutover ('serve'), then forwards to ORIGIN ('redirect').
-    if(env.LEGACY_ORIGIN&&url.origin===env.LEGACY_ORIGIN) {
+    // legacyOrigin() returns null for anything but a bare origin, so a bad value can only shut the old host out, never widen.
+    const legacy=legacyOrigin(env);
+    if(legacy&&url.origin===legacy) {
       if(env.LEGACY_ORIGIN_MODE==='redirect')return new Response(null,{status:['GET','HEAD'].includes(request.method)?301:308,headers:safeHeaders({Location:env.ORIGIN+path+url.search})});
-      env={...env,ORIGIN:env.LEGACY_ORIGIN};
+      env={...env,ORIGIN:legacy};
     }
     // The static home document has no session, secret or Host-derived content; platform probes load it with their own Host.
     const staticHome=['GET','HEAD'].includes(request.method)&&(path==='/'||path==='/index.html');
@@ -68,8 +70,8 @@ export async function handle(request,env) {
     if(path==='/api/leaderboard'&&method==='GET')return json(await leaderboard(store,session,url.searchParams,env));
     throw new HttpError(404,'not_found');
   } catch(error) {
-    const status=error.status||(['RuleError'].includes(error.constructor.name)?422:500);
-    const code=status===500?'internal_error':error.code||error.message;
+    const status=error.status||(['RuleError'].includes(error.constructor.name)?422:error instanceof URIError?400:500);
+    const code=status===500?'internal_error':error instanceof URIError?'malformed_uri':error.code||error.message;
     await store.telemetry(status===429?'rate_limited':'request_rejected',{details:{status,reason:code}});
     if(status===500)console.error(JSON.stringify({event:'internal_error',type:error.constructor.name,message:error.message?.slice(0,160)}));
     return json({error:code},status,status===429?{'Retry-After':'60'}:{});

@@ -20,7 +20,9 @@ const env={...process.env,DB,ORIGIN:origin,LOCAL_DEVELOPMENT:local?'true':'false
   LAUNCH_SIGNING_KEY:process.env.LAUNCH_SIGNING_KEY||randomBytes(32).toString('hex'),
   RATE_LIMIT_HASH_KEY:process.env.RATE_LIMIT_HASH_KEY||randomBytes(32).toString('hex'),
   ASSETS:{async fetch(request){
-    let relative=decodeURIComponent(new URL(request.url).pathname);if(relative==='/')relative='/index.html';
+    // A malformed percent-escape (/%ZZ) is the client's error: 400, not an internal 500.
+    let relative;try{relative=decodeURIComponent(new URL(request.url).pathname);}catch{return new Response('Bad request',{status:400,headers:{'Content-Type':'text/plain; charset=utf-8'}});}
+    if(relative==='/')relative='/index.html';
     const filename=path.resolve(root,'public','.'+relative),base=path.join(root,'public')+path.sep;
     if(!filename.startsWith(base))return new Response('Not found',{status:404});
     try{if(!(await stat(filename)).isFile())throw Error();const bytes=await readFile(filename);return new Response(bytes,{headers:{'Content-Type':types[path.extname(filename)]||'application/octet-stream'}});}catch{return new Response('Not found',{status:404});}
@@ -33,7 +35,10 @@ const server=http.createServer(async(req,res)=>{
     if(trustProxy){const hops=String(req.headers['x-forwarded-for']||'').split(',').map(v=>v.trim()).filter(Boolean);if(hops.length)headers.set('cf-connecting-ip',hops[hops.length-1]);}
     const publicHost=(trustProxy&&req.headers['x-forwarded-host']?String(req.headers['x-forwarded-host']).split(',')[0].trim():req.headers.host);
     // Preserve incoming Host for origin validation. Never trust an external forwarding header.
-    const request=new Request(`${new URL(origin).protocol}//${publicHost}${req.url}`,{method:req.method,headers,...(!['GET','HEAD'].includes(req.method)?{body:Readable.toWeb(req),duplex:'half'}:{})});
+    // A Host that cannot form a plain URL (user info, bad port, spaces) is the client's error: 400, not 500.
+    let target=null;try{target=new URL(`${new URL(origin).protocol}//${publicHost}${req.url}`);}catch{}
+    if(!target||target.username||target.password){res.writeHead(400,{'Content-Type':'application/json'});res.end('{"error":"invalid_host"}');return;}
+    const request=new Request(target,{method:req.method,headers,...(!['GET','HEAD'].includes(req.method)?{body:Readable.toWeb(req),duplex:'half'}:{})});
     const response=await handle(request,env);res.writeHead(response.status,Object.fromEntries(response.headers));
     if(req.method==='HEAD')res.end();else res.end(Buffer.from(await response.arrayBuffer()));
   }catch{res.writeHead(500,{'Content-Type':'application/json'});res.end('{"error":"server_error"}');}

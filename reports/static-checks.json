@@ -1,8 +1,8 @@
 {
-  "syntaxModules": 36,
+  "syntaxModules": 41,
   "rosterValid": true,
-  "publicGzipBytes": 135041,
-  "publicJavaScriptGzipBytes": 27023,
+  "publicGzipBytes": 126848,
+  "publicJavaScriptGzipBytes": 28472,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
@@ -15,13 +15,13 @@
     },
     {
       "path": "public/art/card-back.svg",
-      "bytes": 1253,
-      "gzipBytes": 445
+      "bytes": 561,
+      "gzipBytes": 309
     },
     {
       "path": "public/art/down.svg",
-      "bytes": 793,
-      "gzipBytes": 352
+      "bytes": 297,
+      "gzipBytes": 192
     },
     {
       "path": "public/brand/OFL-VT323.txt",
@@ -35,8 +35,8 @@
     },
     {
       "path": "public/brand/apple-touch-icon.png",
-      "bytes": 10359,
-      "gzipBytes": 9523
+      "bytes": 1978,
+      "gzipBytes": 1862
     },
     {
       "path": "public/brand/brand.css",
@@ -50,13 +50,13 @@
     },
     {
       "path": "public/brand/favicon-32.png",
-      "bytes": 1666,
-      "gzipBytes": 807
+      "bytes": 324,
+      "gzipBytes": 347
     },
     {
       "path": "public/brand/icon.svg",
-      "bytes": 1792,
-      "gzipBytes": 657
+      "bytes": 719,
+      "gzipBytes": 354
     },
     {
       "path": "public/brand/inter-var.woff2",
@@ -65,23 +65,23 @@
     },
     {
       "path": "public/brand/mark.svg",
-      "bytes": 1834,
-      "gzipBytes": 678
+      "bytes": 719,
+      "gzipBytes": 354
     },
     {
       "path": "public/brand/result-draw.svg",
-      "bytes": 1004,
-      "gzipBytes": 414
+      "bytes": 1384,
+      "gzipBytes": 476
     },
     {
       "path": "public/brand/result-loss.svg",
-      "bytes": 1048,
-      "gzipBytes": 423
+      "bytes": 1477,
+      "gzipBytes": 493
     },
     {
       "path": "public/brand/result-win.svg",
-      "bytes": 1203,
-      "gzipBytes": 470
+      "bytes": 1350,
+      "gzipBytes": 479
     },
     {
       "path": "public/brand/vt323.woff2",
@@ -90,143 +90,148 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 20233,
-      "gzipBytes": 5444
+      "bytes": 21597,
+      "gzipBytes": 5922
     },
     {
       "path": "public/game.js",
-      "bytes": 32975,
-      "gzipBytes": 11325
+      "bytes": 35240,
+      "gzipBytes": 12200
     },
     {
       "path": "public/index.html",
-      "bytes": 12324,
-      "gzipBytes": 4038
+      "bytes": 12707,
+      "gzipBytes": 4223
     },
     {
       "path": "public/portraits/c01.svg",
-      "bytes": 2427,
-      "gzipBytes": 766
+      "bytes": 2607,
+      "gzipBytes": 697
     },
     {
       "path": "public/portraits/c02.svg",
-      "bytes": 2309,
-      "gzipBytes": 863
-    },
-    {
-      "path": "public/portraits/c03.svg",
-      "bytes": 1797,
-      "gzipBytes": 679
-    },
-    {
-      "path": "public/portraits/c04.svg",
-      "bytes": 2316,
-      "gzipBytes": 866
-    },
-    {
-      "path": "public/portraits/c05.svg",
-      "bytes": 1988,
+      "bytes": 2884,
       "gzipBytes": 738
     },
     {
+      "path": "public/portraits/c03.svg",
+      "bytes": 2305,
+      "gzipBytes": 632
+    },
+    {
+      "path": "public/portraits/c04.svg",
+      "bytes": 2940,
+      "gzipBytes": 749
+    },
+    {
+      "path": "public/portraits/c05.svg",
+      "bytes": 2518,
+      "gzipBytes": 669
+    },
+    {
       "path": "public/portraits/c06.svg",
-      "bytes": 1716,
-      "gzipBytes": 643
+      "bytes": 2250,
+      "gzipBytes": 619
     },
     {
       "path": "public/portraits/c07.svg",
-      "bytes": 1830,
-      "gzipBytes": 685
+      "bytes": 2293,
+      "gzipBytes": 632
     },
     {
       "path": "public/portraits/c08.svg",
-      "bytes": 2150,
-      "gzipBytes": 673
+      "bytes": 2332,
+      "gzipBytes": 641
     },
     {
       "path": "public/portraits/c09.svg",
-      "bytes": 2484,
-      "gzipBytes": 815
+      "bytes": 2751,
+      "gzipBytes": 721
     },
     {
       "path": "public/portraits/c10.svg",
-      "bytes": 2295,
-      "gzipBytes": 742
+      "bytes": 2777,
+      "gzipBytes": 714
     },
     {
       "path": "public/portraits/c11.svg",
-      "bytes": 2003,
-      "gzipBytes": 758
+      "bytes": 2812,
+      "gzipBytes": 716
     },
     {
       "path": "public/portraits/c12.svg",
-      "bytes": 2553,
-      "gzipBytes": 822
+      "bytes": 2901,
+      "gzipBytes": 748
     },
     {
       "path": "public/portraits/c13.svg",
-      "bytes": 1861,
-      "gzipBytes": 722
+      "bytes": 2709,
+      "gzipBytes": 693
     },
     {
       "path": "public/portraits/c14.svg",
-      "bytes": 2519,
-      "gzipBytes": 825
+      "bytes": 2942,
+      "gzipBytes": 749
     },
     {
       "path": "public/portraits/c15.svg",
-      "bytes": 2452,
-      "gzipBytes": 805
+      "bytes": 2775,
+      "gzipBytes": 730
     },
     {
       "path": "public/portraits/c16.svg",
-      "bytes": 1634,
+      "bytes": 2242,
       "gzipBytes": 614
     },
     {
       "path": "public/portraits/c17.svg",
-      "bytes": 2167,
-      "gzipBytes": 808
+      "bytes": 2854,
+      "gzipBytes": 729
     },
     {
       "path": "public/portraits/c18.svg",
-      "bytes": 2553,
-      "gzipBytes": 822
+      "bytes": 2901,
+      "gzipBytes": 750
     },
     {
       "path": "public/portraits/c19.svg",
-      "bytes": 1946,
-      "gzipBytes": 715
+      "bytes": 2344,
+      "gzipBytes": 660
     },
     {
       "path": "public/portraits/c20.svg",
-      "bytes": 1946,
-      "gzipBytes": 716
+      "bytes": 2376,
+      "gzipBytes": 656
     },
     {
       "path": "public/portraits/c21.svg",
-      "bytes": 1663,
-      "gzipBytes": 648
+      "bytes": 2734,
+      "gzipBytes": 687
     },
     {
       "path": "public/portraits/c22.svg",
-      "bytes": 2308,
-      "gzipBytes": 742
+      "bytes": 2349,
+      "gzipBytes": 657
     },
     {
       "path": "public/portraits/c23.svg",
-      "bytes": 2605,
-      "gzipBytes": 822
+      "bytes": 2734,
+      "gzipBytes": 724
     },
     {
       "path": "public/portraits/c24.svg",
-      "bytes": 1740,
-      "gzipBytes": 676
+      "bytes": 2397,
+      "gzipBytes": 638
     },
     {
       "path": "public/shared/analytics.js",
       "bytes": 12793,
       "gzipBytes": 3925
+    },
+    {
+      "path": "public/shared/match-labels.js",
+      "bytes": 1089,
+      "gzipBytes": 574
     },
     {
       "path": "public/shared/operations-analytics.js",

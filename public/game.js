@@ -3,6 +3,7 @@ import {createInitialState,applyAction,projectForHuman,projectForDecision,action
 import {localDecision,questionFeatures} from './shared/strategy.js';
 import {analyzeAction,analyzeMatch,aggregateAnalytics,decisionRows,csv} from './shared/analytics.js';
 import {matchQuestion} from './shared/question-parse.js';
+import {opponentSourceLabel,resultLabel,LAST_ANSWER_PLACEHOLDER,EVIDENCE_PLACEHOLDER} from './shared/match-labels.js';
 const $=id=>document.getElementById(id);
 const f=(n,d=2)=>typeof n==='number'&&Number.isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:d}):'—';
 const pct=n=>typeof n==='number'?`${f(n*100,1)}%`:'—';
@@ -22,7 +23,11 @@ async function api(url,{method='GET',body}={}) {
   let data;try{data=await response.json();}catch{throw Error('The server returned an unreadable response.');}
   if(!response.ok)throw Object.assign(Error(readable[data.error]||data.error||'Request failed'),{code:data.error,status:response.status});return data;
 }
-async function guarded(fn){if(busy)return;busy=true;renderControls();try{notice();await fn();}catch(error){notice(error.message);}finally{busy=false;renderControls();}}
+// While busy the controls are disabled, which drops keyboard focus to <body>; when the action ends, focus goes
+// back to the control that started it (a cancelled guess, the question box after the opponent's reply).
+async function guarded(fn){if(busy)return;const opener=document.activeElement;busy=true;renderControls();try{notice();await fn();}catch(error){notice(error.message);}finally{busy=false;renderControls();
+  const lost=!document.activeElement||document.activeElement===document.body||!!document.activeElement.closest('dialog:not([open])');
+  if(opener instanceof HTMLElement&&opener!==document.body&&opener.isConnected&&!opener.disabled&&lost)opener.focus({preventScroll:true});}}
 function persistSetting(key,value){try{localStorage.setItem('gw:'+key,String(value));}catch{}}
 function setting(key,fallback){try{return localStorage.getItem('gw:'+key)??fallback;}catch{return fallback;}}
 function saveBlob(name,text,type='application/json') {
@@ -62,7 +67,7 @@ function renderBoard(){
   ROSTER.forEach((c,index)=>{
     const remaining=!!(mask&(1<<index));if(!showEliminated&&!remaining)return;
     const button=el('button',null,`character${remaining?'':' eliminated'}${freshOut&(1<<index)?' just-flipped':''}`);button.dataset.index=index;
-    button.setAttribute('aria-label',`${describe(c)}. ${remaining?'Select to make a final guess.':'Eliminated.'}`);
+    button.setAttribute('aria-label',`${describe(c)}. ${!remaining?'Eliminated.':current&&current.phase!=='active'?'Still a candidate at the end of the match.':'Select to make a final guess.'}`);
     if(!textMode){const image=el('img');image.src=`/portraits/${c.id}.svg`;image.alt='';image.width=120;image.height=120;button.append(image);}
     button.append(el('span',c.name,'name'));
     if(textMode)button.append(el('span',describe(c).split('; ').slice(1).join(' · '),'traits'));
@@ -78,10 +83,10 @@ function render(){
   $('remaining').textContent=humanRemaining;$('remaining-count').textContent=humanRemaining;$('jev-remaining').textContent=count(current.possible.jev);$('jev-questions').textContent=current.questionsAsked.jev;
   const over=current.phase!=='active',status=$('turn-status');
   status.className=over?`jv-plaque ${current.outcome.winner==='human'?'is-win':'is-loss'}`:'';document.querySelector('.board-panel').dataset.turn=over?'over':current.turn;
-  status.textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):(current.outcome.winner==='human'?'You found the answer.':'Match complete.');
+  status.textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):resultLabel(current.outcome);
   $('eligibility').textContent=current.eligible?'Ranked · eligible':current.eligibilityReason?.startsWith('jev_fallback')?'Unranked · Jev fallback':practice?(offline?'Offline practice':'Practice · local heuristic'):'Casual · not ranked';
   const fallback=current.history.some(e=>e.decision?.source==='fallback');
-  $('opponent-source').textContent=fallback?'Fallback heuristic':practice?'Local heuristic':'Jev';
+  $('opponent-source').textContent=opponentSourceLabel({practice,fallback,jevConfigured:me?.jevConfigured});
   const c=character(current.ownSecret),image=el('img');image.src=`/portraits/${c.id}.svg`;image.alt=describe(c);
   const identity=el('div');identity.append(el('h3',c.name),el('p',describe(c).split('; ').slice(1).join(' · '),'identity-traits'));$('secret').replaceChildren(image,identity);
   // The datalist offers the questions still open, so typing stays optional and
@@ -92,7 +97,7 @@ function render(){
   previewQuestion();
   $('opponent-board').replaceChildren(...ROSTER.map((c,i)=>el('span',c.name,current.possible.jev&(1<<i)?'':'eliminated')));
   const last=current.history.at(-1);
-  if(last)$('last-answer').textContent=`${humanName(last.actor)}: ${labelAction(last.action)}${typeof last.answer==='boolean'?` ${last.answer?'Yes.':'No.'}`:''}`;
+  $('last-answer').textContent=last?`${humanName(last.actor)}: ${labelAction(last.action)}${typeof last.answer==='boolean'?` ${last.answer?'Yes.':'No.'}`:''}`:LAST_ANSWER_PLACEHOLDER;
   $('history').replaceChildren();
   if(!current.history.length)$('history').append(el('p','No turns yet.','muted'));
   for(const event of current.history){const row=el('div',null,'history-entry');row.append(el('span',String(event.sequence).padStart(2,'0'),'muted'),el('span',humanName(event.actor),'actor'),el('span',labelAction(event.action)),el('span',typeof event.answer==='boolean'?(event.answer?'Yes':'No'):typeof event.correct==='boolean'?(event.correct?'Correct':'Incorrect'):'','answer'));$('history').append(row);}
@@ -112,6 +117,7 @@ function previewQuestion(){
   questionMatch=matchQuestion($('question').value,isAskable);
   const preview=$('question-preview'),suggestions=$('question-suggestions');
   suggestions.replaceChildren();suggestions.hidden=true;
+  if(current.phase!=='active'){preview.textContent='The match is over. Choose New game to play again.';renderControls();return;}
   if(!current.legalActions.some(a=>a.type==='ask')){
     preview.textContent='No questions remain. Select a character to make your final guess.';renderControls();return;
   }
@@ -149,9 +155,11 @@ $('question').addEventListener('keydown',event=>{if(event.key==='Enter'&&!$('ask
 function evidenceRow(label,value){const r=el('div',null,'evidence-row');r.append(el('span',label),el('strong',value));return r;}
 function renderEvidence(){
   const panel=$('decision-evidence');panel.hidden=!$('analysis-toggle').checked;
-  const decision=current?.history.filter(e=>e.decision).at(-1)?.decision;if(!decision)return;
+  const decision=current?.history.filter(e=>e.decision).at(-1)?.decision;
+  // A new match has no decision yet: show the placeholder, never the previous match's evidence.
+  if(!decision){panel.replaceChildren(el('p',EVIDENCE_PLACEHOLDER,'muted'));return;}
   panel.replaceChildren(el('p',labelAction(decision.action)));
-  panel.append(evidenceRow('Source',decision.source),evidenceRow('Candidates',f(decision.candidateCount,0)),evidenceRow('Decision latency',ms(decision.latencyMs)),evidenceRow('Selection confidence',pct(decision.confidence)));
+  panel.append(evidenceRow('Source',label(SOURCE_LABELS,decision.source)),evidenceRow('Candidates',f(decision.candidateCount,0)),evidenceRow('Decision latency',ms(decision.latencyMs)),evidenceRow('Selection confidence',pct(decision.confidence)));
   if(decision.selectedFeatures?.expectedRemaining!=null)panel.append(evidenceRow('Expected remaining',f(decision.selectedFeatures.expectedRemaining)));
   if(decision.selectedFeatures?.estimatedWinProbability!=null)panel.append(evidenceRow('Search win estimate',pct(decision.selectedFeatures.estimatedWinProbability)));
   if(decision.search)panel.append(evidenceRow('Completed search depth',f(decision.search.completedDepth,0)),evidenceRow('Search nodes',f(decision.search.nodes,0)));
@@ -251,7 +259,13 @@ function makeTable(headers,rows){
   if(!rows.length){const tr=el('tr'),td=el('td','No observations in this selection.','muted');td.colSpan=headers.length;tr.append(td);body.append(tr);}
   table.append(thead,body);wrap.append(table);return wrap;
 }
-function cohortTable(groups){return makeTable(['Cohort','Finished','W–L','Win rate','95% interval','Human questions','Opponent questions'],Object.entries(groups).map(([key,g])=>[key,f(g.finished,0),`${g.wins}–${g.losses}`,pct(g.winRate),`${pct(g.winInterval.lower)} – ${pct(g.winInterval.upper)}`,f(g.averageHumanQuestions),f(g.averageJevQuestions)]));}
+// Stored keys stay as they are; the tables show words. 'jev' is the opponent's seat, not proof the opponent was Jev,
+// so a local-practice match must never read as 'jev' here (starter, winner and actor go through humanName).
+const DIFFICULTY_LABELS={easy:'Easy',normal:'Normal',hard:'Hard',jev:'Jev'},MODE_LABELS={practice:'Practice',casual:'Casual',ranked:'Ranked'};
+const SOURCE_LABELS={local_heuristic:'Local heuristic',jev:'Jev',fallback:'Fallback heuristic',forced_rule:'Forced by the rules'};
+const label=(labels,key)=>labels[key]??key;
+const starterLabel=key=>{const [difficulty,starter]=String(key).split('/');return `${label(DIFFICULTY_LABELS,difficulty)} · ${starter==='human'?'you first':starter==='jev'?'opponent first':starter}`;};
+function cohortTable(groups,name=key=>key){return makeTable(['Cohort','Finished','W–L','Win rate','95% interval','Human questions','Opponent questions'],Object.entries(groups).map(([key,g])=>[name(key),f(g.finished,0),`${g.wins}–${g.losses}`,pct(g.winRate),`${pct(g.winInterval.lower)} – ${pct(g.winInterval.upper)}`,f(g.averageHumanQuestions),f(g.averageJevQuestions)]));}
 function trace(events){
   const ns='http://www.w3.org/2000/svg',node=(name,attributes={})=>{const n=document.createElementNS(ns,name);Object.entries(attributes).forEach(([k,v])=>n.setAttribute(k,String(v)));return n;};
   const svg=node('svg',{viewBox:'0 0 700 180',class:'trace',role:'img','aria-label':'Remaining candidate counts by turn. Human and opponent lines.'});
@@ -266,18 +280,18 @@ function renderAnalytics(){
   if(!analyticsData)return;const {summary:s,matches,coverage}=analyticsData,container=$('analytics-content');container.replaceChildren();
   $('coverage').textContent=`${coverage.filtered} selected matches; ${coverage.scanned} scanned of ${coverage.availableStoredMatches} stored. ${coverage.truncated?'History is truncated to the latest 500 matches. ':''}Snapshot: ${new Date(coverage.asOf).toLocaleString()}. Offline and server records are not mixed.`;
   const kpis=el('div',null,'kpi-grid');
-  for(const [label,value] of [['Completed matches',f(s.overall.finished,0)],['Human win rate',pct(s.overall.winRate)],['Current / best streak',`${s.streaks.current} / ${s.streaks.best}`],['Jev median latency',ms(s.jevLatencyMs.p50)],['Provider attempts',f(s.provider.attempts,0)],['Fallback decisions',f(s.provider.fallbackDecisions,0)],['Known input tokens',f(s.provider.knownInputTokens,0)],['Measured input cost',s.provider.measuredInputCostUsd==null?'Unavailable / incomplete':`$${f(s.provider.measuredInputCostUsd,6)}`]]){const card=el('div',null,'kpi');card.append(el('strong',value),el('span',label));kpis.append(card);}container.append(kpis);
+  for(const [label,value] of [['Completed matches',f(s.overall.finished,0)],['Human win rate',pct(s.overall.winRate)],['Current / best streak',`${s.streaks.current} / ${s.streaks.best}`],['Jev median latency',ms(s.jevLatencyMs.p50)],['Provider attempts',f(s.provider.attempts,0)],['Fallback decisions',f(s.provider.fallbackDecisions,0)],['Known input tokens',f(s.provider.knownInputTokens,0)],['Measured input cost',s.provider.measuredInputCostUsd==null?'Unavailable / incomplete':`$${f(s.provider.measuredInputCostUsd,6)}`]]){const card=el('div',null,'kpi');card.append(el('strong',value,/[a-z]{4}/i.test(value)?'kpi-text':null),el('span',label));kpis.append(card);}container.append(kpis);
   const currentReport=current?.analytics||analyticsData.currentDetail||matches[0];
   if(currentReport){container.append(el('h3','Current / most recent match: candidate trace'));if(currentReport.events?.length)container.append(trace(currentReport.events));else container.append(el('p','No committed turn details are available for this trace.','muted'));const legend=el('div',null,'legend');legend.append(el('span','Human candidates','human'),el('span','Opponent candidates','jev'));container.append(legend);
     container.append(makeTable(['Actor','Turns','Questions','Remaining','Mean split balance','Mean expected information','Mean information regret','Risky guesses'],Object.entries(currentReport.actors).map(([actor,a])=>[humanName(actor),a.turns,a.questions,a.remaining,f(a.splitBalance.mean),f(a.expectedInformationGain.mean)+' bits',f(a.informationGainRegret.mean)+' bits',a.riskyGuesses])));
   }
-  for(const [title,groups] of [['Difficulty cohorts',s.byDifficulty],['Opponent-source cohorts',s.bySource],['Difficulty × starting player',s.byDifficultyAndStarter],['Match-type cohorts',s.byMode],['Competition configurations',s.byLeague],['Daily cohorts · UTC',s.byDay]]){container.append(el('h3',title),cohortTable(groups));}
+  for(const [title,groups,name] of [['Difficulty cohorts',s.byDifficulty,k=>label(DIFFICULTY_LABELS,k)],['Opponent-source cohorts',s.bySource,k=>label(SOURCE_LABELS,k)],['Difficulty × starting player',s.byDifficultyAndStarter,starterLabel],['Match-type cohorts',s.byMode,k=>label(MODE_LABELS,k)],['Competition configurations',s.byLeague],['Daily cohorts · UTC',s.byDay]]){container.append(el('h3',title),cohortTable(groups,name));}
   container.append(el('h3','Question usage and information efficiency'),makeTable(['Predicate','Uses','Human / opponent','Yes / no','Mean eliminated','Expected bits','Regret bits'],Object.entries(s.predicates).map(([id,p])=>[id,p.uses,`${p.humanUses} / ${p.jevUses}`,`${p.yes} / ${p.no}`,f(p.meanEliminated),f(p.meanInformationGain),f(p.meanRegret)])));
   container.append(el('h3','Guess calibration · both actors'),el('p','Expected probability is 1 / remaining candidates under uniform secrets. This is not Jev selection confidence. Small samples and repeated games require caution.','muted'),makeTable(['Remaining','Guesses','Correct','Expected rate','Observed rate','95% interval'],Object.entries(s.guessCalibration).map(([n,g])=>[n,g.guesses,g.correct,pct(g.expectedProbability),pct(g.observedRate),`${pct(g.interval.lower)} – ${pct(g.interval.upper)}`])));
   container.append(el('h3','Timing and decision distributions'),makeTable(['Metric','Samples','Minimum','Mean','p50','p90','p95','p99','Maximum'],[['Match duration (ms)',s.durationMs],['Human wall-turn time (ms)',s.humanWallTurnMs],['Successful Jev decision (ms)',s.jevLatencyMs],['Selection confidence',s.confidence],['Candidate count',s.candidateCount]].map(([name,d])=>[name,d.n,...['min','mean','p50','p90','p95','p99','max'].map(k=>f(d[k]))])));
   container.append(el('h3','Provider reliability'),makeTable(['Attempts','Failed attempts','Invalid responses','Timeouts','Fallback decisions','Cost-measured matches'],[[s.provider.attempts,s.provider.failures,s.provider.invalid,s.provider.timeouts,s.provider.fallbackDecisions,s.provider.measuredCostMatches]]));
-  container.append(el('h3','Match history'),makeTable(['Started','Mode','Difficulty','Source','Starter','Result','Reason','Eligible','Questions H / J'],matches.map(m=>[new Date(m.createdAt).toLocaleString(),m.mode,m.difficulty,m.source,m.starter,m.winner||m.phase,m.reason||'—',m.eligible?'Yes':'No',`${m.actors.human.questions} / ${m.actors.jev.questions}`])));
-  if(currentReport?.events?.length){const details=el('details');details.append(el('summary','Full per-turn analytics · current match'));const rows=decisionRows(currentReport.events);const columns=['sequence','actor','action','beforeCount','afterCount','eliminated','expectedInformationGain','realizedInformationGain','informationGainRegret','wallTurnMs','source','latencyMs','confidence','searchDepth'];details.append(makeTable(columns,rows.map(r=>columns.map(c=>typeof r[c]==='number'?f(r[c]):r[c]))));container.append(details);}
+  container.append(el('h3','Match history'),makeTable(['Started','Mode','Difficulty','Source','Starter','Result','Reason','Eligible','Questions (you / opponent)'],matches.map(m=>[new Date(m.createdAt).toLocaleString(),label(MODE_LABELS,m.mode),label(DIFFICULTY_LABELS,m.difficulty),label(SOURCE_LABELS,m.source),humanName(m.starter),m.winner?`${humanName(m.winner)} won`:m.phase,m.reason?m.reason.replaceAll('_',' '):'—',m.eligible?'Yes':'No',`${m.actors.human.questions} / ${m.actors.jev.questions}`])));
+  if(currentReport?.events?.length){const details=el('details');details.append(el('summary','Full per-turn analytics · current match'));const rows=decisionRows(currentReport.events);const columns=['sequence','actor','action','beforeCount','afterCount','eliminated','expectedInformationGain','realizedInformationGain','informationGainRegret','wallTurnMs','source','latencyMs','confidence','searchDepth'];details.append(makeTable(columns,rows.map(r=>columns.map(c=>c==='actor'?humanName(r[c]):c==='source'?label(SOURCE_LABELS,r[c]):typeof r[c]==='number'?f(r[c]):r[c]))));container.append(details);}
   container.append(el('h3','Interpretation and coverage'));s.caveats.forEach(text=>container.append(el('p',text,'muted')));
 }
 async function loadAnalytics(){
@@ -323,6 +337,7 @@ async function initialize(){
     me=await api('/api/me');$('identity').textContent=me.user?.name||'Guest';$('login').hidden=!!me.user;$('logout').hidden=!me.user;
     if(!me.discordConfigured)$('login').textContent='Discord setup required';
     if(me.jevConfigured)$('mode').value='casual';
+    else{const casual=$('mode').querySelector('option[value=casual]');if(casual)casual.textContent='Casual · no Jev key';}
     let token;try{token=sessionStorage.getItem('gw:launch');}catch{}
     if(token&&me.user){try{await api('/api/context/redeem',{method:'POST',body:{token}});notice('Discord community context verified.');}finally{sessionStorage.removeItem('gw:launch');}}
     else if(token)notice('Sign in with the Discord account that launched this game to verify community context.');

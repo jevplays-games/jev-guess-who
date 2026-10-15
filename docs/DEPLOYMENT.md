@@ -19,7 +19,7 @@ Default binding: `127.0.0.1:8787`; canonical browser origin: `http://localhost:8
 | Variable | Required for | Handling |
 |---|---|---|
 | `ORIGIN` | All HTTP routing | Exact external scheme+host+port, no trailing slash |
-| `LEGACY_ORIGIN` | Rename transition only | Optional pre-rename origin still accepted; see Hostname transition |
+| `LEGACY_ORIGIN` | Rename transition only | Optional pre-rename origin still accepted; must be a bare origin (see Hostname transition) |
 | `LEGACY_ORIGIN_MODE` | Rename transition only | `serve` (default) or `redirect` |
 | `TYPESAFE_API_KEY` | Actual Jev | Server secret only |
 | `JEV_MODEL` | Jev / ranked league | Default `jev-1.13.0`; use a versioned ID |
@@ -104,6 +104,8 @@ npx wrangler deploy
 - `redirect`: the old host answers `301` (`GET`/`HEAD`) or `308` (other methods) to the same path and query on `ORIGIN`.
 
 Switch to `redirect` only after the Discord Activity URL mapping, interactions endpoint URL and OAuth redirect point at the new host; Discord does not follow cross-origin redirects for those. Remove `LEGACY_ORIGIN` and the old route once traffic has moved.
+
+`LEGACY_ORIGIN` must be a bare origin: `https://` (plain `http://` only for a loopback host with `LOCAL_DEVELOPMENT=true`), no user info, path, query, fragment or wildcard, lower-case host, no default port, at most one trailing `/`, and not the same as `ORIGIN`. Any other value is ignored rather than normalised: the old host then answers `403 host_rejected` (nothing is ever widened and nothing returns 5xx), and the Worker logs one `{"event":"legacy_origin_ignored","reason":…}` warning per isolate. If the old host starts answering 403 after a config change, check that log line first.
 
 Do not configure `LOCAL_DEVELOPMENT=true` on Workers. Without that flag, cookies use `Secure`. All requests run through the Worker so asset security headers are applied consistently. `public/` alone is bound to static assets.
 

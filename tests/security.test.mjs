@@ -3,6 +3,13 @@ import assert from 'node:assert/strict';
 import {sign,unsign,verifyDiscordSignature,hex,sha256,randomHex,checkMutation,boundedText} from '../server/security.js';
 import {setup,userSession} from './helpers.mjs';
 import {beginOAuth,completeOAuth,redeemContext,interaction} from '../server/discord.js';
+import {spawn} from 'node:child_process';
+import http from 'node:http';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {handle} from '../server/app.js';
 
 test('signed launch token rejects tampering and expiry',async()=>{
   const secret='x'.repeat(64),token=await sign({expiresAt:Date.now()+1000,kind:'test'},secret);
@@ -63,4 +70,28 @@ test('launch redemption requires matching identity and consumes exactly once',as
 test('unsigned interaction cannot forge channel context',async()=>{
   const {DB,store,env}=await setup();Object.assign(env,{DISCORD_PUBLIC_KEY:'00'.repeat(32),DISCORD_CLIENT_ID:'123456789012345678'});
   try{await assert.rejects(()=>interaction(store,new Request(env.ORIGIN+'/api/discord/interactions',{method:'POST',body:'{"type":2}'}),env),/invalid_discord_signature/);}finally{DB.close();}
+});
+test('the local server answers a Host header that cannot form a URL with 400, never 500',async()=>{
+  const dir=await mkdtemp(path.join(tmpdir(),'noul-who-serve-')),port=20000+Math.floor(Math.random()*20000);
+  const child=spawn(process.execPath,[fileURLToPath(new URL('../scripts/serve.mjs',import.meta.url))],{env:{...process.env,PORT:String(port),ORIGIN:`http://localhost:${port}`,HOST:'127.0.0.1',DB_PATH:path.join(dir,'serve.sqlite')},stdio:['ignore','pipe','pipe']});
+  try{
+    await new Promise((resolve,reject)=>{child.stdout.on('data',d=>{if(String(d).includes('Noul Who:'))resolve();});child.on('exit',code=>reject(Error(`server exited ${code}`)));setTimeout(()=>reject(Error('server did not start')),10000).unref();});
+    const get=host=>new Promise((resolve,reject)=>{const r=http.request({host:'127.0.0.1',port,path:'/api/me',headers:{Host:host}},res=>{res.resume();resolve(res.statusCode);});r.on('error',reject);r.end();});
+    for(const host of ['user:pw@evil.example',':pw@evil.example','evil.example:99999','[bad','a b'])assert.equal(await get(host),400,host);
+    assert.equal(await get('evil.example'),403);assert.equal(await get(`localhost:${port}`),200);
+  }finally{child.kill();await rm(dir,{recursive:true,force:true});}
+});
+test('the local server answers a malformed percent-encoded path with 400, never 500',async()=>{
+  const dir=await mkdtemp(path.join(tmpdir(),'noul-who-serve-')),port=20000+Math.floor(Math.random()*20000);
+  const child=spawn(process.execPath,[fileURLToPath(new URL('../scripts/serve.mjs',import.meta.url))],{env:{...process.env,PORT:String(port),ORIGIN:`http://localhost:${port}`,HOST:'127.0.0.1',DB_PATH:path.join(dir,'serve.sqlite')},stdio:['ignore','pipe','pipe']});
+  try{
+    await new Promise((resolve,reject)=>{child.stdout.on('data',d=>{if(String(d).includes('Noul Who:'))resolve();});child.on('exit',code=>reject(Error(`server exited ${code}`)));setTimeout(()=>reject(Error('server did not start')),10000).unref();});
+    const get=p=>new Promise((resolve,reject)=>{const r=http.request({host:'127.0.0.1',port,path:p,headers:{Host:`localhost:${port}`}},res=>{res.resume();resolve(res.statusCode);});r.on('error',reject);r.end();});
+    for(const p of ['/%ZZ','/%','/%E0%A4%A','/portraits/%c0%af.svg'])assert.equal(await get(p),400,p);
+    assert.equal(await get('/portraits/c01.svg'),200);assert.equal(await get('/%70ortraits/c01.svg'),200);assert.equal(await get('/no-such-file.svg'),404);
+  }finally{child.kill();await rm(dir,{recursive:true,force:true});}
+});
+test('handle() maps a URIError from the asset layer to 400 malformed_uri',async()=>{
+  const {DB,env}=await setup();env.ASSETS={async fetch(request){decodeURIComponent(new URL(request.url).pathname);return new Response('ok');}};
+  try{const response=await handle(new Request(env.ORIGIN+'/%ZZ'),env);assert.equal(response.status,400);assert.deepEqual(await response.json(),{error:'malformed_uri'});}finally{DB.close();}
 });
