@@ -22,7 +22,11 @@ async function api(url,{method='GET',body}={}) {
   let data;try{data=await response.json();}catch{throw Error('The server returned an unreadable response.');}
   if(!response.ok)throw Object.assign(Error(readable[data.error]||data.error||'Request failed'),{code:data.error,status:response.status});return data;
 }
-async function guarded(fn){if(busy)return;busy=true;renderControls();try{notice();await fn();}catch(error){notice(error.message);}finally{busy=false;renderControls();}}
+// While busy the controls are disabled, which drops keyboard focus to <body>; when the action ends, focus goes
+// back to the control that started it (a cancelled guess, the question box after the opponent's reply).
+async function guarded(fn){if(busy)return;const opener=document.activeElement;busy=true;renderControls();try{notice();await fn();}catch(error){notice(error.message);}finally{busy=false;renderControls();
+  const lost=!document.activeElement||document.activeElement===document.body||!!document.activeElement.closest('dialog:not([open])');
+  if(opener instanceof HTMLElement&&opener!==document.body&&opener.isConnected&&!opener.disabled&&lost)opener.focus({preventScroll:true});}}
 function persistSetting(key,value){try{localStorage.setItem('gw:'+key,String(value));}catch{}}
 function setting(key,fallback){try{return localStorage.getItem('gw:'+key)??fallback;}catch{return fallback;}}
 function saveBlob(name,text,type='application/json') {
