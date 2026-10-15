@@ -62,7 +62,7 @@ function renderBoard(){
   ROSTER.forEach((c,index)=>{
     const remaining=!!(mask&(1<<index));if(!showEliminated&&!remaining)return;
     const button=el('button',null,`character${remaining?'':' eliminated'}${freshOut&(1<<index)?' just-flipped':''}`);button.dataset.index=index;
-    button.setAttribute('aria-label',`${describe(c)}. ${remaining?'Select to make a final guess.':'Eliminated.'}`);
+    button.setAttribute('aria-label',`${describe(c)}. ${!remaining?'Eliminated.':current&&current.phase!=='active'?'Still a candidate at the end of the match.':'Select to make a final guess.'}`);
     if(!textMode){const image=el('img');image.src=`/portraits/${c.id}.svg`;image.alt='';image.width=120;image.height=120;button.append(image);}
     button.append(el('span',c.name,'name'));
     if(textMode)button.append(el('span',describe(c).split('; ').slice(1).join(' · '),'traits'));

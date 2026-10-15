@@ -26,7 +26,10 @@ button,select,input{font:inherit}button,select{min-height:var(--tap);border:1px 
 .character.eliminated:after{content:'';position:absolute;left:50%;top:38%;width:44%;aspect-ratio:1;transform:translate(-50%,-50%);background:url(/art/down.svg) center/contain no-repeat}
 .character.just-flipped{animation:press-in .3s steps(3) both}
 @keyframes press-in{0%{transform:translate(0,0);box-shadow:inset 0 0 0 2px var(--paper),3px 3px 0 var(--ink)}100%{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--grey),1px 1px 0 var(--ink)}}
-@media(hover:hover){.character:not(.eliminated):hover{transform:translate(-1px,-1px);box-shadow:inset 0 0 0 2px var(--paper),4px 4px 0 var(--ink);border-color:var(--ink);background:var(--accent)}.character:not(.eliminated):hover .name{color:var(--accent-ink)}}.character:not(.eliminated):active{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--paper),1px 1px 0 var(--ink)}
+@media(hover:hover){.character:not(.eliminated):not(:disabled):hover{transform:translate(-1px,-1px);box-shadow:inset 0 0 0 2px var(--paper),4px 4px 0 var(--ink);border-color:var(--ink);background:var(--accent)}.character:not(.eliminated):not(:disabled):hover .name{color:var(--accent-ink)}}.character:not(.eliminated):not(:disabled):active{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--paper),1px 1px 0 var(--ink)}
+/* Game over: the cards still standing are the answer (or what was left of the search). They stay at full
+   strength instead of fading like the board does while it is disabled for the opponent's turn. */
+.board-panel[data-turn=over] .character:not(.eliminated){opacity:1}
 .character:focus-visible{outline:2px solid var(--accent-deep);outline-offset:2px}
 /* The side to move is marked: the board gets a pink frame on your turn, the status chip breathes on the opponent's. */
 .board-panel[data-turn=human] .board{box-shadow:0 0 0 2px var(--accent),3px 3px 0 2px var(--ink)}
@@ -97,7 +100,7 @@ dialog{color:var(--text);background:var(--surface);border:1px solid var(--line);
   .toolbar button{min-width:0;padding-inline:var(--s2);font-size:var(--fs-sm)}
 }
 @media(max-height:240px) and (min-aspect-ratio:13/10){.jv-main:has(#panel-play:not([hidden])){column-gap:var(--s1)}.board{--fit-reserve:.25rem;padding:2px;gap:1%;width:calc(100vw - 4.75rem);width:min(calc(100vw - 4.75rem),calc((100dvh - var(--header-h) - var(--fit-reserve)) * var(--fit-ratio)))}.character{padding:1px}.toolbar button{padding-inline:var(--s1);line-height:1.15}.section-heading>*,.jv-plaque#turn-status{min-width:0;max-width:100%}.jv-main #turn-status{font-size:var(--fs-2xs);line-height:1.15;overflow-wrap:anywhere;margin:0}.jv-plaque#turn-status{font-size:var(--fs-2xs);padding:2px var(--s1);gap:var(--s1);border-radius:var(--radius-sm);text-align:center;line-height:1.15}.jv-plaque#turn-status:before,.board-panel[data-turn] #turn-status:before{display:none}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.character:not(.eliminated):hover{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.character:not(.eliminated):not(:disabled):hover{transform:none}}
 .jv-plaque.is-win{--plaque-art:url(/brand/result-win.svg)}.jv-plaque.is-loss{--plaque-art:url(/brand/result-loss.svg)}.jv-plaque.is-draw{--plaque-art:url(/brand/result-draw.svg)}
 .jv-plaque#turn-status{margin-bottom:0;min-height:0;padding:var(--s1) var(--s3)}
 .board-panel .section-heading{margin-bottom:var(--s2)}
