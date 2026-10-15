@@ -50,6 +50,8 @@ Times are milliseconds. Provider timing uses a monotonic process clock. Persiste
 | `durationMs` | Finished time minus creation time; includes idle and reconnect intervals |
 | `analyticsVersion` | Analytics interpretation version |
 
+The stored actor keys are `human` and `jev`: `jev` names the opponent's seat whatever plays it, so `starter`, `winner` and per-turn `actor` say `jev` for local-practice and fallback matches too, and exports keep these keys unchanged for compatibility. `source` says who actually played. The Analytics tab shows the seat as "Opponent" (and "You"), and source, mode and difficulty as words, so a local-practice match never reads as Jev.
+
 Direct website matches can qualify for World only. A verified Discord launch can attribute the same eligible result to its channel, server, and World cohorts. Attribution is not inferred from editable query parameters.
 
 ## 5. Actor-level metrics
