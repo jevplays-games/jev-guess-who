@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T03:28:21.073609+00:00",
+  "generatedAt": "2026-10-15T03:28:46.810262+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -33,8 +33,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 12216,
-      "sha256": "b2186449dc9f6f116a12e2f8c76a94c000adfa223967439fe259dcf8cd0c4d24"
+      "bytes": 12388,
+      "sha256": "505be223854c2dd12dce8402cd387c2e825c0dec1ae8d42b804ac686b4c9423e"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",

@@ -173,7 +173,7 @@ Review the deployment checklist before exposing ranked play publicly. The code i
 
 ## Contributing
 
-Issues and pull requests are welcome. Run `npm test` and `npm run check` (syntax, roster and the 150 KB gzip asset budget) before opening a pull request, keep `public/shared/` free of DOM and I/O, and do not change stored identifiers (match format, rules/roster versions, seed derivation) without a version bump: matches, replays and launch tokens created before the Noul Who rename (game id `guess-who`) must keep verifying. Licensed under the [MIT License](LICENSE).
+Issues and pull requests are welcome. Run `npm test` and `npm run check` (syntax, roster and the 150 KB gzip asset budget) before opening a pull request, plus `node scripts/portrait-check.mjs` if you touch the portraits (format, palette, size, distinct faces, and hair colours that stay apart under colour-vision deficiency). Keep `public/shared/` free of DOM and I/O, and do not change stored identifiers (match format, rules/roster versions, seed derivation) without a version bump: matches, replays and launch tokens created before the Noul Who rename (game id `guess-who`) must keep verifying. Licensed under the [MIT License](LICENSE).
 
 <p align="center">
 <sub>A jevplay.games game · Steward: CompleteTech LLC · MIT licensed<br>
