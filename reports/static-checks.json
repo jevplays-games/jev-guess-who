@@ -1,7 +1,7 @@
 {
   "syntaxModules": 37,
   "rosterValid": true,
-  "publicGzipBytes": 125713,
+  "publicGzipBytes": 125778,
   "publicJavaScriptGzipBytes": 27458,
   "budgets": {
     "javaScript": 60000,
@@ -100,8 +100,8 @@
     },
     {
       "path": "public/index.html",
-      "bytes": 12420,
-      "gzipBytes": 4123
+      "bytes": 12570,
+      "gzipBytes": 4194
     },
     {
       "path": "public/portraits/c01.svg",
@@ -121,7 +121,7 @@
     {
       "path": "public/portraits/c04.svg",
       "bytes": 2940,
-      "gzipBytes": 750
+      "gzipBytes": 749
     },
     {
       "path": "public/portraits/c05.svg",
@@ -131,7 +131,7 @@
     {
       "path": "public/portraits/c06.svg",
       "bytes": 2250,
-      "gzipBytes": 620
+      "gzipBytes": 619
     },
     {
       "path": "public/portraits/c07.svg",
@@ -141,7 +141,7 @@
     {
       "path": "public/portraits/c08.svg",
       "bytes": 2332,
-      "gzipBytes": 643
+      "gzipBytes": 641
     },
     {
       "path": "public/portraits/c09.svg",
@@ -151,7 +151,7 @@
     {
       "path": "public/portraits/c10.svg",
       "bytes": 2777,
-      "gzipBytes": 712
+      "gzipBytes": 714
     },
     {
       "path": "public/portraits/c11.svg",
@@ -161,7 +161,7 @@
     {
       "path": "public/portraits/c12.svg",
       "bytes": 2901,
-      "gzipBytes": 751
+      "gzipBytes": 748
     },
     {
       "path": "public/portraits/c13.svg",
@@ -181,7 +181,7 @@
     {
       "path": "public/portraits/c16.svg",
       "bytes": 2242,
-      "gzipBytes": 615
+      "gzipBytes": 614
     },
     {
       "path": "public/portraits/c17.svg",
@@ -191,7 +191,7 @@
     {
       "path": "public/portraits/c18.svg",
       "bytes": 2901,
-      "gzipBytes": 749
+      "gzipBytes": 750
     },
     {
       "path": "public/portraits/c19.svg",
@@ -211,7 +211,7 @@
     {
       "path": "public/portraits/c22.svg",
       "bytes": 2349,
-      "gzipBytes": 656
+      "gzipBytes": 657
     },
     {
       "path": "public/portraits/c23.svg",
@@ -221,7 +221,7 @@
     {
       "path": "public/portraits/c24.svg",
       "bytes": 2397,
-      "gzipBytes": 640
+      "gzipBytes": 638
     },
     {
       "path": "public/shared/analytics.js",

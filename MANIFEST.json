@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T03:10:08.860194+00:00",
+  "generatedAt": "2026-10-15T03:13:02.924734+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -43,13 +43,13 @@
     },
     {
       "path": "assets/banner.png",
-      "bytes": 246472,
-      "sha256": "d9c436440abaa52cb04dd26c7008cb46df8153e345d9c234f5f1fc92effa9a0c"
+      "bytes": 246466,
+      "sha256": "7cb0bcbb4bb5b00b19f6cd7ed1b6a27e1ff26345a5f96d88110fd20140d8dafb"
     },
     {
       "path": "assets/social-preview.png",
-      "bytes": 75368,
-      "sha256": "03f205a5f490783ecea8ad87aa6d498641dcd844aead443054a39dec3af0c92a"
+      "bytes": 75350,
+      "sha256": "9fb93baf48e74baa7f3f57f8b2aa99217b3a84200ca1005b4ed6c59d2b032eea"
     },
     {
       "path": "assets/src/banner.html",
@@ -73,8 +73,8 @@
     },
     {
       "path": "dist-hub/noul-who.png",
-      "bytes": 74316,
-      "sha256": "29472a9cdf6de485a8af839f71adbcc7edad321acab1b399736f6f1afa02cf36"
+      "bytes": 74298,
+      "sha256": "29c7683791ae3f7e1857c6120f7417dc870224471bab8b51549794a843a166dd"
     },
     {
       "path": "docs/ACTIVITY.md",
@@ -228,8 +228,8 @@
     },
     {
       "path": "public/index.html",
-      "bytes": 12420,
-      "sha256": "cd2ac6ff7c05c7c084fc9d4715119116dc89dc4a48621c170831c443108a5df0"
+      "bytes": 12570,
+      "sha256": "5128a8734d1011da78e84226d0f1cba65dbbb37493295da2b6029a5dbb3532ee"
     },
     {
       "path": "public/portraits/c01.svg",
@@ -239,7 +239,7 @@
     {
       "path": "public/portraits/c02.svg",
       "bytes": 2884,
-      "sha256": "b57b0d9d22981a84f746c56f9e7a8943d577f0632f1c57de9a0039933541c0eb"
+      "sha256": "37001bd8cdcb56f931ce61a9e7c35251ac8781af66cc28187bf8fb390657d2ae"
     },
     {
       "path": "public/portraits/c03.svg",
@@ -249,7 +249,7 @@
     {
       "path": "public/portraits/c04.svg",
       "bytes": 2940,
-      "sha256": "0b277b74abbc2f1c964efc63f647b9307d80fb32c7c6bebe9190bbd375ecbbcf"
+      "sha256": "ef3fb162c96e52af86e0776149eb00dd70a0e1f0951559515f72f66054800622"
     },
     {
       "path": "public/portraits/c05.svg",
@@ -259,7 +259,7 @@
     {
       "path": "public/portraits/c06.svg",
       "bytes": 2250,
-      "sha256": "320f8119ffe1c5d3a74fe8d02bc8437ee6ca0a2c922827ab2a880b8b80dc1504"
+      "sha256": "d3858bd334fa91f376729034fa155ccd48390ec8d72f56d5bb1aca4b35294325"
     },
     {
       "path": "public/portraits/c07.svg",
@@ -269,7 +269,7 @@
     {
       "path": "public/portraits/c08.svg",
       "bytes": 2332,
-      "sha256": "c064bafa39abca9cbae0f30c3d92a4f9c112afd4ba03387100d1bdab5ffccfbc"
+      "sha256": "04e26b6eab4ecf805d50c05587175d6d4b11594850ec6772a487ff68f184db5d"
     },
     {
       "path": "public/portraits/c09.svg",
@@ -279,7 +279,7 @@
     {
       "path": "public/portraits/c10.svg",
       "bytes": 2777,
-      "sha256": "2fb643570ea139d07651c3a3a457d894867c904f9d071588ca22036c67fd6189"
+      "sha256": "a875943a78c65948ec05dd5f2550207c3c3f883a836a829c7039b1d1944ca852"
     },
     {
       "path": "public/portraits/c11.svg",
@@ -289,7 +289,7 @@
     {
       "path": "public/portraits/c12.svg",
       "bytes": 2901,
-      "sha256": "293600ef9f9bfaba26b24ca52a60ffefff7db4df2bc4de4f07acdbdc7a1ebecb"
+      "sha256": "6d5175d38d5359a509d56a3845c71e14a80acd9cdb42fb1552652554a881225c"
     },
     {
       "path": "public/portraits/c13.svg",
@@ -299,7 +299,7 @@
     {
       "path": "public/portraits/c14.svg",
       "bytes": 2942,
-      "sha256": "c2775e90e9e58b0e55506984d3e3ab2ef6a402d6b360623891d59137bfdaf07f"
+      "sha256": "12c0240c63ec53b95b103052e76508606cc8aff6ea06856203653d48f6bc39da"
     },
     {
       "path": "public/portraits/c15.svg",
@@ -309,7 +309,7 @@
     {
       "path": "public/portraits/c16.svg",
       "bytes": 2242,
-      "sha256": "d570fe501c5c37e1d7b837051c789740893902950163a8bcbc44e3780fff61ec"
+      "sha256": "18e3d7a419227fb47be60d2fea2bba18eda1ab8572e74c27b268b7eb17aabe0e"
     },
     {
       "path": "public/portraits/c17.svg",
@@ -319,7 +319,7 @@
     {
       "path": "public/portraits/c18.svg",
       "bytes": 2901,
-      "sha256": "74ffa9627640a9d0976dcc55159913dfb2febd02676976cb239a35f23797f709"
+      "sha256": "5c1a7c32d9f36c5732b4ee6668ac585f807701afa5c887c82a7d3efd716854fc"
     },
     {
       "path": "public/portraits/c19.svg",
@@ -329,7 +329,7 @@
     {
       "path": "public/portraits/c20.svg",
       "bytes": 2376,
-      "sha256": "f6faca822d9c2b92283a6bf0d40b88033ccf712515c9fe0170b2e26b30cb4db5"
+      "sha256": "ac8a9b2861e85976a046d703e2b8cd7c80687d12fd90ef8d8e5363a7fa8057d3"
     },
     {
       "path": "public/portraits/c21.svg",
@@ -339,7 +339,7 @@
     {
       "path": "public/portraits/c22.svg",
       "bytes": 2349,
-      "sha256": "cabdb077d46045808608a82db23eb57c5512bbe4df6a440a0c69e8d5d378230c"
+      "sha256": "18c0426c21fe1c04c17a3b7c0491e8d30db639e404ba47caaa00118161a365c3"
     },
     {
       "path": "public/portraits/c23.svg",
@@ -349,7 +349,7 @@
     {
       "path": "public/portraits/c24.svg",
       "bytes": 2397,
-      "sha256": "42f2d65d16ce21d93e103b1b6d8587c9b43aa5139aad6bb3a2fda9ed1d9f54ad"
+      "sha256": "a518b7144f8f18e6c2fc59d0056dbebedc9f5e9352921e7561b608a0921079bd"
     },
     {
       "path": "public/shared/analytics.js",
@@ -478,8 +478,8 @@
     },
     {
       "path": "reports/portraits-contact-sheet.png",
-      "bytes": 29062,
-      "sha256": "210daf1c5b5fe2cb07e2a75eb485ce7aca50a0854b9e98f6fec61f5434e68ef0"
+      "bytes": 29054,
+      "sha256": "de948d7c2cc436f0fe3bc607c6ab14f276aeb994c0fd22f4c81355d25415a066"
     },
     {
       "path": "reports/replay-verification.log",
@@ -499,7 +499,7 @@
     {
       "path": "reports/static-checks.json",
       "bytes": 5436,
-      "sha256": "f37f70e5b0f841fb0e0db77abf91d7a114b74965a6abf69c80b1d4224107ff67"
+      "sha256": "483678936b49b65b95cc69a1997752978455227247ce802fce346473ee15a5de"
     },
     {
       "path": "reports/unit-tests.tap",
@@ -523,8 +523,8 @@
     },
     {
       "path": "scripts/portrait-check.mjs",
-      "bytes": 3173,
-      "sha256": "fa665018d23851d71ec48a67b50548aa737e99fe3808d572277f7d37f72c5536"
+      "bytes": 6410,
+      "sha256": "0fcad3d1e2dfef3f519e1b77113c44cca9f1b99aae518fb1d87ec297f7aafe99"
     },
     {
       "path": "scripts/register-discord.mjs",
