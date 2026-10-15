@@ -46,7 +46,7 @@ Screenshots are from the tested application with synthetic practice data:
 
 Each matchup exercises all 1,152 initial configurations. This is exhaustive **initial-position coverage for the selected policies**, not a traversal of every possible action sequence or proof of optimal play. Random-safe waits until a singleton to guess; random-risk permits a legal guess sooner. Their outcomes are intentionally not interchangeable.
 
-**No live JEV requests were made.** The results measure the implemented scripted policies, not TypeSafe JEV's strength. Mocked provider responses validate the adapter but are not inference evidence. Search estimates, repeated positions and shared policies create dependence; reported binomial intervals are descriptive rather than independent-trial research conclusions.
+**No live Jev requests were made.** The results measure the implemented scripted policies, not TypeSafe Jev's strength. Mocked provider responses validate the adapter but are not inference evidence. Search estimates, repeated positions and shared policies create dependence; reported binomial intervals are descriptive rather than independent-trial research conclusions.
 
 ## Asset footprint
 
@@ -68,7 +68,7 @@ npm start
 npm run test:browser
 ```
 
-Live inference is separately opt-in and can incur provider charges; use the explicit flags and credentials described in the README. Never count a local or fallback match as an actual JEV benchmark.
+Live inference is separately opt-in and can incur provider charges; use the explicit flags and credentials described in the README. Never count a local or fallback match as an actual Jev benchmark.
 
 ## Re-validation after the jevplay.games rename (2026-10-14)
 
@@ -79,3 +79,10 @@ Chart colours (orchestrator decision D8, same day): the candidate trace uses `--
 ## Art refresh (Noul Who pink/ink assets, 2026-10-14)
 
 Portraits, card back, eliminated marker, icons, result badges, README banner and social/og cards were regenerated in the jevplay.games pixel style. `node scripts/portrait-check.mjs` passes (24 portraits, titles equal roster names, palette and trait colours tied to roster flags, 16,569 gzip bytes of 17,900; minimum pairwise difference 108 of 900 cells). `reports/portraits-contact-sheet.png` is the review sheet. Unit tests: **84 passed; 0 failed**. Public assets: **124,965 of 150,000** bytes gzip. `desktop-game.png` (1440), `mobile-game.png` (390) and `desktop-analytics.png` (1440) were retaken with Playwright against the local server in practice mode, mid-game and after a finished game; `tests/browser.py` still fails as on `origin/main`, so `browser-results.json` / `browser-test.log` remain from the earlier build.
+
+## Final holistic review (2026-10-14)
+
+Runtime: Node v24.15.0. `npm test`: **86 passed; 0 failed** (two consecutive runs; `unit-tests.tap` is the second). The two new tests cover the `LEGACY_ORIGIN` bare-origin rule (orchestrator decision D9) and the local server's 400 for a Host that cannot form a URL. `npm run check`: public assets **125,888 of 150,000** bytes gzip, JavaScript **27,667 of 60,000** (`static-check.log`, `static-checks.json`). `node scripts/portrait-check.mjs`: 24 portraits, 16,563 gzip bytes of 17,900, minimum pairwise difference 108 of 900 cells, and the closest pair of hair colours under simulated protan, deutan, tritan or achromatic vision is CIEDE2000 15.7 (the check fails below 15). `replay-verification.log`: the pre-rename `sample-replay.json` (`gameId` `guess-who`) still verifies.
+
+Red hair is now #D24E2D and brown #6A4639 (highlights #D96526 and #8D5544), so the four hair colours step from dark to light (black, brown, red, blond) for every type of colour vision; the earlier red and brown were CIEDE2000 4.2 apart under protanopia. `portraits-contact-sheet.png`, the README banner, the social preview and the hub og card were re-rendered from their unchanged sources, with only hair pixels changing. `desktop-game.png` (1440, mid-game), `mobile-game.png` (390, mid-game) and `desktop-analytics.png` (1440, after a finished game) were retaken with Playwright against a fresh local server in practice mode. `tests/browser.py` still fails in both modes exactly as on `origin/main` (real HTTP: the page's CSP refuses `wait_for_function`; inline fixture: 30 s timeout), so `browser-results.json` and `browser-test.log` remain from the original build.
+
