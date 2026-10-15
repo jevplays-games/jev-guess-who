@@ -35,7 +35,11 @@ button,select,input{font:inherit}button,select{min-height:var(--tap);border:1px 
 .board-panel[data-turn=human] .board{box-shadow:0 0 0 2px var(--accent),3px 3px 0 2px var(--ink)}
 .board-panel[data-turn=jev] #turn-status:before{content:'';display:inline-block;width:.6em;height:.6em;margin-right:.5em;border-radius:50%;background:var(--accent);animation:jv-breathe 1.2s ease-in-out infinite}
 .board-panel[data-turn=human] #turn-status:before{content:'';display:inline-block;width:.6em;height:.6em;margin-right:.5em;border-radius:50%;background:var(--accent);box-shadow:0 0 0 1px var(--ink)}
-.board.text-mode{--fit-ratio:.9;grid-template-columns:repeat(auto-fit,minmax(clamp(120px,30vw,220px),1fr))}.board.text-mode .character{text-align:left;min-height:9rem}.board.text-mode .character.eliminated:after{top:50%}.board.text-mode .name{font-size:var(--fs-md);text-align:left;padding:var(--s2) var(--s2) 0}
+/* Text cards: every trait in words, hair colour included, so no answer depends on telling colours apart.
+   The board uses the panel's full width with fixed gaps (a percentage row gap resolves against the grid's
+   own height and pushed the last rows out of the tray), and the eliminated mark is a corner box that never
+   covers the words. */
+.board.text-mode{max-width:none;gap:var(--s2);grid-template-columns:repeat(auto-fill,minmax(min(100%,9.5rem),1fr))}.board.text-mode .character{text-align:left;min-height:0}.board.text-mode .character.eliminated:after{left:auto;right:var(--s2);top:var(--s2);width:1.5rem;transform:none}.board.text-mode .name{font-size:var(--fs-md);text-align:left;padding:var(--s2) 2.25rem 0 var(--s2)}
 .action-bar{display:flex;gap:var(--s3);align-items:flex-end;margin:var(--s5) 0 var(--s2);flex-wrap:wrap}.question-label{display:grid;gap:var(--s2);flex:1;font-size:var(--fs-xs);color:var(--muted);min-width:min(100%,14rem)}.question-label select{width:100%}
 /* The question is typed, so it gets the same affordance as a select: same
    height, border and surface, and it grows with the action bar. */

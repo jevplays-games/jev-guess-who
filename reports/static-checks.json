@@ -1,7 +1,7 @@
 {
   "syntaxModules": 37,
   "rosterValid": true,
-  "publicGzipBytes": 125131,
+  "publicGzipBytes": 125310,
   "publicJavaScriptGzipBytes": 27055,
   "budgets": {
     "javaScript": 60000,
@@ -90,8 +90,8 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 20741,
-      "gzipBytes": 5588
+      "bytes": 21159,
+      "gzipBytes": 5767
     },
     {
       "path": "public/game.js",
