@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T03:18:39.004720+00:00",
+  "generatedAt": "2026-10-15T03:21:11.766564+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -533,8 +533,8 @@
     },
     {
       "path": "scripts/serve.mjs",
-      "bytes": 4604,
-      "sha256": "bdb4eb3e9e986be8a0a4197157481d4d64ef64b234f2d32552d52ca1ff565709"
+      "bytes": 4920,
+      "sha256": "2305e2d10c70e5c649509619790a8ca346090054ee7c3e39e15f67ee8df8c0c5"
     },
     {
       "path": "scripts/sqlite-adapter.mjs",
@@ -648,8 +648,8 @@
     },
     {
       "path": "tests/security.test.mjs",
-      "bytes": 5646,
-      "sha256": "60fcb194408ff713c049b5b0f170e6e66a63ade5a782b532794368be4ea1c806"
+      "bytes": 7116,
+      "sha256": "304568fc0bbb5972085f67afb671fc02cf425fee8afbe1e86dc0aa854ce10df4"
     },
     {
       "path": "tests/server.test.mjs",

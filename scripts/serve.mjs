@@ -33,7 +33,10 @@ const server=http.createServer(async(req,res)=>{
     if(trustProxy){const hops=String(req.headers['x-forwarded-for']||'').split(',').map(v=>v.trim()).filter(Boolean);if(hops.length)headers.set('cf-connecting-ip',hops[hops.length-1]);}
     const publicHost=(trustProxy&&req.headers['x-forwarded-host']?String(req.headers['x-forwarded-host']).split(',')[0].trim():req.headers.host);
     // Preserve incoming Host for origin validation. Never trust an external forwarding header.
-    const request=new Request(`${new URL(origin).protocol}//${publicHost}${req.url}`,{method:req.method,headers,...(!['GET','HEAD'].includes(req.method)?{body:Readable.toWeb(req),duplex:'half'}:{})});
+    // A Host that cannot form a plain URL (user info, bad port, spaces) is the client's error: 400, not 500.
+    let target=null;try{target=new URL(`${new URL(origin).protocol}//${publicHost}${req.url}`);}catch{}
+    if(!target||target.username||target.password){res.writeHead(400,{'Content-Type':'application/json'});res.end('{"error":"invalid_host"}');return;}
+    const request=new Request(target,{method:req.method,headers,...(!['GET','HEAD'].includes(req.method)?{body:Readable.toWeb(req),duplex:'half'}:{})});
     const response=await handle(request,env);res.writeHead(response.status,Object.fromEntries(response.headers));
     if(req.method==='HEAD')res.end();else res.end(Buffer.from(await response.arrayBuffer()));
   }catch{res.writeHead(500,{'Content-Type':'application/json'});res.end('{"error":"server_error"}');}
