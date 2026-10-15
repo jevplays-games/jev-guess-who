@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T06:11:16.628563+00:00",
+  "generatedAt": "2026-10-15T07:29:12.978697+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -218,13 +218,13 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 21456,
-      "sha256": "c092c44b657cd06ae50d8ddf91f5c387e1b46e736d10e8cff36341b4ed6524f2"
+      "bytes": 21597,
+      "sha256": "4ad3c7e2dd00379ed8c6ade4241513c1d6b254ac11dfb805e1f8d331d48cd397"
     },
     {
       "path": "public/game.js",
-      "bytes": 35034,
-      "sha256": "ba8185eb77f5128dcea2ed46a2691c1d2f132374f61ce190910713e2103d7ee1"
+      "bytes": 35240,
+      "sha256": "843da038537435967d9e60b7c6b36893360ff14ac4f0acc7f9940b5c7e85049b"
     },
     {
       "path": "public/index.html",
@@ -358,8 +358,8 @@
     },
     {
       "path": "public/shared/match-labels.js",
-      "bytes": 959,
-      "sha256": "96cf56c25a23348f6f0814a25e6a3197713a296e1f8277ae3f4a3196e5d22a25"
+      "bytes": 1089,
+      "sha256": "9c9fd82e002b6d9cb1a89c3568639095417029097488d5c6c8605de6ff9d8ca0"
     },
     {
       "path": "public/shared/operations-analytics.js",
@@ -393,8 +393,8 @@
     },
     {
       "path": "reports/VALIDATION.md",
-      "bytes": 10294,
-      "sha256": "1f8b759aafcfd3fb63e8515bf4144a27b0947f4652202745ffe1cce295e472d6"
+      "bytes": 11485,
+      "sha256": "664c814ee23bc7a5fbd1a2396dff832160a9db1c2b494758266c7db45b056df3"
     },
     {
       "path": "reports/benchmark-run.log",
@@ -499,17 +499,17 @@
     {
       "path": "reports/static-check.log",
       "bytes": 456,
-      "sha256": "46947bbbeb9b3d9cdf8ae3c94a8b639d76456d82eb25e11d05d6a9dbafd220df"
+      "sha256": "af85def49130988189a9ef6f1352cf01e0e29f77ef2178eed3965c10c0f64437"
     },
     {
       "path": "reports/static-checks.json",
-      "bytes": 5539,
-      "sha256": "1de290d88c3994e53f23cce909c243341c39d07f37c119cd7cfaf8068e00aca1"
+      "bytes": 5540,
+      "sha256": "aeb9949ce020cdf5885f892ece5d49b0f12d9f23c3d5cd4985ef7f5f201e3815"
     },
     {
       "path": "reports/unit-tests.tap",
-      "bytes": 19183,
-      "sha256": "772d4f09293d6a93c709fe4de96a8aeef433066d32782eb5e15e46c276ee042e"
+      "bytes": 21927,
+      "sha256": "b597efcf9766f97ce222c1bd9cd4d1123567234c43ee566dbfa0456f9f1e0765"
     },
     {
       "path": "reports/validation.json",
@@ -607,6 +607,16 @@
       "sha256": "a621b3a29878565cfd4b5ed77e28f929bedf7c1c8900bede7f548547cef4063b"
     },
     {
+      "path": "tests/fixtures/gen-legacy-in-progress.mjs",
+      "bytes": 1759,
+      "sha256": "184b3d75218049a8dabd2d0fd613bf368a0f2f38042717e4517f021f672b5ace"
+    },
+    {
+      "path": "tests/fixtures/guess-who-in-progress.json",
+      "bytes": 7659,
+      "sha256": "bc1cce30365794060e3fbb6a9ac57b2e6d504ebb7e20e8cdce4b1d931901f747"
+    },
+    {
       "path": "tests/fixtures/guess-who-replay.json",
       "bytes": 14667,
       "sha256": "7edb695740b5d66b3bd4882ca401e08709ddd07a46f214f0c2da9bb787585223"
@@ -622,9 +632,14 @@
       "sha256": "8ad460fcc6b44bdb6756db7278973f69c25eed2f1e999b0698e2a0d8be4b45ed"
     },
     {
+      "path": "tests/legacy-match.test.mjs",
+      "bytes": 6267,
+      "sha256": "2dc8722f5b635f485c8895cc858e7ac20ae256ea1fe646b4e41854ef84bfc9da"
+    },
+    {
       "path": "tests/match-labels.test.mjs",
-      "bytes": 2170,
-      "sha256": "50761994ff9132fed28e342b0a1df896b3b53bbf0c29de6f01af8de5e66ab849"
+      "bytes": 3035,
+      "sha256": "9f1667dd1ba565dc8d192ea2e3addb4299a04eb8f1471bc700f1666732dae360"
     },
     {
       "path": "tests/operations.test.mjs",

@@ -20,3 +20,4 @@ export function resultLabel(outcome) {
 }
 
 export const LAST_ANSWER_PLACEHOLDER='Questions and answers appear here.';
+export const EVIDENCE_PLACEHOLDER='After the opponent moves, inspect the action, candidate count, evidence and decision source.';

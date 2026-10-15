@@ -97,3 +97,21 @@ Red hair is now #D24E2D and brown #6A4639 (highlights #D96526 and #8D5544), so t
 - `handle()` maps a `URIError` to 400 `malformed_uri`.
 
 `npm run check`: public assets **126,662 of 150,000** bytes gzip, JavaScript **28,325 of 60,000**. The portrait check is unchanged: minimum pairwise difference is 108 cells. `replay-verification.log` still verifies.
+
+## Fix-verification follow-ups R1, O1, O2 and legacy in-progress matches (2026-10-15)
+
+`npm test`: **104 passed; 0 failed** (two consecutive runs; `unit-tests.tap` is the second).
+
+`tests/legacy-match.test.mjs` loads three matches that the pre-rename build (`origin/main` `172e75d`, generator `tests/fixtures/gen-legacy-in-progress.mjs`) left in progress, stored in `tests/fixtures/guess-who-in-progress.json`: a fresh match, a mid-game match, and one where it is Jev's move. It shows on HEAD that each one:
+- can be finished, resigned and expired through `maintenance()` with no `maintenance_error`;
+- verifies afterwards;
+- over HTTP, is read, advanced, played, resigned and exported without a 5xx.
+
+With the `guess-who` alias removed, 10 of its 11 tests fail.
+
+Other fixes, checked with Playwright at 320, 390, 768 and 1440 (no Jev key; non-local hosts blocked):
+- **R1:** the no-key Casual option, "Casual · no Jev key", fits unclipped at all four widths.
+- **O1:** the Decision evidence panel resets after New game.
+- **O2:** the "Unavailable / incomplete" KPI stays inside its card.
+
+`npm run check`: public assets **126,848 of 150,000** bytes gzip, JavaScript **28,472 of 60,000**.

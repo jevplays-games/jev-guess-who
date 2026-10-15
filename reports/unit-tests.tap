@@ -6,555 +6,633 @@ TAP version 13
 # Subtest: activity config exposes only the public client id and needs Discord configured
 ok 1 - activity config exposes only the public client id and needs Discord configured
   ---
-  duration_ms: 38.704459
+  duration_ms: 50.80175
   type: 'test'
   ...
 # Subtest: an SDK code becomes a bearer session: exchanged without a redirect uri, token is not stored in clear
 ok 2 - an SDK code becomes a bearer session: exchanged without a redirect uri, token is not stored in clear
   ---
-  duration_ms: 3.407666
+  duration_ms: 3.715834
   type: 'test'
   ...
 # Subtest: the bearer session works for reads and for mutations from the activity origin
 ok 3 - the bearer session works for reads and for mutations from the activity origin
   ---
-  duration_ms: 6.443334
+  duration_ms: 8.743334
   type: 'test'
   ...
 # Subtest: the activity origin is accepted only together with a bearer session and the right csrf
 ok 4 - the activity origin is accepted only together with a bearer session and the right csrf
   ---
-  duration_ms: 17.213292
+  duration_ms: 14.486792
   type: 'test'
   ...
 # Subtest: session creation rejects foreign origins, missing codes and Discord failures
 ok 5 - session creation rejects foreign origins, missing codes and Discord failures
   ---
-  duration_ms: 9.591542
+  duration_ms: 9.881583
   type: 'test'
   ...
 # Subtest: a blocked account cannot open an activity session
 ok 6 - a blocked account cannot open an activity session
   ---
-  duration_ms: 2.690667
+  duration_ms: 2.605917
   type: 'test'
   ...
 # Subtest: only a page loaded with frame_id may be framed, and only by Discord
 ok 7 - only a page loaded with frame_id may be framed, and only by Discord
   ---
-  duration_ms: 6.425
+  duration_ms: 3.239916
   type: 'test'
   ...
 # Subtest: quantiles are interpolated and missing data remains null
 ok 8 - quantiles are interpolated and missing data remains null
   ---
-  duration_ms: 0.713167
+  duration_ms: 0.726542
   type: 'test'
   ...
 # Subtest: Wilson boundaries and small samples
 ok 9 - Wilson boundaries and small samples
   ---
-  duration_ms: 0.646625
+  duration_ms: 0.65925
   type: 'test'
   ...
 # Subtest: public information analytics never use a hidden answer to score question quality
 ok 10 - public information analytics never use a hidden answer to score question quality
   ---
-  duration_ms: 0.490625
+  duration_ms: 0.505708
   type: 'test'
   ...
 # Subtest: guess probability is uniform prior, not model selection confidence
 ok 11 - guess probability is uniform prior, not model selection confidence
   ---
-  duration_ms: 4.613167
+  duration_ms: 8.002667
   type: 'test'
   ...
 # Subtest: partial provider usage cannot be presented as a complete bill
 ok 12 - partial provider usage cannot be presented as a complete bill
   ---
-  duration_ms: 1.426458
+  duration_ms: 0.9735
   type: 'test'
   ...
 # Subtest: selection entropy and probability margin are measured separately
 ok 13 - selection entropy and probability margin are measured separately
   ---
-  duration_ms: 0.091
+  duration_ms: 2.240792
   type: 'test'
   ...
 # Subtest: CSV quotes safely and neutralizes spreadsheet formula injection
 ok 14 - CSV quotes safely and neutralizes spreadsheet formula injection
   ---
-  duration_ms: 0.12975
+  duration_ms: 0.205375
   type: 'test'
   ...
 # Subtest: strict schema accepts a real-shape mocked Choice with usage
 ok 15 - strict schema accepts a real-shape mocked Choice with usage
   ---
-  duration_ms: 1.035333
+  duration_ms: 1.26325
   type: 'test'
   ...
 # Subtest: provider rejects invented actions, model mismatch, missing/invalid probabilities and invalid confidence
 ok 16 - provider rejects invented actions, model mismatch, missing/invalid probabilities and invalid confidence
   ---
-  duration_ms: 0.312
+  duration_ms: 0.313791
   type: 'test'
   ...
 # Subtest: a distribution off by rounding is accepted, a broken one is rejected with a detail
 ok 17 - a distribution off by rounding is accepted, a broken one is rejected with a detail
   ---
-  duration_ms: 0.144375
+  duration_ms: 0.1395
   type: 'test'
   ...
 # Subtest: equal max-probability ties use stable action ID
 ok 18 - equal max-probability ties use stable action ID
   ---
-  duration_ms: 0.059958
+  duration_ms: 0.056
   type: 'test'
   ...
 # Subtest: missing credentials trigger explicit fallback, not a fabricated Jev decision
 ok 19 - missing credentials trigger explicit fallback, not a fabricated Jev decision
   ---
-  duration_ms: 7.9625
+  duration_ms: 8.11575
   type: 'test'
   ...
 # Subtest: successful mocked provider call returns a legal Jev decision and safe input
 ok 20 - successful mocked provider call returns a legal Jev decision and safe input
   ---
-  duration_ms: 24.89625
+  duration_ms: 22.644
   type: 'test'
   ...
 # Subtest: invalid output retries once then records explicit fallback
 ok 21 - invalid output retries once then records explicit fallback
   ---
-  duration_ms: 202.191417
+  duration_ms: 202.295791
   type: 'test'
   ...
 # Subtest: authentication failure does not retry
 ok 22 - authentication failure does not retry
   ---
-  duration_ms: 0.524208
+  duration_ms: 0.572
   type: 'test'
   ...
 # Subtest: Retry-After beyond remaining budget uses fallback immediately
 ok 23 - Retry-After beyond remaining budget uses fallback immediately
   ---
-  duration_ms: 0.548958
+  duration_ms: 0.575625
   type: 'test'
   ...
 # Subtest: timeout is bounded and categorized
 ok 24 - timeout is bounded and categorized
   ---
-  duration_ms: 50.194708
+  duration_ms: 51.738833
   type: 'test'
   ...
 # Subtest: singleton is forced through rules without billing the provider
 ok 25 - singleton is forced through rules without billing the provider
   ---
-  duration_ms: 0.344417
+  duration_ms: 0.366458
+  type: 'test'
+  ...
+# Subtest: the fixture really is pre-rename and in progress
+ok 26 - the fixture really is pre-rename and in progress
+  ---
+  duration_ms: 2.305958
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "freshHuman" can be finished with a correct guess
+ok 27 - pre-rename in-progress match "freshHuman" can be finished with a correct guess
+  ---
+  duration_ms: 11.414834
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "freshHuman" can be resigned
+ok 28 - pre-rename in-progress match "freshHuman" can be resigned
+  ---
+  duration_ms: 2.426041
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "freshHuman" expires through maintenance
+ok 29 - pre-rename in-progress match "freshHuman" expires through maintenance
+  ---
+  duration_ms: 2.672542
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "jevToMove" can be finished with a correct guess
+ok 30 - pre-rename in-progress match "jevToMove" can be finished with a correct guess
+  ---
+  duration_ms: 4.850125
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "jevToMove" can be resigned
+ok 31 - pre-rename in-progress match "jevToMove" can be resigned
+  ---
+  duration_ms: 2.458167
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "jevToMove" expires through maintenance
+ok 32 - pre-rename in-progress match "jevToMove" expires through maintenance
+  ---
+  duration_ms: 2.349042
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "midGameHuman" can be finished with a correct guess
+ok 33 - pre-rename in-progress match "midGameHuman" can be finished with a correct guess
+  ---
+  duration_ms: 2.238791
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "midGameHuman" can be resigned
+ok 34 - pre-rename in-progress match "midGameHuman" can be resigned
+  ---
+  duration_ms: 2.318083
+  type: 'test'
+  ...
+# Subtest: pre-rename in-progress match "midGameHuman" expires through maintenance
+ok 35 - pre-rename in-progress match "midGameHuman" expires through maintenance
+  ---
+  duration_ms: 2.98125
+  type: 'test'
+  ...
+# Subtest: over HTTP, a pre-rename in-progress match is read, played, advanced, resigned and exported without a 5xx
+ok 36 - over HTTP, a pre-rename in-progress match is read, played, advanced, resigned and exported without a 5xx
+  ---
+  duration_ms: 50.714166
   type: 'test'
   ...
 # Subtest: the opponent is never labelled Jev when the host has no Jev key, even before its first move
-ok 26 - the opponent is never labelled Jev when the host has no Jev key, even before its first move
+ok 37 - the opponent is never labelled Jev when the host has no Jev key, even before its first move
   ---
-  duration_ms: 0.653959
+  duration_ms: 0.649875
   type: 'test'
   ...
 # Subtest: the result plaque says how the human won
-ok 27 - the result plaque says how the human won
+ok 38 - the result plaque says how the human won
   ---
-  duration_ms: 1.381667
+  duration_ms: 1.2995
   type: 'test'
   ...
 # Subtest: a new match resets the opponent panel to the page placeholder
-ok 28 - a new match resets the opponent panel to the page placeholder
+ok 39 - a new match resets the opponent panel to the page placeholder
   ---
-  duration_ms: 9.717667
+  duration_ms: 15.867208
+  type: 'test'
+  ...
+# Subtest: a new match resets the decision evidence panel instead of keeping an earlier match's decision
+ok 40 - a new match resets the decision evidence panel instead of keeping an earlier match's decision
+  ---
+  duration_ms: 11.979208
+  type: 'test'
+  ...
+# Subtest: the no-key Casual option stays short and honest
+ok 41 - the no-key Casual option stays short and honest
+  ---
+  duration_ms: 5.049
   type: 'test'
   ...
 # Subtest: operator activity separates guest sessions and Discord players
-ok 29 - operator activity separates guest sessions and Discord players
+ok 42 - operator activity separates guest sessions and Discord players
   ---
-  duration_ms: 5.86025
+  duration_ms: 7.212125
   type: 'test'
   ...
 # Subtest: retention excludes unmatured dates and measures exact-day returns
-ok 30 - retention excludes unmatured dates and measures exact-day returns
+ok 43 - retention excludes unmatured dates and measures exact-day returns
   ---
-  duration_ms: 0.177
+  duration_ms: 0.140584
   type: 'test'
   ...
 # Subtest: all provider attempts, including orphaned/stale calls, contribute to operations
-ok 31 - all provider attempts, including orphaned/stale calls, contribute to operations
+ok 44 - all provider attempts, including orphaned/stale calls, contribute to operations
   ---
-  duration_ms: 0.13825
+  duration_ms: 0.118416
   type: 'test'
   ...
 # Subtest: typed phrasings resolve to the predicate they describe
-ok 32 - typed phrasings resolve to the predicate they describe
+ok 45 - typed phrasings resolve to the predicate they describe
   ---
-  duration_ms: 1.039458
+  duration_ms: 1.076042
   type: 'test'
   ...
 # Subtest: the qualifier decides between the hair questions, not the word "hair"
-ok 33 - the qualifier decides between the hair questions, not the word "hair"
+ok 46 - the qualifier decides between the hair questions, not the word "hair"
   ---
-  duration_ms: 0.125708
+  duration_ms: 0.126042
   type: 'test'
   ...
 # Subtest: a bare "hair" is ambiguous rather than a silent guess
-ok 34 - a bare "hair" is ambiguous rather than a silent guess
+ok 47 - a bare "hair" is ambiguous rather than a silent guess
   ---
-  duration_ms: 0.067917
+  duration_ms: 0.074
   type: 'test'
   ...
 # Subtest: questions the rules cannot answer are rejected, with the legal set offered
-ok 35 - questions the rules cannot answer are rejected, with the legal set offered
+ok 48 - questions the rules cannot answer are rejected, with the legal set offered
   ---
-  duration_ms: 1.138167
+  duration_ms: 0.04975
   type: 'test'
   ...
 # Subtest: empty input is its own state, not an error
-ok 36 - empty input is its own state, not an error
+ok 49 - empty input is its own state, not an error
+  ---
+  duration_ms: 2.504416
+  type: 'test'
+  ...
+# Subtest: an already-asked question resolves to spent and lists what is left
+ok 50 - an already-asked question resolves to spent and lists what is left
+  ---
+  duration_ms: 0.13975
+  type: 'test'
+  ...
+# Subtest: every predicate is reachable by typing its own label
+ok 51 - every predicate is reachable by typing its own label
+  ---
+  duration_ms: 0.165791
+  type: 'test'
+  ...
+# Subtest: scoring prefers the more specific phrase
+ok 52 - scoring prefers the more specific phrase
+  ---
+  duration_ms: 0.046458
+  type: 'test'
+  ...
+# Subtest: two questions joined into one are refused, not half-answered
+ok 53 - two questions joined into one are refused, not half-answered
+  ---
+  duration_ms: 0.108708
+  type: 'test'
+  ...
+# Subtest: a joined question with only one half recognised warns instead of going quiet
+ok 54 - a joined question with only one half recognised warns instead of going quiet
+  ---
+  duration_ms: 0.102459
+  type: 'test'
+  ...
+# Subtest: a plain single question carries no warning
+ok 55 - a plain single question carries no warning
+  ---
+  duration_ms: 0.061334
+  type: 'test'
+  ...
+# Subtest: phrases match on whole words only
+ok 56 - phrases match on whole words only
+  ---
+  duration_ms: 0.070375
+  type: 'test'
+  ...
+# Subtest: new matches are noul-who; the guess-who alias is still accepted and nothing else is
+ok 57 - new matches are noul-who; the guess-who alias is still accepted and nothing else is
+  ---
+  duration_ms: 25.240125
+  type: 'test'
+  ...
+# Subtest: a replay exported before the rename (gameId guess-who) still verifies; tampering with its id does not
+ok 58 - a replay exported before the rename (gameId guess-who) still verifies; tampering with its id does not
+  ---
+  duration_ms: 82.554708
+  type: 'test'
+  ...
+# Subtest: an offline replay exported before the rename still reconstructs
+ok 59 - an offline replay exported before the rename still reconstructs
+  ---
+  duration_ms: 0.175167
+  type: 'test'
+  ...
+# Subtest: a launch token issued before the rename still redeems
+ok 60 - a launch token issued before the rename still redeems
+  ---
+  duration_ms: 4.574417
+  type: 'test'
+  ...
+# Subtest: /play-jev accepts both the old and the new game option until it is re-registered
+ok 61 - /play-jev accepts both the old and the new game option until it is re-registered
+  ---
+  duration_ms: 27.881917
+  type: 'test'
+  ...
+# Subtest: the pre-rename host is served under its own origin, then 301s to the new origin at cutover
+ok 62 - the pre-rename host is served under its own origin, then 301s to the new origin at cutover
+  ---
+  duration_ms: 7.547208
+  type: 'test'
+  ...
+# Subtest: LEGACY_ORIGIN is honoured only as a bare origin (D9): hostile or malformed values never widen the host check, never redirect and never 500
+ok 63 - LEGACY_ORIGIN is honoured only as a bare origin (D9): hostile or malformed values never widen the host check, never redirect and never 500
+  ---
+  duration_ms: 44.005041
+  type: 'test'
+  ...
+# Subtest: the default local database moves to noul-who.sqlite but an existing guess-who.sqlite keeps being used
+ok 64 - the default local database moves to noul-who.sqlite but an existing guess-who.sqlite keeps being used
+  ---
+  duration_ms: 2.0325
+  type: 'test'
+  ...
+# Subtest: roster has 24 unique distinguishable identities and balanced trait coverage
+ok 65 - roster has 24 unique distinguishable identities and balanced trait coverage
+  ---
+  duration_ms: 1.73425
+  type: 'test'
+  ...
+# Subtest: all 1,152 initial secret/starter combinations terminate and replay deterministically
+ok 66 - all 1,152 initial secret/starter combinations terminate and replay deterministically
+  ---
+  duration_ms: 159.702375
+  type: 'test'
+  ...
+# Subtest: correct and incorrect guesses consume one turn and end play
+ok 67 - correct and incorrect guesses consume one turn and end play
+  ---
+  duration_ms: 0.305791
+  type: 'test'
+  ...
+# Subtest: redundant questions, invalid keys, wrong actor and eliminated guesses are illegal
+ok 68 - redundant questions, invalid keys, wrong actor and eliminated guesses are illegal
+  ---
+  duration_ms: 0.190667
+  type: 'test'
+  ...
+# Subtest: singleton requires a final guess and allows equal secrets
+ok 69 - singleton requires a final guess and allows equal secrets
+  ---
+  duration_ms: 0.121167
+  type: 'test'
+  ...
+# Subtest: live human projection has no Jev secret or seed; decision view has neither secret
+ok 70 - live human projection has no Jev secret or seed; decision view has neither secret
+  ---
+  duration_ms: 5.197583
+  type: 'test'
+  ...
+# Subtest: decision inputs are identical for secrets consistent with identical observations
+ok 71 - decision inputs are identical for secrets consistent with identical observations
+  ---
+  duration_ms: 2.445625
+  type: 'test'
+  ...
+# Subtest: replay rejects altered answers and revisions; expiration is an explicit terminal event
+ok 72 - replay rejects altered answers and revisions; expiration is an explicit terminal event
+  ---
+  duration_ms: 0.212125
+  type: 'test'
+  ...
+# Subtest: question features match exact information formulas
+ok 73 - question features match exact information formulas
   ---
   duration_ms: 0.104792
   type: 'test'
   ...
-# Subtest: an already-asked question resolves to spent and lists what is left
-ok 37 - an already-asked question resolves to spent and lists what is left
-  ---
-  duration_ms: 0.110167
-  type: 'test'
-  ...
-# Subtest: every predicate is reachable by typing its own label
-ok 38 - every predicate is reachable by typing its own label
-  ---
-  duration_ms: 0.151291
-  type: 'test'
-  ...
-# Subtest: scoring prefers the more specific phrase
-ok 39 - scoring prefers the more specific phrase
-  ---
-  duration_ms: 0.048542
-  type: 'test'
-  ...
-# Subtest: two questions joined into one are refused, not half-answered
-ok 40 - two questions joined into one are refused, not half-answered
-  ---
-  duration_ms: 0.132041
-  type: 'test'
-  ...
-# Subtest: a joined question with only one half recognised warns instead of going quiet
-ok 41 - a joined question with only one half recognised warns instead of going quiet
-  ---
-  duration_ms: 0.100833
-  type: 'test'
-  ...
-# Subtest: a plain single question carries no warning
-ok 42 - a plain single question carries no warning
-  ---
-  duration_ms: 0.062042
-  type: 'test'
-  ...
-# Subtest: phrases match on whole words only
-ok 43 - phrases match on whole words only
-  ---
-  duration_ms: 0.072
-  type: 'test'
-  ...
-# Subtest: new matches are noul-who; the guess-who alias is still accepted and nothing else is
-ok 44 - new matches are noul-who; the guess-who alias is still accepted and nothing else is
-  ---
-  duration_ms: 15.205334
-  type: 'test'
-  ...
-# Subtest: a replay exported before the rename (gameId guess-who) still verifies; tampering with its id does not
-ok 45 - a replay exported before the rename (gameId guess-who) still verifies; tampering with its id does not
-  ---
-  duration_ms: 99.616375
-  type: 'test'
-  ...
-# Subtest: an offline replay exported before the rename still reconstructs
-ok 46 - an offline replay exported before the rename still reconstructs
-  ---
-  duration_ms: 0.185833
-  type: 'test'
-  ...
-# Subtest: a launch token issued before the rename still redeems
-ok 47 - a launch token issued before the rename still redeems
-  ---
-  duration_ms: 4.342417
-  type: 'test'
-  ...
-# Subtest: /play-jev accepts both the old and the new game option until it is re-registered
-ok 48 - /play-jev accepts both the old and the new game option until it is re-registered
-  ---
-  duration_ms: 27.085583
-  type: 'test'
-  ...
-# Subtest: the pre-rename host is served under its own origin, then 301s to the new origin at cutover
-ok 49 - the pre-rename host is served under its own origin, then 301s to the new origin at cutover
-  ---
-  duration_ms: 5.44875
-  type: 'test'
-  ...
-# Subtest: LEGACY_ORIGIN is honoured only as a bare origin (D9): hostile or malformed values never widen the host check, never redirect and never 500
-ok 50 - LEGACY_ORIGIN is honoured only as a bare origin (D9): hostile or malformed values never widen the host check, never redirect and never 500
-  ---
-  duration_ms: 32.478584
-  type: 'test'
-  ...
-# Subtest: the default local database moves to noul-who.sqlite but an existing guess-who.sqlite keeps being used
-ok 51 - the default local database moves to noul-who.sqlite but an existing guess-who.sqlite keeps being used
-  ---
-  duration_ms: 3.196333
-  type: 'test'
-  ...
-# Subtest: roster has 24 unique distinguishable identities and balanced trait coverage
-ok 52 - roster has 24 unique distinguishable identities and balanced trait coverage
-  ---
-  duration_ms: 0.708375
-  type: 'test'
-  ...
-# Subtest: all 1,152 initial secret/starter combinations terminate and replay deterministically
-ok 53 - all 1,152 initial secret/starter combinations terminate and replay deterministically
-  ---
-  duration_ms: 195.234709
-  type: 'test'
-  ...
-# Subtest: correct and incorrect guesses consume one turn and end play
-ok 54 - correct and incorrect guesses consume one turn and end play
-  ---
-  duration_ms: 0.298791
-  type: 'test'
-  ...
-# Subtest: redundant questions, invalid keys, wrong actor and eliminated guesses are illegal
-ok 55 - redundant questions, invalid keys, wrong actor and eliminated guesses are illegal
-  ---
-  duration_ms: 0.178125
-  type: 'test'
-  ...
-# Subtest: singleton requires a final guess and allows equal secrets
-ok 56 - singleton requires a final guess and allows equal secrets
-  ---
-  duration_ms: 0.112375
-  type: 'test'
-  ...
-# Subtest: live human projection has no Jev secret or seed; decision view has neither secret
-ok 57 - live human projection has no Jev secret or seed; decision view has neither secret
-  ---
-  duration_ms: 4.772375
-  type: 'test'
-  ...
-# Subtest: decision inputs are identical for secrets consistent with identical observations
-ok 58 - decision inputs are identical for secrets consistent with identical observations
-  ---
-  duration_ms: 2.55475
-  type: 'test'
-  ...
-# Subtest: replay rejects altered answers and revisions; expiration is an explicit terminal event
-ok 59 - replay rejects altered answers and revisions; expiration is an explicit terminal event
-  ---
-  duration_ms: 0.243292
-  type: 'test'
-  ...
-# Subtest: question features match exact information formulas
-ok 60 - question features match exact information formulas
-  ---
-  duration_ms: 0.106042
-  type: 'test'
-  ...
 # Subtest: all difficulty candidate sets are legal, bounded, deterministic and secret-free
-ok 61 - all difficulty candidate sets are legal, bounded, deterministic and secret-free
+ok 74 - all difficulty candidate sets are legal, bounded, deterministic and secret-free
   ---
-  duration_ms: 11.673416
+  duration_ms: 13.976084
   type: 'test'
   ...
 # Subtest: two-candidate race yields exact 1/2 guess value and a guaranteed singleton win
-ok 62 - two-candidate race yields exact 1/2 guess value and a guaranteed singleton win
+ok 75 - two-candidate race yields exact 1/2 guess value and a guaranteed singleton win
   ---
-  duration_ms: 0.216041
+  duration_ms: 0.22725
   type: 'test'
   ...
 # Subtest: popcount matches the reference loop
-ok 63 - popcount matches the reference loop
+ok 76 - popcount matches the reference loop
   ---
-  duration_ms: 1.733167
+  duration_ms: 2.457959
   type: 'test'
   ...
 # Subtest: balancedAction, completionDistribution and frontier match the reference
-ok 64 - balancedAction, completionDistribution and frontier match the reference
+ok 77 - balancedAction, completionDistribution and frontier match the reference
   ---
-  duration_ms: 25.625166
+  duration_ms: 31.7435
   type: 'test'
   ...
 # Subtest: buildCandidates and localDecision are byte-identical to the reference for random situations on every difficulty
-ok 65 - buildCandidates and localDecision are byte-identical to the reference for random situations on every difficulty
+ok 78 - buildCandidates and localDecision are byte-identical to the reference for random situations on every difficulty
   ---
-  duration_ms: 2196.833
+  duration_ms: 2246.240667
   type: 'test'
   ...
 # Subtest: searchActions agrees for odd depth/budget settings (node accounting and partial depth)
-ok 66 - searchActions agrees for odd depth/budget settings (node accounting and partial depth)
+ok 79 - searchActions agrees for odd depth/budget settings (node accounting and partial depth)
   ---
-  duration_ms: 167.573208
+  duration_ms: 166.564917
   type: 'test'
   ...
 # Subtest: request payloads and input hashes are identical along full jev-difficulty games
-ok 67 - request payloads and input hashes are identical along full jev-difficulty games
+ok 80 - request payloads and input hashes are identical along full jev-difficulty games
   ---
-  duration_ms: 819.241208
+  duration_ms: 828.163333
   type: 'test'
   ...
 # Subtest: signed launch token rejects tampering and expiry
-ok 68 - signed launch token rejects tampering and expiry
+ok 81 - signed launch token rejects tampering and expiry
   ---
-  duration_ms: 4.987916
+  duration_ms: 5.848333
   type: 'test'
   ...
 # Subtest: Discord Ed25519 validates timestamp plus exact body and rejects stale timestamps
-ok 69 - Discord Ed25519 validates timestamp plus exact body and rejects stale timestamps
+ok 82 - Discord Ed25519 validates timestamp plus exact body and rejects stale timestamps
   ---
-  duration_ms: 2.265584
+  duration_ms: 2.625625
   type: 'test'
   ...
 # Subtest: origin and CSRF checks are both mandatory
-ok 70 - origin and CSRF checks are both mandatory
+ok 83 - origin and CSRF checks are both mandatory
   ---
-  duration_ms: 1.060583
+  duration_ms: 1.189916
   type: 'test'
   ...
 # Subtest: streamed request body limits apply without Content-Length
-ok 71 - streamed request body limits apply without Content-Length
+ok 84 - streamed request body limits apply without Content-Length
   ---
-  duration_ms: 0.971292
+  duration_ms: 1.020625
   type: 'test'
   ...
 # Subtest: OAuth rejects missing, expired, foreign-session and already consumed state
-ok 72 - OAuth rejects missing, expired, foreign-session and already consumed state
+ok 85 - OAuth rejects missing, expired, foreign-session and already consumed state
   ---
-  duration_ms: 2.814542
+  duration_ms: 3.302292
   type: 'test'
   ...
 # Subtest: mocked Discord OAuth rotates the session without storing provider tokens
-ok 73 - mocked Discord OAuth rotates the session without storing provider tokens
+ok 86 - mocked Discord OAuth rotates the session without storing provider tokens
   ---
-  duration_ms: 5.896292
+  duration_ms: 6.756833
   type: 'test'
   ...
 # Subtest: launch redemption requires matching identity and consumes exactly once
-ok 74 - launch redemption requires matching identity and consumes exactly once
+ok 87 - launch redemption requires matching identity and consumes exactly once
   ---
-  duration_ms: 7.723667
+  duration_ms: 3.974458
   type: 'test'
   ...
 # Subtest: unsigned interaction cannot forge channel context
-ok 75 - unsigned interaction cannot forge channel context
+ok 88 - unsigned interaction cannot forge channel context
   ---
-  duration_ms: 5.178709
+  duration_ms: 3.071375
   type: 'test'
   ...
 # Subtest: the local server answers a Host header that cannot form a URL with 400, never 500
-ok 76 - the local server answers a Host header that cannot form a URL with 400, never 500
+ok 89 - the local server answers a Host header that cannot form a URL with 400, never 500
   ---
-  duration_ms: 128.37375
+  duration_ms: 129.612625
   type: 'test'
   ...
 # Subtest: the local server answers a malformed percent-encoded path with 400, never 500
-ok 77 - the local server answers a malformed percent-encoded path with 400, never 500
+ok 90 - the local server answers a malformed percent-encoded path with 400, never 500
   ---
-  duration_ms: 106.2345
+  duration_ms: 115.55
   type: 'test'
   ...
 # Subtest: handle() maps a URIError from the asset layer to 400 malformed_uri
-ok 78 - handle() maps a URIError from the asset layer to 400 malformed_uri
+ok 91 - handle() maps a URIError from the asset layer to 400 malformed_uri
   ---
-  duration_ms: 2.063125
+  duration_ms: 2.398333
   type: 'test'
   ...
 # Subtest: server creates secret-safe snapshots; other sessions cannot read a match
-ok 79 - server creates secret-safe snapshots; other sessions cannot read a match
+ok 92 - server creates secret-safe snapshots; other sessions cannot read a match
   ---
-  duration_ms: 9.030083
+  duration_ms: 19.006583
   type: 'test'
   ...
 # Subtest: create idempotency does not create extra games and rejects conflicting reuse
-ok 80 - create idempotency does not create extra games and rejects conflicting reuse
+ok 93 - create idempotency does not create extra games and rejects conflicting reuse
   ---
-  duration_ms: 1.749542
+  duration_ms: 3.175
   type: 'test'
   ...
 # Subtest: duplicate human action is idempotent; altered payload and stale revision fail
-ok 81 - duplicate human action is idempotent; altered payload and stale revision fail
+ok 94 - duplicate human action is idempotent; altered payload and stale revision fail
   ---
-  duration_ms: 5.293541
+  duration_ms: 3.238917
   type: 'test'
   ...
 # Subtest: persisted lease suppresses concurrent Jev advances
-ok 82 - persisted lease suppresses concurrent Jev advances
+ok 95 - persisted lease suppresses concurrent Jev advances
   ---
-  duration_ms: 1.656375
+  duration_ms: 4.648583
   type: 'test'
   ...
 # Subtest: completed replay is validated and rejects seed, event, difficulty and state tampering
-ok 83 - completed replay is validated and rejects seed, event, difficulty and state tampering
+ok 96 - completed replay is validated and rejects seed, event, difficulty and state tampering
   ---
-  duration_ms: 5.270875
+  duration_ms: 6.093709
   type: 'test'
   ...
 # Subtest: ranked match requires identity, configured Jev and pinned model; one active ranked attempt
-ok 84 - ranked match requires identity, configured Jev and pinned model; one active ranked attempt
+ok 97 - ranked match requires identity, configured Jev and pinned model; one active ranked attempt
   ---
-  duration_ms: 1.577125
+  duration_ms: 2.641916
   type: 'test'
   ...
 # Subtest: mocked Jev ranked completion inserts one official result, never two
-ok 85 - mocked Jev ranked completion inserts one official result, never two
+ok 98 - mocked Jev ranked completion inserts one official result, never two
   ---
-  duration_ms: 50.226083
+  duration_ms: 5.498708
   type: 'test'
   ...
 # Subtest: fallback permanently disqualifies a ranked game
-ok 86 - fallback permanently disqualifies a ranked game
+ok 99 - fallback permanently disqualifies a ranked game
   ---
-  duration_ms: 6.021208
+  duration_ms: 26.469458
   type: 'test'
   ...
 # Subtest: compare-and-swap loser cannot insert an unrelated result in D1 batch
-ok 87 - compare-and-swap loser cannot insert an unrelated result in D1 batch
+ok 100 - compare-and-swap loser cannot insert an unrelated result in D1 batch
   ---
-  duration_ms: 1.427416
+  duration_ms: 4.432083
   type: 'test'
   ...
 # Subtest: expired eligible match becomes a verified loss
-ok 88 - expired eligible match becomes a verified loss
+ok 101 - expired eligible match becomes a verified loss
   ---
-  duration_ms: 2.207292
+  duration_ms: 3.396
   type: 'test'
   ...
 # Subtest: leaderboard scopes and difficulty separate cohorts, reject stale context and bind cursors
-ok 89 - leaderboard scopes and difficulty separate cohorts, reject stale context and bind cursors
+ok 102 - leaderboard scopes and difficulty separate cohorts, reject stale context and bind cursors
   ---
-  duration_ms: 15.024291
+  duration_ms: 7.737917
   type: 'test'
   ...
 # Subtest: analytics is owner-scoped and carries explicit coverage
-ok 90 - analytics is owner-scoped and carries explicit coverage
+ok 103 - analytics is owner-scoped and carries explicit coverage
   ---
-  duration_ms: 2.809875
+  duration_ms: 2.4405
   type: 'test'
   ...
 # Subtest: HTTP layer rejects absent CSRF, cross-origin, unknown endpoints and score forgery
-ok 91 - HTTP layer rejects absent CSRF, cross-origin, unknown endpoints and score forgery
+ok 104 - HTTP layer rejects absent CSRF, cross-origin, unknown endpoints and score forgery
   ---
-  duration_ms: 5.822916
+  duration_ms: 12.541833
   type: 'test'
   ...
-1..91
-# tests 91
+1..104
+# tests 104
 # suites 0
-# pass 91
+# pass 104
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 3326.361584
+# duration_ms 3396.6765

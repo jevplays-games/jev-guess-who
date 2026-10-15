@@ -1,8 +1,8 @@
 {
-  "syntaxModules": 39,
+  "syntaxModules": 41,
   "rosterValid": true,
-  "publicGzipBytes": 126662,
-  "publicJavaScriptGzipBytes": 28325,
+  "publicGzipBytes": 126848,
+  "publicJavaScriptGzipBytes": 28472,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
@@ -90,13 +90,13 @@
     },
     {
       "path": "public/game.css",
-      "bytes": 21456,
-      "gzipBytes": 5883
+      "bytes": 21597,
+      "gzipBytes": 5922
     },
     {
       "path": "public/game.js",
-      "bytes": 35034,
-      "gzipBytes": 12111
+      "bytes": 35240,
+      "gzipBytes": 12200
     },
     {
       "path": "public/index.html",
@@ -230,8 +230,8 @@
     },
     {
       "path": "public/shared/match-labels.js",
-      "bytes": 959,
-      "gzipBytes": 516
+      "bytes": 1089,
+      "gzipBytes": 574
     },
     {
       "path": "public/shared/operations-analytics.js",

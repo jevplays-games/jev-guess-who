@@ -3,7 +3,7 @@ import {createInitialState,applyAction,projectForHuman,projectForDecision,action
 import {localDecision,questionFeatures} from './shared/strategy.js';
 import {analyzeAction,analyzeMatch,aggregateAnalytics,decisionRows,csv} from './shared/analytics.js';
 import {matchQuestion} from './shared/question-parse.js';
-import {opponentSourceLabel,resultLabel,LAST_ANSWER_PLACEHOLDER} from './shared/match-labels.js';
+import {opponentSourceLabel,resultLabel,LAST_ANSWER_PLACEHOLDER,EVIDENCE_PLACEHOLDER} from './shared/match-labels.js';
 const $=id=>document.getElementById(id);
 const f=(n,d=2)=>typeof n==='number'&&Number.isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:d}):'—';
 const pct=n=>typeof n==='number'?`${f(n*100,1)}%`:'—';
@@ -155,7 +155,9 @@ $('question').addEventListener('keydown',event=>{if(event.key==='Enter'&&!$('ask
 function evidenceRow(label,value){const r=el('div',null,'evidence-row');r.append(el('span',label),el('strong',value));return r;}
 function renderEvidence(){
   const panel=$('decision-evidence');panel.hidden=!$('analysis-toggle').checked;
-  const decision=current?.history.filter(e=>e.decision).at(-1)?.decision;if(!decision)return;
+  const decision=current?.history.filter(e=>e.decision).at(-1)?.decision;
+  // A new match has no decision yet: show the placeholder, never the previous match's evidence.
+  if(!decision){panel.replaceChildren(el('p',EVIDENCE_PLACEHOLDER,'muted'));return;}
   panel.replaceChildren(el('p',labelAction(decision.action)));
   panel.append(evidenceRow('Source',label(SOURCE_LABELS,decision.source)),evidenceRow('Candidates',f(decision.candidateCount,0)),evidenceRow('Decision latency',ms(decision.latencyMs)),evidenceRow('Selection confidence',pct(decision.confidence)));
   if(decision.selectedFeatures?.expectedRemaining!=null)panel.append(evidenceRow('Expected remaining',f(decision.selectedFeatures.expectedRemaining)));
@@ -278,7 +280,7 @@ function renderAnalytics(){
   if(!analyticsData)return;const {summary:s,matches,coverage}=analyticsData,container=$('analytics-content');container.replaceChildren();
   $('coverage').textContent=`${coverage.filtered} selected matches; ${coverage.scanned} scanned of ${coverage.availableStoredMatches} stored. ${coverage.truncated?'History is truncated to the latest 500 matches. ':''}Snapshot: ${new Date(coverage.asOf).toLocaleString()}. Offline and server records are not mixed.`;
   const kpis=el('div',null,'kpi-grid');
-  for(const [label,value] of [['Completed matches',f(s.overall.finished,0)],['Human win rate',pct(s.overall.winRate)],['Current / best streak',`${s.streaks.current} / ${s.streaks.best}`],['Jev median latency',ms(s.jevLatencyMs.p50)],['Provider attempts',f(s.provider.attempts,0)],['Fallback decisions',f(s.provider.fallbackDecisions,0)],['Known input tokens',f(s.provider.knownInputTokens,0)],['Measured input cost',s.provider.measuredInputCostUsd==null?'Unavailable / incomplete':`$${f(s.provider.measuredInputCostUsd,6)}`]]){const card=el('div',null,'kpi');card.append(el('strong',value),el('span',label));kpis.append(card);}container.append(kpis);
+  for(const [label,value] of [['Completed matches',f(s.overall.finished,0)],['Human win rate',pct(s.overall.winRate)],['Current / best streak',`${s.streaks.current} / ${s.streaks.best}`],['Jev median latency',ms(s.jevLatencyMs.p50)],['Provider attempts',f(s.provider.attempts,0)],['Fallback decisions',f(s.provider.fallbackDecisions,0)],['Known input tokens',f(s.provider.knownInputTokens,0)],['Measured input cost',s.provider.measuredInputCostUsd==null?'Unavailable / incomplete':`$${f(s.provider.measuredInputCostUsd,6)}`]]){const card=el('div',null,'kpi');card.append(el('strong',value,/[a-z]{4}/i.test(value)?'kpi-text':null),el('span',label));kpis.append(card);}container.append(kpis);
   const currentReport=current?.analytics||analyticsData.currentDetail||matches[0];
   if(currentReport){container.append(el('h3','Current / most recent match: candidate trace'));if(currentReport.events?.length)container.append(trace(currentReport.events));else container.append(el('p','No committed turn details are available for this trace.','muted'));const legend=el('div',null,'legend');legend.append(el('span','Human candidates','human'),el('span','Opponent candidates','jev'));container.append(legend);
     container.append(makeTable(['Actor','Turns','Questions','Remaining','Mean split balance','Mean expected information','Mean information regret','Risky guesses'],Object.entries(currentReport.actors).map(([actor,a])=>[humanName(actor),a.turns,a.questions,a.remaining,f(a.splitBalance.mean),f(a.expectedInformationGain.mean)+' bits',f(a.informationGainRegret.mean)+' bits',a.riskyGuesses])));
@@ -335,7 +337,7 @@ async function initialize(){
     me=await api('/api/me');$('identity').textContent=me.user?.name||'Guest';$('login').hidden=!!me.user;$('logout').hidden=!me.user;
     if(!me.discordConfigured)$('login').textContent='Discord setup required';
     if(me.jevConfigured)$('mode').value='casual';
-    else{const casual=$('mode').querySelector('option[value=casual]');if(casual)casual.textContent='Casual · local fallback (no Jev key)';}
+    else{const casual=$('mode').querySelector('option[value=casual]');if(casual)casual.textContent='Casual · no Jev key';}
     let token;try{token=sessionStorage.getItem('gw:launch');}catch{}
     if(token&&me.user){try{await api('/api/context/redeem',{method:'POST',body:{token}});notice('Discord community context verified.');}finally{sessionStorage.removeItem('gw:launch');}}
     else if(token)notice('Sign in with the Discord account that launched this game to verify community context.');
