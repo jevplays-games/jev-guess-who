@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T00:07:16.644527+00:00",
+  "generatedAt": "2026-10-15T03:05:07.953101+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -98,8 +98,8 @@
     },
     {
       "path": "docs/DEPLOYMENT.md",
-      "bytes": 13786,
-      "sha256": "dc0d2260d0bce14d0a3d7b7a8e9b6a0b3814ff4dc0c8a277eff60e88bbf8b6e4"
+      "bytes": 14403,
+      "sha256": "fe26800cba85706aba55fc1c233acdcbbf293ba82d8b8c07b33607fe632b6a81"
     },
     {
       "path": "docs/ENGINEERING.md",
@@ -553,8 +553,8 @@
     },
     {
       "path": "server/app.js",
-      "bytes": 7852,
-      "sha256": "83972d2e26a08e754b9df1af870c3b90b9295e33d86609bd875611d1e5941384"
+      "bytes": 7995,
+      "sha256": "6e4003e10bfe977d7dc9ba3ea380c70f98cfb066a48526cd4c60c865fd8e8617"
     },
     {
       "path": "server/discord.js",
@@ -573,8 +573,8 @@
     },
     {
       "path": "server/security.js",
-      "bytes": 5628,
-      "sha256": "988692f5c4dc484075d61b1a8d6c6604c824950f488c23a16b8819151180cb0c"
+      "bytes": 7016,
+      "sha256": "6b60d4ca14e18b007c7b98914dbfe9b63114c116e066f59cf2f492f500cd8f7d"
     },
     {
       "path": "server/store.js",
@@ -633,8 +633,8 @@
     },
     {
       "path": "tests/rename.test.mjs",
-      "bytes": 8177,
-      "sha256": "28fb3bb88b01c123d8f908e2bc4bd7f9949c5b0ed4543ee8176583a707fab833"
+      "bytes": 10755,
+      "sha256": "0984f981bf9c46d3c14202ae701fa2352a67bd498f1bc0337a4620f352267921"
     },
     {
       "path": "tests/rules.test.mjs",

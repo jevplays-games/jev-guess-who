@@ -50,6 +50,25 @@ export function safeHeaders(headers={}) {return new Headers({
 export const json=(data,status=200,headers={})=>new Response(JSON.stringify(data),{status,headers:safeHeaders(headers)});
 export function cookieHeader(value,{secure=true,maxAge=604800}={}) {return `jev_session=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure?'; Secure':''}`;}
 export const activityOrigin=env=>/^\d{16,22}$/.test(env.DISCORD_CLIENT_ID??'')?`https://${env.DISCORD_CLIENT_ID}.discordsays.com`:null;
+// LEGACY_ORIGIN is the pre-rename origin kept for the hostname transition (orchestrator rule D9). It is honoured only
+// as a bare origin: it parses, is https (plain http only for a loopback host under LOCAL_DEVELOPMENT), contains no
+// '@', '?', '#' or '*', equals its own url.origin once a single trailing '/' is dropped, and is not ORIGIN itself
+// (which would make 'redirect' loop). Anything else is ignored, so the old host gets the ordinary host_rejected 403,
+// and is reported once per isolate as a structured warning carrying the reason only. It never throws.
+const LOOPBACK_HOSTS=['localhost','127.0.0.1','[::1]'],warnedLegacyOrigins=new Set();
+export function legacyOrigin(env) {
+  const entry=env.LEGACY_ORIGIN;
+  if(entry==null||entry==='')return null;
+  let url=null;try{url=new URL(String(entry));}catch{}
+  const reason=typeof entry!=='string'||!url?'unparseable'
+    :!(url.protocol==='https:'||(url.protocol==='http:'&&env.LOCAL_DEVELOPMENT==='true'&&LOOPBACK_HOSTS.includes(url.hostname)))?'not_https'
+    :/[@?#*]/.test(entry)?'forbidden_character'
+    :entry.replace(/\/$/,'')!==url.origin?'not_bare_origin'
+    :url.origin===env.ORIGIN?'same_as_origin':null;
+  if(!reason)return url.origin;
+  if(!warnedLegacyOrigins.has(String(entry))){warnedLegacyOrigins.add(String(entry));console.warn(JSON.stringify({event:'legacy_origin_ignored',reason}));}
+  return null;
+}
 export const ACTIVITY_FRAME_ANCESTORS='frame-ancestors https://discord.com https://ptb.discord.com https://canary.discord.com';
 export function checkMutation(request,session,env) {
   const origin=request.headers.get('Origin'),framed=session.via==='bearer'?activityOrigin(env):null;

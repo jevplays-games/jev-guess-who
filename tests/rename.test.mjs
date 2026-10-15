@@ -85,6 +85,38 @@ test('the pre-rename host is served under its own origin, then 301s to the new o
     assert.deepEqual(await(await handle(new Request(env.LEGACY_ORIGIN+'/api/health'),env)).json(),{ok:true,game:'noul-who',version:'1.0.0'});
   }finally{DB.close();}
 });
+test('LEGACY_ORIGIN is honoured only as a bare origin (D9): hostile or malformed values never widen the host check, never redirect and never 500',async()=>{
+  const {DB,env}=await setup();
+  const ORIGIN='https://noul-who.jevplay.games',OLD='https://guess-who.jevplay.games';
+  const hostile=['https://user:pw@evil.example','https://:pw@evil.example',`https://evil.example#@${OLD.slice(8)}`,'https://evil.example/path','https://evil.example?q=1','https://evil.example?','https://evil.example#','https://*.jevplay.games',
+    `https://user:pw@${OLD.slice(8)}`,`${OLD}/path`,`${OLD}?q=1`,`${OLD}#x`,`${OLD}:443`,OLD.toUpperCase(),`http://${OLD.slice(8)}`,` ${OLD}`,'not a url','https://',ORIGIN];
+  const warn=console.warn,warnings=[];console.warn=message=>warnings.push(message);
+  try{
+    for(const value of hostile)for(const mode of ['serve','redirect']){
+      Object.assign(env,{ORIGIN,LEGACY_ORIGIN:value,LEGACY_ORIGIN_MODE:mode,LOCAL_DEVELOPMENT:'false'});
+      for(const host of ['https://evil.example',OLD,`${OLD}.evil.example`,'http://guess-who.jevplay.games']){
+        for(const method of ['GET','POST']){
+          const r=await handle(new Request(host+'/api/me',{method}),env);
+          assert.equal(r.status,403,`${JSON.stringify(value)} ${mode} ${method} ${host}`);assert.equal(r.headers.get('location'),null);
+        }
+      }
+      const canonical=await handle(new Request(ORIGIN+'/api/me'),env);assert.equal(canonical.status,200,`canonical host with ${JSON.stringify(value)} ${mode}`);
+    }
+    // The real legacy origin is honoured, with or without one trailing '/', and still only for its own host.
+    for(const value of [OLD,OLD+'/']){
+      Object.assign(env,{ORIGIN,LEGACY_ORIGIN:value,LEGACY_ORIGIN_MODE:'serve'});
+      assert.equal((await handle(new Request(OLD+'/api/me'),env)).status,200,value);
+      assert.equal((await handle(new Request('https://evil.example/api/me'),env)).status,403,value);
+      env.LEGACY_ORIGIN_MODE='redirect';
+      const moved=await handle(new Request(OLD+'/a?b=1'),env);assert.equal(moved.status,301);assert.equal(moved.headers.get('location'),ORIGIN+'/a?b=1');
+    }
+    // One structured warning per bad value (reason only, never the value), however many requests used it.
+    const events=warnings.map(w=>JSON.parse(w));
+    assert.equal(events.length,hostile.length);
+    for(const e of events){assert.equal(e.event,'legacy_origin_ignored');assert.deepEqual(Object.keys(e),['event','reason']);}
+    assert.ok(warnings.every(w=>!/evil|guess-who|noul-who/.test(w)));
+  }finally{console.warn=warn;DB.close();}
+});
 test('the default local database moves to noul-who.sqlite but an existing guess-who.sqlite keeps being used',async()=>{
   const root=await mkdtemp(path.join(tmpdir(),'noul-who-db-'));
   try{
