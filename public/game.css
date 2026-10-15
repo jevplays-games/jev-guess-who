@@ -20,13 +20,13 @@ button,select,input{font:inherit}button,select{min-height:var(--tap);border:1px 
 .character .traits{font-size:var(--fs-xs);padding:var(--s2);color:var(--ink);font-weight:500}
 /* Eliminated: the window is pressed in and greyed. Dimmed art, a struck-through name and a
    disc with a cross, so the state never depends on colour or dimming alone. */
-.character.eliminated{background:var(--grey);box-shadow:inset 0 0 0 2px var(--grey),1px 1px 0 var(--ink);transform:translate(2px,2px);color:var(--ink)}
+.character.eliminated{background:var(--grey);box-shadow:inset 0 0 0 2px var(--grey),1px 1px 0 var(--ink);transform:translate(2px,2px);color:var(--ink);opacity:1}
 .character.eliminated img{opacity:.28;filter:grayscale(1);border-color:transparent}
 .character.eliminated .name{color:var(--ink);opacity:.7;text-decoration:line-through}
 .character.eliminated:after{content:'';position:absolute;left:50%;top:38%;width:44%;aspect-ratio:1;transform:translate(-50%,-50%);background:url(/art/down.svg) center/contain no-repeat}
 .character.just-flipped{animation:press-in .3s steps(3) both}
 @keyframes press-in{0%{transform:translate(0,0);box-shadow:inset 0 0 0 2px var(--paper),3px 3px 0 var(--ink)}100%{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--grey),1px 1px 0 var(--ink)}}
-@media(hover:hover){.character:not(.eliminated):hover{transform:translate(-1px,-1px);box-shadow:inset 0 0 0 2px var(--paper),4px 4px 0 var(--ink);border-color:var(--ink);background:var(--accent)}}.character:not(.eliminated):active{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--paper),1px 1px 0 var(--ink)}
+@media(hover:hover){.character:not(.eliminated):hover{transform:translate(-1px,-1px);box-shadow:inset 0 0 0 2px var(--paper),4px 4px 0 var(--ink);border-color:var(--ink);background:var(--accent)}.character:not(.eliminated):hover .name{color:var(--accent-ink)}}.character:not(.eliminated):active{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--paper),1px 1px 0 var(--ink)}
 .character:focus-visible{outline:2px solid var(--accent-deep);outline-offset:2px}
 /* The side to move is marked: the board gets a pink frame on your turn, the status chip breathes on the opponent's. */
 .board-panel[data-turn=human] .board{box-shadow:0 0 0 2px var(--accent),3px 3px 0 2px var(--ink)}

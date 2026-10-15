@@ -1,7 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges" role="img">
-<title>Win</title>
-<path fill="#DEDEDE" d="M8 19h45v33H8z"/>
-<path fill="#F386A1" d="M11 22h39v27H11z"/>
-<path fill="#1E1E1E" d="M5 6h51v3h3v49H8v-3H5zM6 17v37h49V17zM17 34h6v6h6v-6h6v-6h6v-6h6v12h-6v6h-6v6H23v-6h-6z"/>
-<path fill="#FEFEFE" d="M6 17h49v37H6zM8 19v33h45V19zM41 13h5v1h-5zM48 9h1v1h-1zM52 9h1v1h-1zM49 10h1v1h-1zM51 10h1v1h-1zM50 11h1v1h-1zM49 12h1v1h-1zM51 12h1v1h-1zM48 13h1v1h-1zM52 13h1v1h-1z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Win</title>
+  <g shape-rendering="crispEdges">
+    <!-- Hard two-pixel window shadow and one-pixel ink frame. -->
+    <rect x="7" y="7" width="52" height="52" fill="#1E1E1E"/>
+    <rect x="5" y="5" width="52" height="52" fill="#1E1E1E"/>
+    <rect x="6" y="6" width="50" height="50" fill="#FEFEFE"/>
+    <rect x="8" y="18" width="46" height="36" fill="#F386A1"/>
+    <rect x="8" y="8" width="46" height="10" fill="#1E1E1E"/>
+    <!-- Pixel lettering and window controls require no font. -->
+    <path d="M10 10h1v1h-1z M12 10h1v1h-1z M10 11h1v1h-1z M12 11h1v1h-1z M10 12h1v1h-1z M12 12h1v1h-1z M10 13h1v1h-1z M11 13h1v1h-1z M12 13h1v1h-1z M10 14h1v1h-1z M12 14h1v1h-1z M14 10h1v1h-1z M15 10h1v1h-1z M16 10h1v1h-1z M15 11h1v1h-1z M15 12h1v1h-1z M15 13h1v1h-1z M14 14h1v1h-1z M15 14h1v1h-1z M16 14h1v1h-1z M18 10h1v1h-1z M20 10h1v1h-1z M18 11h1v1h-1z M19 11h1v1h-1z M20 11h1v1h-1z M18 12h1v1h-1z M19 12h1v1h-1z M20 12h1v1h-1z M18 13h1v1h-1z M19 13h1v1h-1z M20 13h1v1h-1z M18 14h1v1h-1z M20 14h1v1h-1z" fill="#FEFEFE"/>
+    <path d="M39 14h5v1h-5zM47 10h2v2h2v-2h2v2h-2v2h2v2h-2v-2h-2v2h-2v-2h2v-2h-2z" fill="#FEFEFE"/>
+    <path d="M17 34h6v6h6v-6h6v-6h6v-6h6v12h-6v6h-6v6h-6v6h-6v-6h-6z" fill="#1E1E1E"/>
+    <rect x="43" y="22" width="4" height="4" fill="#E551BA"/>
+  </g>
 </svg>

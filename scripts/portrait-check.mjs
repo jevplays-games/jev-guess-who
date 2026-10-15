@@ -7,6 +7,7 @@ const skins = ['#C98E67','#E5B996','#AC7657','#F0CEB0','#926047','#DBA57E'];
 const allowed = new Set(['#F386A1','#1E1E1E','#E551BA','#DEDEDE','#FEFEFE','#9A9A9A','#155A80','#4A4A4A','#7A4A2E','#9C6440','#E8A33D','#F4C873','#C0392B','#D9583F',...skins]);
 const root='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" shape-rendering="crispEdges">';
 let raw=0,gzip=0,over=0;
+const grids=[];
 for(const c of ROSTER){
  const svg=readFileSync(new URL(`../public/portraits/${c.id}.svg`,import.meta.url),'utf8');
  assert(svg.startsWith(root),`${c.id}: root`);
@@ -15,6 +16,14 @@ for(const c of ROSTER){
  const paths=[...svg.matchAll(/<path fill="(#[A-F0-9]{6})" d="([^"]+)"\/>/g)];
  assert.equal(svg,root+`<title>${c.name}</title>`+paths.map(m=>m[0]).join('')+'</svg>',`${c.id}: strict format`);
  const colors=paths.map(m=>m[1]);
+ const grid=Array(900).fill(null);
+ for(const [,color,d] of paths){
+  for(const run of d.matchAll(/M(\d+) (\d+)h(\d+)v4h-(\d+)z/g)){
+   const [x,y,w]=run.slice(1).map(Number);
+   for(let col=x/4;col<(x+w)/4;col++)grid[y/4*30+col]=color;
+  }
+ }
+ grids.push({id:c.id,name:c.name,grid});
  assert.equal(new Set(colors).size,colors.length,`${c.id}: one path per color`);
  for(const [ ,color,d] of paths){
   assert(allowed.has(color),`${c.id}: invalid fill ${color}`);
@@ -30,4 +39,12 @@ for(const c of ROSTER){
 }
 console.log(`24 portraits: ${raw} raw bytes; ${gzip} gzip bytes (sum of individually compressed SVGs).`);
 console.log(`${over} portraits exceed the advisory 2,000-byte raw target.`);
+let minimum={count:Infinity};
+for(let i=0;i<grids.length;i++)for(let j=i+1;j<grids.length;j++){
+ const a=grids[i],b=grids[j];
+ const count=a.grid.reduce((sum,color,k)=>sum+Number(color!==b.grid[k]),0);
+ if(count<minimum.count)minimum={a,b,count};
+}
+console.log(`Minimum pairwise difference: ${minimum.a.id} ${minimum.a.name} / ${minimum.b.id} ${minimum.b.name}: ${minimum.count} cells.`);
+assert(minimum.count>=60,`Portrait pair differs in fewer than 60 cells: ${minimum.count}`);
 assert(gzip<=17900,`Portrait gzip budget exceeded: ${gzip} > 17900`);
