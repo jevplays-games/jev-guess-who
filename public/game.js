@@ -155,7 +155,7 @@ function renderEvidence(){
   const panel=$('decision-evidence');panel.hidden=!$('analysis-toggle').checked;
   const decision=current?.history.filter(e=>e.decision).at(-1)?.decision;if(!decision)return;
   panel.replaceChildren(el('p',labelAction(decision.action)));
-  panel.append(evidenceRow('Source',decision.source),evidenceRow('Candidates',f(decision.candidateCount,0)),evidenceRow('Decision latency',ms(decision.latencyMs)),evidenceRow('Selection confidence',pct(decision.confidence)));
+  panel.append(evidenceRow('Source',label(SOURCE_LABELS,decision.source)),evidenceRow('Candidates',f(decision.candidateCount,0)),evidenceRow('Decision latency',ms(decision.latencyMs)),evidenceRow('Selection confidence',pct(decision.confidence)));
   if(decision.selectedFeatures?.expectedRemaining!=null)panel.append(evidenceRow('Expected remaining',f(decision.selectedFeatures.expectedRemaining)));
   if(decision.selectedFeatures?.estimatedWinProbability!=null)panel.append(evidenceRow('Search win estimate',pct(decision.selectedFeatures.estimatedWinProbability)));
   if(decision.search)panel.append(evidenceRow('Completed search depth',f(decision.search.completedDepth,0)),evidenceRow('Search nodes',f(decision.search.nodes,0)));

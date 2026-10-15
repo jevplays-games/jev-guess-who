@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T03:23:39.935188+00:00",
+  "generatedAt": "2026-10-15T03:24:24.289142+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -223,8 +223,8 @@
     },
     {
       "path": "public/game.js",
-      "bytes": 34662,
-      "sha256": "15efb612159ce11d7039541917d73334a8e6793e657ea625b07305ba935abf88"
+      "bytes": 34683,
+      "sha256": "deb56bfcdcffaff06d71e5d2b89095d2ed1590a82c28798d6c6518ddb8d52abd"
     },
     {
       "path": "public/index.html",
@@ -494,12 +494,12 @@
     {
       "path": "reports/static-check.log",
       "bytes": 456,
-      "sha256": "8cd34719707b610690625dba1b7e54ab74187456c333cc6bd8466811470c5b44"
+      "sha256": "95f1ff368708ce157e6f0b0d98477db8696f1d4a35fbfc1aefb17d80b1ee013b"
     },
     {
       "path": "reports/static-checks.json",
       "bytes": 5436,
-      "sha256": "cdd84ff37245f8f97a52ba859fe9adeed1ebd418fe2a0513e0623cb430b22b61"
+      "sha256": "5324ab6a3a2cb0ca5bb310e401e27e613017f7d591c87b1c5f3577325b5f6a67"
     },
     {
       "path": "reports/unit-tests.tap",
