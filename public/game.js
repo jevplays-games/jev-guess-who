@@ -116,6 +116,7 @@ function previewQuestion(){
   questionMatch=matchQuestion($('question').value,isAskable);
   const preview=$('question-preview'),suggestions=$('question-suggestions');
   suggestions.replaceChildren();suggestions.hidden=true;
+  if(current.phase!=='active'){preview.textContent='The match is over. Choose New game to play again.';renderControls();return;}
   if(!current.legalActions.some(a=>a.type==='ask')){
     preview.textContent='No questions remain. Select a character to make your final guess.';renderControls();return;
   }

@@ -5,8 +5,8 @@
 {
   "syntaxModules": 37,
   "rosterValid": true,
-  "publicGzipBytes": 126013,
-  "publicJavaScriptGzipBytes": 27676,
+  "publicGzipBytes": 126051,
+  "publicJavaScriptGzipBytes": 27714,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
