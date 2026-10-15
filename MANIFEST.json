@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T03:28:46.810262+00:00",
+  "generatedAt": "2026-10-15T03:29:08.131116+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -389,7 +389,7 @@
     {
       "path": "reports/VALIDATION.md",
       "bytes": 9436,
-      "sha256": "7483fe9a2c14dc70e082efa5c325c6852aaa31bf0a60a21edabe243d3af97838"
+      "sha256": "38b5eeca997f0893d8eec605ce327923166d7c3c8cd79ae8753a33346f55d123"
     },
     {
       "path": "reports/benchmark-run.log",
@@ -503,8 +503,8 @@
     },
     {
       "path": "reports/unit-tests.tap",
-      "bytes": 18159,
-      "sha256": "f78b3a274787f2910a11ccf94d018d794b79cb165993025f31da5eab390a19c5"
+      "bytes": 18154,
+      "sha256": "5f26b19f440a348e2461ea7ef21b2cd515910c7a811c7b3605001fea573ac485"
     },
     {
       "path": "reports/validation.json",
