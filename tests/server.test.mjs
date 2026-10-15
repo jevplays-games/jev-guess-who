@@ -6,7 +6,7 @@ import {handle,maintenance} from '../server/app.js';
 import {balancedAction} from '../public/shared/strategy.js';
 import {getLegalActions} from '../public/shared/rules.js';
 import {sha256,randomHex} from '../server/security.js';
-const input=(mode='practice',difficulty='normal')=>({requestId:crypto.randomUUID(),gameId:'guess-who',mode,difficulty});
+const input=(mode='practice',difficulty='normal')=>({requestId:crypto.randomUUID(),gameId:'noul-who',mode,difficulty});
 async function humanTurn(store,session,match,env){if(match.state.turn==='jev')return (await advance(store,session,match.state.matchId,env)).match;return match;}
 
 test('server creates secret-safe snapshots; other sessions cannot read a match',async()=>{
@@ -31,7 +31,7 @@ test('duplicate human action is idempotent; altered payload and stale revision f
     await assert.rejects(()=>humanAction(store,session,m.state.matchId,{...request,actionId:crypto.randomUUID()},env),/stale_revision/);
   }finally{DB.close();}
 });
-test('persisted lease suppresses concurrent JEV advances',async()=>{
+test('persisted lease suppresses concurrent Jev advances',async()=>{
   const {DB,store,session,env}=await setup();
   try{let m=await createMatch(store,session,input(),env);
     if(m.state.turn==='human')m=await humanAction(store,session,m.state.matchId,{actionId:crypto.randomUUID(),expectedRevision:m.state.revision,action:balancedAction(m.state.possible.human)},env);
@@ -49,7 +49,7 @@ test('completed replay is validated and rejects seed, event, difficulty and stat
     for(const mutate of [x=>x.seed='01'.repeat(32),x=>x.config.difficulty='hard',x=>x.state.outcome.winner='jev',x=>x.events[0].sequence=99]){const bad=structuredClone(m);mutate(bad);await assert.rejects(()=>verifyMatch(bad));}
   }finally{DB.close();}
 });
-test('ranked match requires identity, configured JEV and pinned model; one active ranked attempt',async()=>{
+test('ranked match requires identity, configured Jev and pinned model; one active ranked attempt',async()=>{
   const {DB,store,session,env}=await setup();
   try{await assert.rejects(()=>createMatch(store,session,input('ranked'),env),/discord_required/);await userSession(store,session);
     await assert.rejects(()=>createMatch(store,session,input('ranked'),env),/jev_not_configured/);
@@ -58,7 +58,7 @@ test('ranked match requires identity, configured JEV and pinned model; one activ
     await assert.rejects(()=>createMatch(store,session,input('ranked'),env),/active_ranked_match/);
   }finally{DB.close();}
 });
-test('mocked JEV ranked completion inserts one official result, never two',async()=>{
+test('mocked Jev ranked completion inserts one official result, never two',async()=>{
   const {DB,store,session,env}=await setup();await userSession(store,session);env.TYPESAFE_API_KEY='test-only';
   try{let m=await createMatch(store,session,input('ranked'),env);
     if(m.state.turn==='jev')m=(await advance(store,session,m.state.matchId,env,{fetchImpl:async(_url,init)=>Response.json(providerMock(JSON.parse(init.body)))})).match;
@@ -125,7 +125,7 @@ test('HTTP layer rejects absent CSRF, cross-origin, unknown endpoints and score 
     const bad=await handle(new Request(env.ORIGIN+'/api/games',{method:'POST',headers:{cookie,Origin:env.ORIGIN,'Content-Type':'application/json'},body:JSON.stringify(input())}),env);assert.equal(bad.status,403);
     const forged=await handle(new Request(env.ORIGIN+'/api/game/result',{method:'POST',headers:{cookie,Origin:env.ORIGIN,'X-CSRF-Token':data.csrf,'Content-Type':'application/json'},body:'{"winner":"human"}'}),env);assert.equal(forged.status,404);
     const wrongHost=await handle(new Request('https://attacker.example/api/me'),env);assert.equal(wrongHost.status,403);
-    const health=await handle(new Request('https://platform.preview.example/api/health'),env);assert.equal(health.status,200);assert.deepEqual(await health.json(),{ok:true,game:'guess-who',version:'1.0.0'});
+    const health=await handle(new Request('https://platform.preview.example/api/health'),env);assert.equal(health.status,200);assert.deepEqual(await health.json(),{ok:true,game:'noul-who',version:'1.0.0'});
     assert.equal((await handle(new Request('https://platform.preview.example/api/health',{method:'POST'}),env)).status,403);
     for(const p of ['/','/index.html']){const home=await handle(new Request('https://platform.preview.example'+p),env);assert.equal(home.status,200);assert.ok(!(home.headers.get('set-cookie')));}
     for(const p of ['/app.js','/api/me','/other'])assert.equal((await handle(new Request('https://platform.preview.example'+p),env)).status,403);

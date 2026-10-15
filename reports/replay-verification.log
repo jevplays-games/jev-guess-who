@@ -1,5 +1,5 @@
 
-> jev-guess-who@1.0.0 verify
+> jev-noul-who@1.0.0 verify
 > node scripts/verify-replay.mjs reports/sample-replay.json
 
 {

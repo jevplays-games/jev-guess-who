@@ -65,7 +65,7 @@ for(const suite of matrix){
   suiteSummaries[suite.id]={...aggregate,policy:{human:suite.human,opponent:suite.opponent,difficulty:suite.difficulty},
     strictOpponent:{games:completeNoFallback.length,wins:jevWins,winRate:completeNoFallback.length?jevWins/completeNoFallback.length:null,interval:wilson(jevWins,completeNoFallback.length)},
     scenarioCoverage:{possible:1152,tested:limit,repeats,exhaustiveInitialPositions:limit===1152},
-    interpretation:live?'Live JEV; fallback matches excluded from strict opponent results.':'Scripted/local simulation only. Not evidence of live JEV strength.'};
+    interpretation:live?'Live Jev; fallback matches excluded from strict opponent results.':'Scripted/local simulation only. Not evidence of live Jev strength.'};
   await writeFile(path.join(output,`${suite.id}.json`),JSON.stringify(suiteSummaries[suite.id],null,2));
   console.log(`${suite.id}: ${reports.length} games; human wins ${aggregate.overall.wins}; opponent wins ${aggregate.overall.losses}`);
 }
@@ -79,10 +79,10 @@ const summary={generatedAt:new Date().toISOString(),live,totalMatches:allRows.le
   runtime:process.version,seedPolicy:'Mulberry32 fixed per scenario/repeat for scripted random policies; all secret pairs enumerated',
   paidCallsEnabled:live,suites:suiteSummaries,pairedStarterSensitivity:paired,
   limitations:['This is exhaustive only over the 1,152 starting configurations for the selected policies, not over every legal action sequence.',
-    'Local policy results do not predict live JEV strength.','Repeated games and paired starts are correlated; binomial intervals are descriptive.',
+    'Local policy results do not predict live Jev strength.','Repeated games and paired starts are correlated; binomial intervals are descriptive.',
     'Scripted decision timing is not a provider-latency measurement.','Changing the roster or rules invalidates direct comparisons.']};
 await writeFile(path.join(output,'summary.json'),JSON.stringify(summary,null,2));
-const lines=['# Benchmark report','',`Generated: ${summary.generatedAt}`,`Runtime: ${process.version}`,`Mode: ${live?'LIVE, explicitly authorized':'LOCAL SCRIPTED — no live JEV calls'}`,`Games: ${summary.totalMatches}; decisions: ${summary.totalDecisionRows}.`,'',
+const lines=['# Benchmark report','',`Generated: ${summary.generatedAt}`,`Runtime: ${process.version}`,`Mode: ${live?'LIVE, explicitly authorized':'LOCAL SCRIPTED — no live Jev calls'}`,`Games: ${summary.totalMatches}; decisions: ${summary.totalDecisionRows}.`,'',
  '| Matchup | Games | Human wins | Opponent wins | Human win rate |','|---|---:|---:|---:|---:|',
  ...Object.entries(suiteSummaries).map(([name,s])=>`| ${name} | ${s.overall.finished} | ${s.overall.wins} | ${s.overall.losses} | ${(s.overall.winRate*100).toFixed(2)}% |`),'',...summary.limitations.map(s=>'- '+s)];
 await writeFile(path.join(output,'REPORT.md'),lines.join('\n')+'\n');

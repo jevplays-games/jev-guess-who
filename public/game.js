@@ -1,5 +1,5 @@
 import {ROSTER,PREDICATES,FULL_MASK,MASKS,character,describe,count,ids} from './shared/roster.js';
-import {createInitialState,applyAction,projectForHuman,projectForDecision,actionId} from './shared/rules.js';
+import {createInitialState,applyAction,projectForHuman,projectForDecision,actionId,GAME_ID} from './shared/rules.js';
 import {localDecision,questionFeatures} from './shared/strategy.js';
 import {analyzeAction,analyzeMatch,aggregateAnalytics,decisionRows,csv} from './shared/analytics.js';
 import {matchQuestion} from './shared/question-parse.js';
@@ -16,7 +16,7 @@ let bearer=null; // set only inside a Discord Activity, where cookies are not se
 let me=null,current=null,busy=false,offline=false,offlineMatch=null,analyticsData=null,lastPending=null,leaderboardCursor=null;
 let exportedOffline=new Set();
 function notice(message=''){ $('notice').textContent=message;$('notice').hidden=!message; }
-const readable={discord_required:'Sign in with Discord to use this feature.',jev_not_configured:'The JEV API key is not configured. Choose Practice to play the local opponent.',active_ranked_match:'Finish or resume your existing ranked match first.',fresh_discord_context_required:'Launch /play-jev from the relevant Discord channel to establish fresh context.',csrf_rejected:'Your session changed. Use Refresh / reconnect.',stale_revision:'The match changed in another request or tab. Use Refresh / reconnect.',rate_limit:'Request limit reached. Retry after the cooldown.',session_required:'Your session expired. Use Refresh / reconnect.',discord_not_configured:'Discord credentials have not been configured by the host.'};
+const readable={discord_required:'Sign in with Discord to use this feature.',jev_not_configured:'The Jev API key is not configured. Choose Practice to play the local opponent.',active_ranked_match:'Finish or resume your existing ranked match first.',fresh_discord_context_required:'Launch /play-jev from the relevant Discord channel to establish fresh context.',csrf_rejected:'Your session changed. Use Refresh / reconnect.',stale_revision:'The match changed in another request or tab. Use Refresh / reconnect.',rate_limit:'Request limit reached. Retry after the cooldown.',session_required:'Your session expired. Use Refresh / reconnect.',discord_not_configured:'Discord credentials have not been configured by the host.'};
 async function api(url,{method='GET',body}={}) {
   const response=await fetch(url,{method,credentials:'same-origin',headers:{...(bearer?{Authorization:`Bearer ${bearer}`}:{}),...(method==='POST'?{'Content-Type':'application/json','X-CSRF-Token':me?.csrf||''}:{})},...(body?{body:JSON.stringify(body)}:{})});
   let data;try{data=await response.json();}catch{throw Error('The server returned an unreadable response.');}
@@ -79,9 +79,9 @@ function render(){
   const over=current.phase!=='active',status=$('turn-status');
   status.className=over?`jv-plaque ${current.outcome.winner==='human'?'is-win':'is-loss'}`:'';document.querySelector('.board-panel').dataset.turn=over?'over':current.turn;
   status.textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):(current.outcome.winner==='human'?'You found the answer.':'Match complete.');
-  $('eligibility').textContent=current.eligible?'Ranked · eligible':current.eligibilityReason?.startsWith('jev_fallback')?'Unranked · JEV fallback':practice?(offline?'Offline practice':'Practice · local heuristic'):'Casual · not ranked';
+  $('eligibility').textContent=current.eligible?'Ranked · eligible':current.eligibilityReason?.startsWith('jev_fallback')?'Unranked · Jev fallback':practice?(offline?'Offline practice':'Practice · local heuristic'):'Casual · not ranked';
   const fallback=current.history.some(e=>e.decision?.source==='fallback');
-  $('opponent-source').textContent=fallback?'Fallback heuristic':practice?'Local heuristic':'JEV';
+  $('opponent-source').textContent=fallback?'Fallback heuristic':practice?'Local heuristic':'Jev';
   const c=character(current.ownSecret),image=el('img');image.src=`/portraits/${c.id}.svg`;image.alt=describe(c);
   const identity=el('div');identity.append(el('h3',c.name),el('p',describe(c).split('; ').slice(1).join(' · '),'identity-traits'));$('secret').replaceChildren(image,identity);
   // The datalist offers the questions still open, so typing stays optional and
@@ -155,7 +155,7 @@ function renderEvidence(){
   if(decision.selectedFeatures?.expectedRemaining!=null)panel.append(evidenceRow('Expected remaining',f(decision.selectedFeatures.expectedRemaining)));
   if(decision.selectedFeatures?.estimatedWinProbability!=null)panel.append(evidenceRow('Search win estimate',pct(decision.selectedFeatures.estimatedWinProbability)));
   if(decision.search)panel.append(evidenceRow('Completed search depth',f(decision.search.completedDepth,0)),evidenceRow('Search nodes',f(decision.search.nodes,0)));
-  if(decision.fallbackReason)panel.append(el('p',`JEV unavailable: ${decision.fallbackReason}. The fallback is deterministic, not JEV. Official ranking is disabled.`, 'muted'));
+  if(decision.fallbackReason)panel.append(el('p',`Jev unavailable: ${decision.fallbackReason}. The fallback is deterministic, not Jev. Official ranking is disabled.`, 'muted'));
   panel.append(el('p','Evidence is computed from public candidates. Selection confidence is not the probability of winning.','muted'));
   if(decision.probabilities){const d=el('details');d.append(el('summary','Full selection distribution'));d.append(makeTable(['Action','Probability'],Object.entries(decision.probabilities).sort((a,b)=>b[1]-a[1]).map(([id,p])=>[id,pct(p)])));panel.append(d);}
 }
@@ -207,8 +207,8 @@ $('resign').addEventListener('click',()=>guarded(async()=>{if(await confirm('Res
 async function startGame(){
   const difficulty=$('difficulty').value,mode=$('mode').value;persistSetting('difficulty',difficulty);
   if(current?.phase==='active'&&current.mode==='ranked')throw Error('Resume or finish your active ranked match before starting another.');
-  if(offline){offlineStart(difficulty);notice('Offline practice: a local heuristic, not JEV. Results remain in this browser.');}
-  else current=await api('/api/games',{method:'POST',body:{gameId:'guess-who',difficulty,mode,requestId:crypto.randomUUID()}});
+  if(offline){offlineStart(difficulty);notice('Offline practice: a local heuristic, not Jev. Results remain in this browser.');}
+  else current=await api('/api/games',{method:'POST',body:{gameId:GAME_ID,difficulty,mode,requestId:crypto.randomUUID()}});
   activate('play');render();await progressOpponent();
 }
 $('new-game').addEventListener('click',()=>guarded(startGame));
@@ -216,9 +216,9 @@ $('new-game').addEventListener('click',()=>guarded(startGame));
    Returns early if a game is already live, because initialize() has just
    resumed any active match -- so a reload rejoins rather than opening a second
    one, and the ranked guard above still applies.
-   Ranked needs a signed-in Discord account AND hosted JEV; anything less falls
+   Ranked needs a signed-in Discord account AND hosted Jev; anything less falls
    back to casual, or to practice offline, so an auto-started game is never
-   relabeled as JEV and never claims a rank the player could not claim by hand. */
+   relabeled as Jev and never claims a rank the player could not claim by hand. */
 async function autoStart(){
   if(current&&current.phase!=='complete')return;
   if(!offline)$('mode').value=me?.user&&me?.jevConfigured?'ranked':me?.jevConfigured?'casual':'practice';
@@ -238,11 +238,11 @@ $('rules-button').addEventListener('click',()=>$('rules-dialog').showModal());
 $('login').addEventListener('click',()=>{if(!me?.discordConfigured){notice('Discord is not configured on this host. See docs/DEPLOYMENT.md in the project.');return;}location.assign('/api/auth/discord');});
 $('logout').addEventListener('click',()=>guarded(async()=>{await api('/api/logout',{method:'POST',body:{}});location.reload();}));
 $('export-turns').addEventListener('click',()=>{
-  const rows=decisionRows(current.history);saveBlob(`guess-who-${current.matchId}-turns.csv`,csv(rows,Object.keys(rows[0]||{})),'text/csv;charset=utf-8');
+  const rows=decisionRows(current.history);saveBlob(`noul-who-${current.matchId}-turns.csv`,csv(rows,Object.keys(rows[0]||{})),'text/csv;charset=utf-8');
 });
 $('export-replay').addEventListener('click',()=>guarded(async()=>{
   const replay=offline?{...offlineMatch,verification:'unranked-offline-only'}:await api(`/api/games/${current.matchId}/replay`);
-  saveBlob(`guess-who-${current.matchId}-replay.json`,JSON.stringify(replay,null,2));
+  saveBlob(`noul-who-${current.matchId}-replay.json`,JSON.stringify(replay,null,2));
 }));
 function makeTable(headers,rows){
   const wrap=el('div',null,'table-wrap'),table=el('table'),thead=el('thead'),head=el('tr'),body=el('tbody');
@@ -266,15 +266,15 @@ function renderAnalytics(){
   if(!analyticsData)return;const {summary:s,matches,coverage}=analyticsData,container=$('analytics-content');container.replaceChildren();
   $('coverage').textContent=`${coverage.filtered} selected matches; ${coverage.scanned} scanned of ${coverage.availableStoredMatches} stored. ${coverage.truncated?'History is truncated to the latest 500 matches. ':''}Snapshot: ${new Date(coverage.asOf).toLocaleString()}. Offline and server records are not mixed.`;
   const kpis=el('div',null,'kpi-grid');
-  for(const [label,value] of [['Completed matches',f(s.overall.finished,0)],['Human win rate',pct(s.overall.winRate)],['Current / best streak',`${s.streaks.current} / ${s.streaks.best}`],['JEV median latency',ms(s.jevLatencyMs.p50)],['Provider attempts',f(s.provider.attempts,0)],['Fallback decisions',f(s.provider.fallbackDecisions,0)],['Known input tokens',f(s.provider.knownInputTokens,0)],['Measured input cost',s.provider.measuredInputCostUsd==null?'Unavailable / incomplete':`$${f(s.provider.measuredInputCostUsd,6)}`]]){const card=el('div',null,'kpi');card.append(el('strong',value),el('span',label));kpis.append(card);}container.append(kpis);
+  for(const [label,value] of [['Completed matches',f(s.overall.finished,0)],['Human win rate',pct(s.overall.winRate)],['Current / best streak',`${s.streaks.current} / ${s.streaks.best}`],['Jev median latency',ms(s.jevLatencyMs.p50)],['Provider attempts',f(s.provider.attempts,0)],['Fallback decisions',f(s.provider.fallbackDecisions,0)],['Known input tokens',f(s.provider.knownInputTokens,0)],['Measured input cost',s.provider.measuredInputCostUsd==null?'Unavailable / incomplete':`$${f(s.provider.measuredInputCostUsd,6)}`]]){const card=el('div',null,'kpi');card.append(el('strong',value),el('span',label));kpis.append(card);}container.append(kpis);
   const currentReport=current?.analytics||analyticsData.currentDetail||matches[0];
   if(currentReport){container.append(el('h3','Current / most recent match: candidate trace'));if(currentReport.events?.length)container.append(trace(currentReport.events));else container.append(el('p','No committed turn details are available for this trace.','muted'));const legend=el('div',null,'legend');legend.append(el('span','Human candidates','human'),el('span','Opponent candidates','jev'));container.append(legend);
     container.append(makeTable(['Actor','Turns','Questions','Remaining','Mean split balance','Mean expected information','Mean information regret','Risky guesses'],Object.entries(currentReport.actors).map(([actor,a])=>[humanName(actor),a.turns,a.questions,a.remaining,f(a.splitBalance.mean),f(a.expectedInformationGain.mean)+' bits',f(a.informationGainRegret.mean)+' bits',a.riskyGuesses])));
   }
   for(const [title,groups] of [['Difficulty cohorts',s.byDifficulty],['Opponent-source cohorts',s.bySource],['Difficulty × starting player',s.byDifficultyAndStarter],['Match-type cohorts',s.byMode],['Competition configurations',s.byLeague],['Daily cohorts · UTC',s.byDay]]){container.append(el('h3',title),cohortTable(groups));}
   container.append(el('h3','Question usage and information efficiency'),makeTable(['Predicate','Uses','Human / opponent','Yes / no','Mean eliminated','Expected bits','Regret bits'],Object.entries(s.predicates).map(([id,p])=>[id,p.uses,`${p.humanUses} / ${p.jevUses}`,`${p.yes} / ${p.no}`,f(p.meanEliminated),f(p.meanInformationGain),f(p.meanRegret)])));
-  container.append(el('h3','Guess calibration · both actors'),el('p','Expected probability is 1 / remaining candidates under uniform secrets. This is not JEV selection confidence. Small samples and repeated games require caution.','muted'),makeTable(['Remaining','Guesses','Correct','Expected rate','Observed rate','95% interval'],Object.entries(s.guessCalibration).map(([n,g])=>[n,g.guesses,g.correct,pct(g.expectedProbability),pct(g.observedRate),`${pct(g.interval.lower)} – ${pct(g.interval.upper)}`])));
-  container.append(el('h3','Timing and decision distributions'),makeTable(['Metric','Samples','Minimum','Mean','p50','p90','p95','p99','Maximum'],[['Match duration (ms)',s.durationMs],['Human wall-turn time (ms)',s.humanWallTurnMs],['Successful JEV decision (ms)',s.jevLatencyMs],['Selection confidence',s.confidence],['Candidate count',s.candidateCount]].map(([name,d])=>[name,d.n,...['min','mean','p50','p90','p95','p99','max'].map(k=>f(d[k]))])));
+  container.append(el('h3','Guess calibration · both actors'),el('p','Expected probability is 1 / remaining candidates under uniform secrets. This is not Jev selection confidence. Small samples and repeated games require caution.','muted'),makeTable(['Remaining','Guesses','Correct','Expected rate','Observed rate','95% interval'],Object.entries(s.guessCalibration).map(([n,g])=>[n,g.guesses,g.correct,pct(g.expectedProbability),pct(g.observedRate),`${pct(g.interval.lower)} – ${pct(g.interval.upper)}`])));
+  container.append(el('h3','Timing and decision distributions'),makeTable(['Metric','Samples','Minimum','Mean','p50','p90','p95','p99','Maximum'],[['Match duration (ms)',s.durationMs],['Human wall-turn time (ms)',s.humanWallTurnMs],['Successful Jev decision (ms)',s.jevLatencyMs],['Selection confidence',s.confidence],['Candidate count',s.candidateCount]].map(([name,d])=>[name,d.n,...['min','mean','p50','p90','p95','p99','max'].map(k=>f(d[k]))])));
   container.append(el('h3','Provider reliability'),makeTable(['Attempts','Failed attempts','Invalid responses','Timeouts','Fallback decisions','Cost-measured matches'],[[s.provider.attempts,s.provider.failures,s.provider.invalid,s.provider.timeouts,s.provider.fallbackDecisions,s.provider.measuredCostMatches]]));
   container.append(el('h3','Match history'),makeTable(['Started','Mode','Difficulty','Source','Starter','Result','Reason','Eligible','Questions H / J'],matches.map(m=>[new Date(m.createdAt).toLocaleString(),m.mode,m.difficulty,m.source,m.starter,m.winner||m.phase,m.reason||'—',m.eligible?'Yes':'No',`${m.actors.human.questions} / ${m.actors.jev.questions}`])));
   if(currentReport?.events?.length){const details=el('details');details.append(el('summary','Full per-turn analytics · current match'));const rows=decisionRows(currentReport.events);const columns=['sequence','actor','action','beforeCount','afterCount','eliminated','expectedInformationGain','realizedInformationGain','informationGainRegret','wallTurnMs','source','latencyMs','confidence','searchDepth'];details.append(makeTable(columns,rows.map(r=>columns.map(c=>typeof r[c]==='number'?f(r[c]):r[c]))));container.append(details);}
@@ -294,10 +294,10 @@ async function loadAnalytics(){
 }
 $('refresh-analytics').addEventListener('click',()=>guarded(loadAnalytics));
 for(const field of ['difficulty','mode','starter'])$(`analytics-${field}`).addEventListener('change',()=>loadAnalytics().catch(e=>notice(e.message)));
-$('export-analytics').addEventListener('click',()=>{if(analyticsData)saveBlob('guess-who-analytics.json',JSON.stringify(analyticsData,null,2));});
+$('export-analytics').addEventListener('click',()=>{if(analyticsData)saveBlob('noul-who-analytics.json',JSON.stringify(analyticsData,null,2));});
 $('export-matches').addEventListener('click',()=>{
   if(!analyticsData)return;const rows=analyticsData.matches.map(m=>({matchId:m.matchId,createdAt:new Date(m.createdAt).toISOString(),mode:m.mode,difficulty:m.difficulty,leagueId:m.leagueId,source:m.source,starter:m.starter,phase:m.phase,winner:m.winner,reason:m.reason,eligible:m.eligible,humanQuestions:m.actors.human.questions,jevQuestions:m.actors.jev.questions,durationMs:m.durationMs,providerAttempts:m.provider.attempts,fallbacks:m.provider.fallbackDecisions,knownInputTokens:m.provider.knownInputTokens,inputCostUsd:m.provider.inputCostUsd}));
-  saveBlob('guess-who-matches.csv',csv(rows,Object.keys(rows[0]||{matchId:null})),'text/csv;charset=utf-8');
+  saveBlob('noul-who-matches.csv',csv(rows,Object.keys(rows[0]||{matchId:null})),'text/csv;charset=utf-8');
 });
 async function loadLeaderboard(next=false){
   const container=$('leaderboard-content');

@@ -26,10 +26,10 @@ test('equal max-probability ties use stable action ID',()=>{
   const candidates=[{id:'b'},{id:'a'}];const r={model:'pin',answers:{action:{type:'choice',choice:'b',confidence:0,probabilities:{a:.5,b:.5}}}};
   assert.equal(validateResponse(r,candidates,'pin').selected.id,'a');
 });
-test('missing credentials trigger explicit fallback, not a fabricated JEV decision',async()=>{
+test('missing credentials trigger explicit fallback, not a fabricated Jev decision',async()=>{
   const decision=await chooseJevAction(view,config,{});assert.equal(decision.source,'fallback');assert.equal(decision.fallbackReason,'key_not_configured');assert.equal(decision.confidence,null);assert.equal(decision.attempts.length,0);
 });
-test('successful mocked provider call returns a legal JEV decision and safe input',async()=>{
+test('successful mocked provider call returns a legal Jev decision and safe input',async()=>{
   let sent;const decision=await chooseJevAction(view,config,{TYPESAFE_API_KEY:'test-only',JEV_TIMEOUT_MS:1000},{fetchImpl:async(_url,init)=>{sent=JSON.parse(init.body);return Response.json(providerMock(sent));}});
   assert.equal(decision.source,'jev');assert.equal(decision.attempts.length,1);assert.equal(sent.state.secrets,undefined);assert.equal(sent.state.ownSecret,undefined);
 });

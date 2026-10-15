@@ -24,17 +24,17 @@ flowchart LR
 
 ## Implemented controls
 
-Live secrets and seeds are stored exclusively in the server's private match payload. The human projection contains only the human's own secret. The JEV projection omits both secrets and all identity/community data. A uniform high-entropy seed is committed before play. A plain unsalted hash of one of 24 secrets is never used as the public commitment.
+Live secrets and seeds are stored exclusively in the server's private match payload. The human projection contains only the human's own secret. The Jev projection omits both secrets and all identity/community data. A uniform high-entropy seed is committed before play. A plain unsalted hash of one of 24 secrets is never used as the public commitment.
 
 Every mutation validates session, Origin and CSRF, except signed Discord interactions. Session cookies are HTTP-only, SameSite=Lax, Secure outside localhost development. OAuth state is random, hashed in storage, browser-session bound, expiring, and single-use. Successful OAuth rotates the session. Provider tokens are not persisted.
 
 Discord interaction verification uses the timestamp concatenated with the exact raw body, Ed25519 signatures, timestamp freshness, application identity, guild installation owner, and invocation subject. Launch tokens expire, are signed, are bound to the invoking account, and are single-use. A unique consumption marker guards concurrent redemption so the losing request cannot mutate session context.
 
-Queries are parameterized. Display names are rendered with textContent. No free-text input is passed into the JEV instructions. Browser CSP permits only local scripts/styles/assets and prohibits framing and objects. CSV exports quote data and neutralize formula-like strings.
+Queries are parameterized. Display names are rendered with textContent. No free-text input is passed into the Jev instructions. Browser CSP permits only local scripts/styles/assets and prohibits framing and objects. CSV exports quote data and neutralize formula-like strings.
 
-Actions have strict fields, turn legality, revision checks and persisted idempotency keys. JEV turns use a persisted expiring lease. A unique commit token binds state updates to result insertion even when a D1 transaction's conditional update changes zero rows. A unique match-result constraint prevents duplicate awards.
+Actions have strict fields, turn legality, revision checks and persisted idempotency keys. Jev turns use a persisted expiring lease. A unique commit token binds state updates to result insertion even when a D1 transaction's conditional update changes zero rows. A unique match-result constraint prevents duplicate awards.
 
-A terminal replay recomputes initialization commitment, action order/answers, masks, outcome, counters and per-action analytics. Accepted live/forced JEV events also rederive the secret-free request and validate recorded decision evidence. File-based replay verification establishes internal consistency only, not server issuance.
+A terminal replay recomputes initialization commitment, action order/answers, masks, outcome, counters and per-action analytics. Accepted live/forced Jev events also rederive the secret-free request and validate recorded decision evidence. File-based replay verification establishes internal consistency only, not server issuance.
 
 Application quotas, bounded bodies, bounded inference attempts and a deterministic fallback limit obvious abuse. Fallback permanently removes ranking eligibility. Each inference attempt is also recorded operationally so discarded responses are not silently excluded from usage diagnostics.
 

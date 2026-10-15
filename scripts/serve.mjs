@@ -5,14 +5,14 @@ import {fileURLToPath} from 'node:url';
 import {Readable} from 'node:stream';
 import {randomBytes} from 'node:crypto';
 import {handle,maintenance} from '../server/app.js';
-import {openDatabase} from './sqlite-adapter.mjs';
+import {openDatabase,defaultDatabasePath} from './sqlite-adapter.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const port=Number(process.env.PORT)||8787,origin=process.env.ORIGIN||`http://localhost:${port}`,loopbackNames=['localhost','127.0.0.1','[::1]','::1'];
 // GoDaddy may override NODE_ENV, so an HTTPS non-loopback ORIGIN also means production.
 const originUrl=new URL(origin),production=process.env.NODE_ENV==='production'||(originUrl.protocol==='https:'&&!loopbackNames.includes(originUrl.hostname)),host=process.env.HOST||(production?'0.0.0.0':'127.0.0.1'),trustProxy=process.env.TRUST_PROXY==='1';
 if(!['127.0.0.1','localhost','::1'].includes(host)&&!origin.startsWith('https://'))throw Error('Non-loopback hosting requires an HTTPS ORIGIN and reverse proxy.');
 const local=new URL(origin).protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(new URL(origin).hostname);
-const database=path.resolve(root,process.env.DB_PATH||'data/guess-who.sqlite');await mkdir(path.dirname(database),{recursive:true});
+const database=process.env.DB_PATH?path.resolve(root,process.env.DB_PATH):defaultDatabasePath(root);await mkdir(path.dirname(database),{recursive:true});
 const DB=openDatabase(database);DB.exec(await readFile(path.join(root,'migrations/001.sql'),'utf8'));
 const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.json':'application/json','.woff2':'font/woff2'};
 if(production&&!(process.env.LAUNCH_SIGNING_KEY&&process.env.RATE_LIMIT_HASH_KEY))console.warn('LAUNCH_SIGNING_KEY/RATE_LIMIT_HASH_KEY missing: using ephemeral random keys (Discord launch links and sessions-hash values will not survive restarts).');
@@ -38,6 +38,6 @@ const server=http.createServer(async(req,res)=>{
     if(req.method==='HEAD')res.end();else res.end(Buffer.from(await response.arrayBuffer()));
   }catch{res.writeHead(500,{'Content-Type':'application/json'});res.end('{"error":"server_error"}');}
 });
-server.listen(port,host,()=>console.log(`Guess Who: ${origin}\nOpponent: ${env.TYPESAFE_API_KEY?'JEV configured (not yet connection-tested)':'local heuristic / explicitly labeled fallback only'}\nDatabase: ${database}`));
+server.listen(port,host,()=>console.log(`Noul Who: ${origin}\nOpponent: ${env.TYPESAFE_API_KEY?'Jev configured (not yet connection-tested)':'local heuristic / explicitly labeled fallback only'}\nDatabase: ${database}`));
 const timer=setInterval(()=>maintenance(env).catch(()=>console.error('Maintenance failed')),3600000);timer.unref();
 for(const signal of ['SIGINT','SIGTERM'])process.on(signal,()=>{clearInterval(timer);server.close(()=>{DB.close();process.exit(0);});});

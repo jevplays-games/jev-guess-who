@@ -8,7 +8,7 @@ const record=JSON.parse(await readFile(filename,'utf8'));
 let verification;
 if(record.offline===true){
   if(record.eligible!==false||record.state?.phase==='active')throw Error('Offline replay must be terminal and unranked.');
-  const reconstructed=replayRules(record.initial,record.events);
+  const reconstructed=replayRules(record.initial,record.events,record.state?.gameId);
   if(canonical(reconstructed)!==canonical(record.state))throw Error('Offline replay state mismatch.');
   verification='Offline rules/state only; no seed commitment, official result, or authenticated provider evidence.';
 }else{

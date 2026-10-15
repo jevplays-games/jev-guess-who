@@ -51,7 +51,7 @@ test('mocked Discord OAuth rotates the session without storing provider tokens',
 test('launch redemption requires matching identity and consumes exactly once',async()=>{
   const {DB,store,session,env}=await setup();await userSession(store,session);
   try {
-    const now=Date.now(),payload={kind:'launch',version:1,subject:session.user_id,guildId:'223456789012345678',channelId:'323456789012345678',gameId:'guess-who',issuedAt:now,expiresAt:now+300000,nonce:randomHex(),interactionId:'423456789012345678'};
+    const now=Date.now(),payload={kind:'launch',version:1,subject:session.user_id,guildId:'223456789012345678',channelId:'323456789012345678',gameId:'noul-who',issuedAt:now,expiresAt:now+300000,nonce:randomHex(),interactionId:'423456789012345678'};
     const token=await sign(payload,env.LAUNCH_SIGNING_KEY);
     await store.run('INSERT INTO grants(token_hash,kind,payload_json,expires_at) VALUES(?,?,?,?)',await sha256(token),'launch',JSON.stringify(payload),payload.expiresAt);
     await assert.rejects(()=>redeemContext(store,{...session,user_id:'523456789012345678'},token,env),/launch_subject_rejected/);

@@ -1,13 +1,17 @@
 import {ROSTER_VERSION,FULL_MASK,PREDICATES,MASKS,character,hasTrait,ids,bit} from './roster.js';
 export const RULES_VERSION='gw-1';
+export const GAME_ID='noul-who';
+// Pre-rename id. Stored matches, exported replays and old clients carry it, so it stays accepted.
+export const GAME_IDS=[GAME_ID,'guess-who'];
 export class RuleError extends Error { constructor(code) { super(code); this.code=code; } }
 const requireRule=(ok,code)=>{if(!ok)throw new RuleError(code);};
 export const other=actor=>actor==='human'?'jev':'human';
 export const actionId=a=>a.type==='ask'?`ask:${a.predicateId}`:a.type==='guess'?`guess:${a.characterId}`:a.type;
-export function createInitialState({human,jev,starter='human',matchId='local'}) {
+export function createInitialState({human,jev,starter='human',matchId='local'},gameId=GAME_ID) {
+  requireRule(GAME_IDS.includes(gameId),'unknown_game');
   requireRule(character(human)&&character(jev),'unknown_secret');
   requireRule(['human','jev'].includes(starter),'invalid_starter');
-  return {gameId:'guess-who',rulesVersion:RULES_VERSION,rosterVersion:ROSTER_VERSION,matchId,
+  return {gameId,rulesVersion:RULES_VERSION,rosterVersion:ROSTER_VERSION,matchId,
     revision:0,phase:'active',turn:starter,secrets:{human,jev},possible:{human:FULL_MASK,jev:FULL_MASK},
     asked:{human:[],jev:[]},questionsAsked:{human:0,jev:0},turnsTaken:{human:0,jev:0},outcome:null};
 }
@@ -76,8 +80,8 @@ export const serialize=state=>JSON.stringify(state);
 export function deserialize(text) {
   const s=JSON.parse(text);requireRule(s.rulesVersion===RULES_VERSION&&s.rosterVersion===ROSTER_VERSION,'version_mismatch');return s;
 }
-export function replay(initial,events) {
-  let state=createInitialState(initial);
+export function replay(initial,events,gameId=GAME_ID) {
+  let state=createInitialState(initial,gameId);
   for(const event of events) {
     const result=event.actor==='system'&&event.action.type==='expire'?expire(state):applyAction(state,event.actor,event.action);
     for(const key of ['sequence','answer','correct'])requireRule(result.event[key]===event[key],`replay_${key}`);

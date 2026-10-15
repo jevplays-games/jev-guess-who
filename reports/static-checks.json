@@ -1,252 +1,262 @@
 {
-  "syntaxModules": 35,
+  "syntaxModules": 36,
   "rosterValid": true,
-  "publicGzipBytes": 147702,
-  "publicJavaScriptGzipBytes": 26944,
+  "publicGzipBytes": 135041,
+  "publicJavaScriptGzipBytes": 27023,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
   },
   "assets": [
     {
-      "path": "public\\activity.js",
+      "path": "public/activity.js",
       "bytes": 768,
-      "gzipBytes": 440
+      "gzipBytes": 441
     },
     {
-      "path": "public\\art\\card-back.svg",
+      "path": "public/art/card-back.svg",
       "bytes": 1253,
-      "gzipBytes": 446
+      "gzipBytes": 445
     },
     {
-      "path": "public\\art\\down.svg",
+      "path": "public/art/down.svg",
       "bytes": 793,
-      "gzipBytes": 354
+      "gzipBytes": 352
     },
     {
-      "path": "public\\brand\\apple-touch-icon.png",
+      "path": "public/brand/OFL-VT323.txt",
+      "bytes": 4367,
+      "gzipBytes": 1954
+    },
+    {
+      "path": "public/brand/OFL.txt",
+      "bytes": 4380,
+      "gzipBytes": 1957
+    },
+    {
+      "path": "public/brand/apple-touch-icon.png",
       "bytes": 10359,
       "gzipBytes": 9523
     },
     {
-      "path": "public\\brand\\brand.css",
-      "bytes": 25412,
-      "gzipBytes": 9149
+      "path": "public/brand/brand.css",
+      "bytes": 24879,
+      "gzipBytes": 8191
     },
     {
-      "path": "public\\brand\\brand.js",
-      "bytes": 3481,
-      "gzipBytes": 1404
+      "path": "public/brand/brand.js",
+      "bytes": 3484,
+      "gzipBytes": 1408
     },
     {
-      "path": "public\\brand\\favicon-32.png",
+      "path": "public/brand/favicon-32.png",
       "bytes": 1666,
-      "gzipBytes": 812
+      "gzipBytes": 807
     },
     {
-      "path": "public\\brand\\icon.svg",
+      "path": "public/brand/icon.svg",
       "bytes": 1792,
-      "gzipBytes": 660
+      "gzipBytes": 657
     },
     {
-      "path": "public\\brand\\inter-var.woff2",
-      "bytes": 68320,
-      "gzipBytes": 68359
+      "path": "public/brand/inter-var.woff2",
+      "bytes": 36716,
+      "gzipBytes": 36736
     },
     {
-      "path": "public\\brand\\mark.svg",
+      "path": "public/brand/mark.svg",
       "bytes": 1834,
+      "gzipBytes": 678
+    },
+    {
+      "path": "public/brand/result-draw.svg",
+      "bytes": 1004,
+      "gzipBytes": 414
+    },
+    {
+      "path": "public/brand/result-loss.svg",
+      "bytes": 1048,
+      "gzipBytes": 423
+    },
+    {
+      "path": "public/brand/result-win.svg",
+      "bytes": 1203,
+      "gzipBytes": 470
+    },
+    {
+      "path": "public/brand/vt323.woff2",
+      "bytes": 17936,
+      "gzipBytes": 17964
+    },
+    {
+      "path": "public/game.css",
+      "bytes": 20233,
+      "gzipBytes": 5444
+    },
+    {
+      "path": "public/game.js",
+      "bytes": 32975,
+      "gzipBytes": 11325
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 12324,
+      "gzipBytes": 4038
+    },
+    {
+      "path": "public/portraits/c01.svg",
+      "bytes": 2427,
+      "gzipBytes": 766
+    },
+    {
+      "path": "public/portraits/c02.svg",
+      "bytes": 2309,
+      "gzipBytes": 863
+    },
+    {
+      "path": "public/portraits/c03.svg",
+      "bytes": 1797,
       "gzipBytes": 679
     },
     {
-      "path": "public\\brand\\OFL.txt",
-      "bytes": 4380,
-      "gzipBytes": 1969
-    },
-    {
-      "path": "public\\brand\\result-draw.svg",
-      "bytes": 1004,
-      "gzipBytes": 416
-    },
-    {
-      "path": "public\\brand\\result-loss.svg",
-      "bytes": 1048,
-      "gzipBytes": 428
-    },
-    {
-      "path": "public\\brand\\result-win.svg",
-      "bytes": 1203,
-      "gzipBytes": 474
-    },
-    {
-      "path": "public\\game.css",
-      "bytes": 19841,
-      "gzipBytes": 5434
-    },
-    {
-      "path": "public\\game.js",
-      "bytes": 32975,
-      "gzipBytes": 11372
-    },
-    {
-      "path": "public\\index.html",
-      "bytes": 12326,
-      "gzipBytes": 4039
-    },
-    {
-      "path": "public\\portraits\\c01.svg",
-      "bytes": 2427,
-      "gzipBytes": 768
-    },
-    {
-      "path": "public\\portraits\\c02.svg",
-      "bytes": 2309,
-      "gzipBytes": 867
-    },
-    {
-      "path": "public\\portraits\\c03.svg",
-      "bytes": 1797,
-      "gzipBytes": 682
-    },
-    {
-      "path": "public\\portraits\\c04.svg",
+      "path": "public/portraits/c04.svg",
       "bytes": 2316,
-      "gzipBytes": 870
+      "gzipBytes": 866
     },
     {
-      "path": "public\\portraits\\c05.svg",
+      "path": "public/portraits/c05.svg",
       "bytes": 1988,
-      "gzipBytes": 742
+      "gzipBytes": 738
     },
     {
-      "path": "public\\portraits\\c06.svg",
+      "path": "public/portraits/c06.svg",
       "bytes": 1716,
-      "gzipBytes": 646
+      "gzipBytes": 643
     },
     {
-      "path": "public\\portraits\\c07.svg",
+      "path": "public/portraits/c07.svg",
       "bytes": 1830,
-      "gzipBytes": 688
+      "gzipBytes": 685
     },
     {
-      "path": "public\\portraits\\c08.svg",
+      "path": "public/portraits/c08.svg",
       "bytes": 2150,
-      "gzipBytes": 674
+      "gzipBytes": 673
     },
     {
-      "path": "public\\portraits\\c09.svg",
+      "path": "public/portraits/c09.svg",
       "bytes": 2484,
-      "gzipBytes": 813
+      "gzipBytes": 815
     },
     {
-      "path": "public\\portraits\\c10.svg",
+      "path": "public/portraits/c10.svg",
       "bytes": 2295,
       "gzipBytes": 742
     },
     {
-      "path": "public\\portraits\\c11.svg",
+      "path": "public/portraits/c11.svg",
       "bytes": 2003,
-      "gzipBytes": 761
+      "gzipBytes": 758
     },
     {
-      "path": "public\\portraits\\c12.svg",
+      "path": "public/portraits/c12.svg",
       "bytes": 2553,
-      "gzipBytes": 823
+      "gzipBytes": 822
     },
     {
-      "path": "public\\portraits\\c13.svg",
+      "path": "public/portraits/c13.svg",
       "bytes": 1861,
-      "gzipBytes": 724
+      "gzipBytes": 722
     },
     {
-      "path": "public\\portraits\\c14.svg",
+      "path": "public/portraits/c14.svg",
       "bytes": 2519,
       "gzipBytes": 825
     },
     {
-      "path": "public\\portraits\\c15.svg",
+      "path": "public/portraits/c15.svg",
       "bytes": 2452,
       "gzipBytes": 805
     },
     {
-      "path": "public\\portraits\\c16.svg",
+      "path": "public/portraits/c16.svg",
       "bytes": 1634,
-      "gzipBytes": 616
+      "gzipBytes": 614
     },
     {
-      "path": "public\\portraits\\c17.svg",
+      "path": "public/portraits/c17.svg",
       "bytes": 2167,
-      "gzipBytes": 811
+      "gzipBytes": 808
     },
     {
-      "path": "public\\portraits\\c18.svg",
+      "path": "public/portraits/c18.svg",
       "bytes": 2553,
-      "gzipBytes": 823
+      "gzipBytes": 822
     },
     {
-      "path": "public\\portraits\\c19.svg",
+      "path": "public/portraits/c19.svg",
       "bytes": 1946,
-      "gzipBytes": 719
+      "gzipBytes": 715
     },
     {
-      "path": "public\\portraits\\c20.svg",
+      "path": "public/portraits/c20.svg",
       "bytes": 1946,
-      "gzipBytes": 720
+      "gzipBytes": 716
     },
     {
-      "path": "public\\portraits\\c21.svg",
+      "path": "public/portraits/c21.svg",
       "bytes": 1663,
       "gzipBytes": 648
     },
     {
-      "path": "public\\portraits\\c22.svg",
+      "path": "public/portraits/c22.svg",
       "bytes": 2308,
-      "gzipBytes": 744
+      "gzipBytes": 742
     },
     {
-      "path": "public\\portraits\\c23.svg",
+      "path": "public/portraits/c23.svg",
       "bytes": 2605,
-      "gzipBytes": 825
+      "gzipBytes": 822
     },
     {
-      "path": "public\\portraits\\c24.svg",
+      "path": "public/portraits/c24.svg",
       "bytes": 1740,
-      "gzipBytes": 680
+      "gzipBytes": 676
     },
     {
-      "path": "public\\shared\\analytics.js",
+      "path": "public/shared/analytics.js",
       "bytes": 12793,
-      "gzipBytes": 3918
+      "gzipBytes": 3925
     },
     {
-      "path": "public\\shared\\operations-analytics.js",
+      "path": "public/shared/operations-analytics.js",
       "bytes": 4020,
-      "gzipBytes": 1593
+      "gzipBytes": 1595
     },
     {
-      "path": "public\\shared\\question-parse.js",
+      "path": "public/shared/question-parse.js",
       "bytes": 4977,
-      "gzipBytes": 2147
+      "gzipBytes": 2165
     },
     {
-      "path": "public\\shared\\roster.js",
+      "path": "public/shared/roster.js",
       "bytes": 8329,
-      "gzipBytes": 1535
+      "gzipBytes": 1534
     },
     {
-      "path": "public\\shared\\rules.js",
-      "bytes": 4891,
-      "gzipBytes": 1684
+      "path": "public/shared/rules.js",
+      "bytes": 5150,
+      "gzipBytes": 1791
     },
     {
-      "path": "public\\shared\\strategy.js",
+      "path": "public/shared/strategy.js",
       "bytes": 7447,
-      "gzipBytes": 2851
+      "gzipBytes": 2839
     },
     {
-      "path": "public\\vendor\\discord-embedded-app-sdk.js",
+      "path": "public/vendor/discord-embedded-app-sdk.js",
       "bytes": 158033,
-      "gzipBytes": 47849,
+      "gzipBytes": 47470,
       "lazyVendored": true
     }
   ],

@@ -69,3 +69,9 @@ npm run test:browser
 ```
 
 Live inference is separately opt-in and can incur provider charges; use the explicit flags and credentials described in the README. Never count a local or fallback match as an actual JEV benchmark.
+
+## Re-validation after the jevplay.games rename (2026-10-14)
+
+Runtime: Node v24.15.0. Regenerated `unit-tests.tap` (**84 passed; 0 failed**), `static-check.log` / `static-checks.json` (public assets **135,041 of 150,000** bytes gzip, including the self-hosted VT323 and a subset Inter; JavaScript 27,023 of 60,000) and `replay-verification.log` (`sample-replay.json` is kept as a pre-rename fixture with `gameId` `guess-who` and still verifies). The table above and the browser, benchmark and operator-export evidence are from the earlier build and were not re-run. `tests/browser.py` fails the same way on unmodified main in both modes (real HTTP: the board assertion; inline fixture: a 30 s wait timeout), so `browser-results.json` and the PNGs here are the earlier build's.
+
+Chart colours (orchestrator decision D8, same day): the candidate trace uses `--chart-human` #155A80 and a dashed `--chart-jev` #7A4E0B, and legend text is ink with only the swatch coloured. Pixel-sampled at 390 and 1440, idle and after a finished game: lines 7.42:1 / 7.13:1 on #FEFEFE, swatches 5.56:1 / 5.34:1 and legend text 12.39:1 on #DEDEDE. No #E8A33D or #1F78A8 pixels in any captured element.

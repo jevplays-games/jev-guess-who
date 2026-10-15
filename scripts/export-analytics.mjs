@@ -1,10 +1,10 @@
 import {mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
-import {openDatabase} from './sqlite-adapter.mjs';
+import {openDatabase,defaultDatabasePath} from './sqlite-adapter.mjs';
 import {analyzeMatch,aggregateAnalytics,csv,decisionRows} from '../public/shared/analytics.js';
 import {aggregateOperations} from '../public/shared/operations-analytics.js';
 const args=Object.fromEntries(process.argv.slice(2).map(x=>{const [k,v]=x.replace(/^--/,'').split('=');return[k,v??true];}));
-const database=path.resolve(args.db||'data/guess-who.sqlite'),out=path.resolve(args.out||'reports/operator-export'),limit=Math.max(1,Math.min(100000,Number(args.limit)||10000));
+const database=args.db?path.resolve(args.db):defaultDatabasePath(),out=path.resolve(args.out||'reports/operator-export'),limit=Math.max(1,Math.min(100000,Number(args.limit)||10000));
 // Operator-only command: never exposed as a public HTTP endpoint.
 const DB=openDatabase(database),asOf=Date.now();await mkdir(out,{recursive:true});
 try {

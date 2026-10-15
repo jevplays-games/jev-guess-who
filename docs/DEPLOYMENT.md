@@ -19,9 +19,11 @@ Default binding: `127.0.0.1:8787`; canonical browser origin: `http://localhost:8
 | Variable | Required for | Handling |
 |---|---|---|
 | `ORIGIN` | All HTTP routing | Exact external scheme+host+port, no trailing slash |
-| `TYPESAFE_API_KEY` | Actual JEV | Server secret only |
-| `JEV_MODEL` | JEV / ranked league | Default `jev-1.13.0`; use a versioned ID |
-| `JEV_TIMEOUT_MS` | JEV request budget | Default 3000; bounded in code to 50–15000 |
+| `LEGACY_ORIGIN` | Rename transition only | Optional pre-rename origin still accepted; see Hostname transition |
+| `LEGACY_ORIGIN_MODE` | Rename transition only | `serve` (default) or `redirect` |
+| `TYPESAFE_API_KEY` | Actual Jev | Server secret only |
+| `JEV_MODEL` | Jev / ranked league | Default `jev-1.13.0`; use a versioned ID |
+| `JEV_TIMEOUT_MS` | Jev request budget | Default 3000; bounded in code to 50–15000 |
 | `JEV_INPUT_USD_PER_MILLION` | Optional cost estimate | Explicit numeric price input; empty means unknown |
 | `DISCORD_CLIENT_ID` | Discord | Public configuration |
 | `DISCORD_CLIENT_SECRET` | Discord OAuth/command registration | Server secret only |
@@ -40,7 +42,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 Never place `.env`, `.dev.vars`, databases, credentials, or private logs inside `public/`. The generated ZIP contains none of them. The database stores active secrets and must be protected and backed up like a credential-bearing application database.
 
-## TypeSafe / JEV
+## TypeSafe / Jev
 
 The adapter sends a bounded `Choice` request to `POST https://api.typesafe.ai/v1/systemone`, with Bearer authentication. It validates the returned model, answer type, exact option set, selected maximum-probability option, finite probabilities that sum to 1 within 0.02 (rounding across up to 24 options), confidence range, and optional usage. A rejected reply is recorded as a failed attempt with a `detail` naming the check that failed.
 
@@ -68,7 +70,7 @@ Register the command using the application's client-credentials flow:
 npm run discord:register
 ```
 
-This POST creates/updates the named `/play-jev` command. It does not bulk overwrite every command in the application. It supports `game: guess-who`, guild installation, and guild interaction context. No registration credential is stored in the browser.
+This POST creates/updates the named `/play-jev` command. It does not bulk overwrite every command in the application. It supports `game: noul-who`, guild installation, and guild interaction context. No registration credential is stored in the browser.
 
 Invoke the command in a guild channel. The ephemeral response has a link with a signed **fragment** token, which avoids ordinary HTTP query logging. The page strips it immediately and holds it transiently in session storage across OAuth. Only the invoking Discord account can redeem it, and redemption is single-use. The five-minute context lifetime begins when the interaction is issued, not when it is redeemed.
 
@@ -81,19 +83,27 @@ The deployment files are supplied, but a Cloudflare deployment was not executed 
 ```sh
 npm install --save-dev wrangler
 npx wrangler login
-npx wrangler d1 create jev-guess-who
 ```
 
-Copy the returned database ID into `wrangler.jsonc`. Set the exact production origin and Discord public configuration. Keep the deployment's signing/hash values in secret bindings.
+The production D1 database keeps the name it was created with before the Noul Who rename (`database_name` in `wrangler.jsonc`); renaming a D1 database means recreating it, so it was deliberately not renamed. Only a fresh environment needs `npx wrangler d1 create <name>`; copy the returned database ID into `wrangler.jsonc`. Set the exact production origin and Discord public configuration. Keep the deployment's signing/hash values in secret bindings.
 
 ```sh
-npx wrangler d1 migrations apply jev-guess-who --remote
+npx wrangler d1 migrations apply DB --remote
 npx wrangler secret put TYPESAFE_API_KEY
 npx wrangler secret put DISCORD_CLIENT_SECRET
 npx wrangler secret put LAUNCH_SIGNING_KEY
 npx wrangler secret put RATE_LIMIT_HASH_KEY
 npx wrangler deploy
 ```
+
+### Hostname transition (guess-who → noul-who)
+
+`ORIGIN` is `https://noul-who.jevplay.games`. Both hostnames are bound as custom domains while the rename rolls out. `LEGACY_ORIGIN` names the pre-rename origin and `LEGACY_ORIGIN_MODE` decides what happens to it:
+
+- `serve` (default): the old host works exactly as before, under its own origin (cookies, CSRF origin check, OAuth callback and launch links all use the old origin for requests that arrived on it).
+- `redirect`: the old host answers `301` (`GET`/`HEAD`) or `308` (other methods) to the same path and query on `ORIGIN`.
+
+Switch to `redirect` only after the Discord Activity URL mapping, interactions endpoint URL and OAuth redirect point at the new host; Discord does not follow cross-origin redirects for those. Remove `LEGACY_ORIGIN` and the old route once traffic has moved.
 
 Do not configure `LOCAL_DEVELOPMENT=true` on Workers. Without that flag, cookies use `Secure`. All requests run through the Worker so asset security headers are applied consistently. `public/` alone is bound to static assets.
 
@@ -109,7 +119,7 @@ The Node adapter strips forwarded IP headers. It intentionally uses one local IP
 
 ## GoDaddy Node.js hosting
 
-The same `scripts/serve.mjs` runs as a plain Node app: `npm run build` (no-op) then `npm start` (`node --env-file-if-exists=.env scripts/serve.mjs`). In production mode it binds `0.0.0.0` (or `HOST`) on the platform-injected `PORT`. Production mode is `NODE_ENV=production` or an HTTPS `ORIGIN` with a non-loopback host, because GoDaddy's platform env may override `NODE_ENV`; loopback or HTTP origins stay local. Zip layout: repo root files (`package.json`, `server/`, `public/`, `migrations/`, `scripts/`) plus a root `.env`. Required `.env` keys: `ORIGIN` (exact HTTPS public origin), `NODE_ENV=production`, `HOST=0.0.0.0`, `TYPESAFE_API_KEY`, `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`, `DISCORD_PUBLIC_KEY`, `LAUNCH_SIGNING_KEY`, `RATE_LIMIT_HASH_KEY`; optional `DB_PATH` (default `data/guess-who.sqlite`, private, never under `public/`), `JEV_MODEL`, `JEV_TIMEOUT_MS`, retention days. Real process env vars override `.env`.
+The same `scripts/serve.mjs` runs as a plain Node app: `npm run build` (no-op) then `npm start` (`node --env-file-if-exists=.env scripts/serve.mjs`). In production mode it binds `0.0.0.0` (or `HOST`) on the platform-injected `PORT`. Production mode is `NODE_ENV=production` or an HTTPS `ORIGIN` with a non-loopback host, because GoDaddy's platform env may override `NODE_ENV`; loopback or HTTP origins stay local. Zip layout: repo root files (`package.json`, `server/`, `public/`, `migrations/`, `scripts/`) plus a root `.env`. Required `.env` keys: `ORIGIN` (exact HTTPS public origin), `NODE_ENV=production`, `HOST=0.0.0.0`, `TYPESAFE_API_KEY`, `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET`, `DISCORD_PUBLIC_KEY`, `LAUNCH_SIGNING_KEY`, `RATE_LIMIT_HASH_KEY`; optional `DB_PATH` (default `data/noul-who.sqlite`, or an existing pre-rename local file in `data/` if that is all there is, private, never under `public/`), `JEV_MODEL`, `JEV_TIMEOUT_MS`, retention days. Real process env vars override `.env`.
 
 The HTTPS `ORIGIN` makes the app non-local, so ranked play and Discord are enabled as on Workers. The hourly maintenance timer runs in-process. SQLite data lives on the ephemeral filesystem and is lost on redeploy (accepted). Without `TRUST_PROXY=1` all users share one IP rate-limit bucket; set `TRUST_PROXY=1` only if the proxy overwrites `X-Forwarded-For`/`X-Forwarded-Host` (rightmost hop is used). Origin/CSRF checks are unchanged, except that `GET /api/health` (static `{ok,game,version}`, no session or data) is exempt from the Host check so platform health checks with their own Host succeed. The static home document (`GET`/`HEAD` on `/` and `/index.html`) is likewise exempt, because it carries no session, secret or Host-derived content; the platform may probe `/` or `/api/health`. Every other path and method still returns 403 for a foreign Host.
 
@@ -117,7 +127,7 @@ The HTTPS `ORIGIN` makes the app non-local, so ranked play and Discord are enabl
 
 Application defaults: 240 API requests/minute per IP-derived bucket; 60 browser mutations/minute per session; 10 guest or 30 signed-in game creations/hour per actor/session; one active ranked game per Discord account. Session/IP rotations can bypass some application-only limits. Add edge controls for public anonymous inference exposure.
 
-The UI can resubmit an ambiguous human action with the same idempotency key. A JEV decision lease expires after 20 seconds. Stale commits are discarded; their provider attempts remain operational telemetry. A disconnected client can resume until the 24-hour server match expiration. A failed provider decision permanently removes leaderboard eligibility.
+The UI can resubmit an ambiguous human action with the same idempotency key. A Jev decision lease expires after 20 seconds. Stale commits are discarded; their provider attempts remain operational telemetry. A disconnected client can resume until the 24-hour server match expiration. A failed provider decision permanently removes leaderboard eligibility.
 
 Authentication/schema errors do not retry that request. Operational telemetry captures the failure, but there is no automatic cross-request circuit breaker or alert-delivery integration. Configure a provider spend cap and external alerting for public launch.
 
@@ -130,7 +140,7 @@ Account deletion/export workflows are operator procedures, not a public self-ser
 ## Release checklist
 
 - Run the test suite and benchmark; inspect failures rather than skipping them.
-- Smoke-test OAuth, signed launch, context expiry/replay, live JEV success, timeout, and a deliberately invalid model in staging.
+- Smoke-test OAuth, signed launch, context expiry/replay, live Jev success, timeout, and a deliberately invalid model in staging.
 - Confirm either secret is absent from live network responses except the human's own allowed secret.
 - Complete an eligible ranked match and verify exactly one result in the expected three scopes.
 - Confirm a fallback match enters no official board.

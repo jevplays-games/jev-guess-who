@@ -1,4 +1,4 @@
-# Human vs JEV — Guess Who: implemented A–Z reference
+# Human vs Jev — Noul Who: implemented A–Z reference
 
 This document describes the delivered code, not a promise that an external deployment or live-provider experiment has occurred. The supplied planning prompt is preserved in `source/original-requirements.md`. See `SOURCES.md` for the external documentation used for adapters. Intentional implementation choices extending the original plan are identified below.
 
@@ -12,9 +12,9 @@ There are 24 × 24 × 2 = 1,152 initial secret/starter configurations. With at m
 
 ## B. Player Experience
 
-The page opens without an account. Select a difficulty and Practice, Casual or Ranked, then create a match. Practice uses the local deterministic policy and is labeled accordingly. Casual uses the provider when configured and otherwise an explicitly labeled fallback. Ranked creation requires Discord identity and configured, pinned JEV.
+The page opens without an account. Select a difficulty and Practice, Casual or Ranked, then create a match. Practice uses the local deterministic policy and is labeled accordingly. Casual uses the provider when configured and otherwise an explicitly labeled fallback. Ranked creation requires Discord identity and configured, pinned Jev.
 
-The human sees their own secret, the board of possible JEV secrets, public action history, and JEV's public deduction progress. Type a question in your own words to preview its split, or select a candidate to open a final-guess confirmation. The typed text is resolved in the browser to one of the 12 predicates (`public/shared/question-parse.js`) and never leaves the page: the ask action still carries a `predicateId` the server validates against `legalActions`, so the rules, the wire format and the finite candidate set the model chooses from are unchanged. A question that resolves to nothing, or to more than one predicate, is refused with the still-open questions offered. After each human action the browser advances JEV through a separate idempotent API operation. Reconnect resumes authoritative state. Match results expose the two secrets, analytics and export controls. An already loaded page can start unranked local practice if the API is unreachable.
+The human sees their own secret, the board of possible Jev secrets, public action history, and Jev's public deduction progress. Type a question in your own words to preview its split, or select a candidate to open a final-guess confirmation. The typed text is resolved in the browser to one of the 12 predicates (`public/shared/question-parse.js`) and never leaves the page: the ask action still carries a `predicateId` the server validates against `legalActions`, so the rules, the wire format and the finite candidate set the model chooses from are unchanged. A question that resolves to nothing, or to more than one predicate, is refused with the still-open questions offered. After each human action the browser advances Jev through a separate idempotent API operation. Reconnect resumes authoritative state. Match results expose the two secrets, analytics and export controls. An already loaded page can start unranked local practice if the API is unreachable.
 
 The Analytics tab contains live action diagnostics and retained personal history; Leaderboards supplies World, Server and Channel views. Anonymous or local history never becomes an official result retroactively after sign-in.
 
@@ -26,9 +26,9 @@ The Analytics tab contains live action diagnostics and retained personal history
 
 Question information is computed from public candidate masks only. Neither rendered cards nor browser-provided outcomes are authoritative.
 
-## D. JEV Decision Model
+## D. Jev Decision Model
 
-JEV selects from a finite candidate set; it never edits state. Exact counting, entropy, splits and bounded search run in ordinary JavaScript first. The adapter sends a redacted view and computed candidate evidence through TypeSafe Choice. A validated action is applied by the same engine used in tests and replays.
+Jev selects from a finite candidate set; it never edits state. Exact counting, entropy, splits and bounded search run in ordinary JavaScript first. The adapter sends a redacted view and computed candidate evidence through TypeSafe Choice. A validated action is applied by the same engine used in tests and replays.
 
 The local strategy module includes a greedy balanced-question policy, a deterministic fallback and bounded race-aware expectiminimax. Uniform priors follow from independent uniform secret assignment and truthful predicate answers. A question branch probability is its candidate fraction; a guess succeeds with probability 1/n. The search accounts for immediate loss on a wrong guess and alternates the actors' race objectives. At its frontier it uses completion-turn distributions under a fixed greedy, no-risk policy.
 
@@ -37,11 +37,11 @@ The local strategy module includes a greedy balanced-question policy, a determin
 | Easy | First four informative canonical questions in catalog order; singleton guess; reduced evidence |
 | Normal | All canonical informative questions and singleton guess; question features |
 | Hard | All canonical questions and remaining guesses; two-ply search, 5,000-node budget |
-| JEV | Same broad action surface; iterative deepening up to six plies, 50,000-node budget |
+| Jev | Same broad action surface; iterative deepening up to six plies, 50,000-node budget |
 
 Only completed iterations supply search estimates. These are policy- and budget-dependent estimates, not perfect-play certificates. The strongest intended configuration is not claimed empirically strongest without live benchmarks.
 
-## E. JEV State Encoding
+## E. Jev State Encoding
 
 Action IDs are `ask:<predicate>` and `guess:<character>`. There are at most 36 raw actions before informative-question filtering and equivalent-partition pruning. Candidate records contain action, description, split counts, information gain, expected/worst remaining candidates and optional estimated race-win probability.
 
@@ -63,7 +63,7 @@ flowchart TD
     API --> A[Discord identity and context]
     R --> V[Secret-free decision view]
     V --> F[Features and bounded search]
-    F --> J[JEV Choice adapter]
+    F --> J[Jev Choice adapter]
     J --> T[TypeSafe API]
     T --> X[Response and legal-action validation]
     X --> R
@@ -104,7 +104,7 @@ No email, guild listing or message-reading scope is requested. Account access mu
 
 ## I. Discord Context
 
-A guild-installed `/play-jev game:guess-who` command provides a verified guild/channel/user tuple. The endpoint verifies Discord's Ed25519 signature over the original timestamp and body, checks freshness, app and guild-installation fields, then issues an ephemeral user-bound HMAC launch token. The browser uses a fragment to reduce accidental URL/referrer disclosure, strips it, signs in, and redeems it server-side. A one-time nonce prevents reuse.
+A guild-installed `/play-jev game:noul-who` command provides a verified guild/channel/user tuple. The endpoint verifies Discord's Ed25519 signature over the original timestamp and body, checks freshness, app and guild-installation fields, then issues an ephemeral user-bound HMAC launch token. The browser uses a fragment to reduce accidental URL/referrer disclosure, strips it, signs in, and redeems it server-side. A one-time nonce prevents reuse.
 
 Identity comes from OAuth. Guild/channel association comes from the signed interaction. Neither arbitrary URL IDs nor OAuth identify alone proves channel context. A fresh five-minute launch proof is required when starting another context-attributed ranked match or reading a private community board. The snapshot persists on the existing match. This is not continuous permission or membership monitoring.
 
@@ -130,7 +130,7 @@ Indexes cover owner history, active ranked matches, expiration, World/Server/Cha
 
 `docs/API.md` defines every implemented request, response, status and boundary. Endpoints cover session/health, Discord auth/logout/interactions/context, game creation/read/action/advance/completed replay, personal analytics and leaderboard. There is no endpoint accepting a browser's claimed score, winner or authoritative secret.
 
-Mutation IDs and expected revisions make retries safe. Responses distinguish stale state, conflict, unavailable configuration, illegal action and quota rejection. JEV advancement uses a persisted lease and can return pending instead of duplicating an inference. Canonical origin checking protects the local adapter from hostile Host/Origin assumptions.
+Mutation IDs and expected revisions make retries safe. Responses distinguish stale state, conflict, unavailable configuration, illegal action and quota rejection. Jev advancement uses a persisted lease and can return pending instead of duplicating an inference. Canonical origin checking protects the local adapter from hostile Host/Origin assumptions.
 
 ## N. Anti-Cheat / Verification
 
@@ -140,7 +140,7 @@ A fresh 256-bit server seed drives domain-separated deterministic draws; rejecti
 flowchart TD
     E[Terminal stored event history] --> I[Re-derive seed initialization and commitment]
     I --> R[Replay legal actions and answers]
-    R --> J[Rebuild JEV candidates / input hash / validate selected evidence]
+    R --> J[Rebuild Jev candidates / input hash / validate selected evidence]
     J --> A[Recompute per-event analytics and final state]
     A --> C{Eligible and consistent?}
     C -->|Yes| D[Unique transactional verified result]
@@ -158,7 +158,7 @@ Server replay JSON includes `formatVersion`, mode/config/league, creation/expira
 
 ## P. UI Layout
 
-Desktop has a six-column board, question controls, own secret, JEV deduction preview, evidence panel, history and separate analytics/leaderboards tabs. Mobile uses four columns, own secret above the board, then controls and analysis. Guessing uses an explicit confirmation dialog. UI action controls are disabled outside the proper turn; errors do not erase the current match.
+Desktop has a six-column board, question controls, own secret, Jev deduction preview, evidence panel, history and separate analytics/leaderboards tabs. Mobile uses four columns, own secret above the board, then controls and analysis. Guessing uses an explicit confirmation dialog. UI action controls are disabled outside the proper turn; errors do not erase the current match.
 
 Semantic buttons, tab keyboard handling, visible focus, live status, text alternatives containing every trait, reduced-motion CSS and touch-sized controls are included. Original SVG portraits are generated from the roster rather than copied commercial art. The full-page Analytics view includes tables and a candidate-count trace; it does not expose hidden model reasoning.
 
@@ -178,13 +178,13 @@ Wrangler is optional deployment tooling, not shipped frontend code. Python Playw
 
 The delivered test suite covers all 1,152 initialization combinations, duplicate secrets, deterministic play/replay, legality, public projections, equivalent-observation redaction, search budgets, analytics formulas/nulls, CSV injection, provider schema/failure/timeout, OAuth state/signatures/rotation, context redemption, ownership, revisions, lease conflicts, result uniqueness, expiration, scope isolation and pagination. Operations tests cover retained exact-day cohorts, activity identity distinctions and attempts discarded from game state.
 
-`reports/VALIDATION.md` records final executable counts. Mocked Discord/JEV responses exercise the integration contracts without claiming live accounts were used. Browser interaction tests support normal HTTP on a user's machine; this build's recorded run used an explicitly documented inline-asset/HTTP-bridge fixture due to environment navigation restrictions.
+`reports/VALIDATION.md` records final executable counts. Mocked Discord/Jev responses exercise the integration contracts without claiming live accounts were used. Browser interaction tests support normal HTTP on a user's machine; this build's recorded run used an explicitly documented inline-asset/HTTP-bridge fixture due to environment navigation restrictions.
 
-## T. JEV Benchmark Plan
+## T. Jev Benchmark Plan
 
 `npm run benchmark` runs five scripted matchups, every secret pair and both starters: fixed order, random-safe, random-risk, balanced and bounded race-aware search. It writes match/decision CSVs, aggregate JSON, cohort statistics and a readable report. Reproducible seeded randomness is used only for scripted random policies; it is not authoritative production randomness.
 
-Live runs require both a TypeSafe key and `--live --confirm-paid`. Options include limit, repetitions, difficulty, output directory and JEV-vs-JEV. Strict live outcomes exclude fallback games. Track starter sensitivity, wrong guesses, question quality, latency distribution, retries, invalid outputs, search estimates and known usage. Confidence remains a selection statistic. The included scripted benchmark is not proof of JEV performance or of optimal play.
+Live runs require both a TypeSafe key and `--live --confirm-paid`. Options include limit, repetitions, difficulty, output directory and Jev-vs-Jev. Strict live outcomes exclude fallback games. Track starter sensitivity, wrong guesses, question quality, latency distribution, retries, invalid outputs, search estimates and known usage. Confidence remains a selection statistic. The included scripted benchmark is not proof of Jev performance or of optimal play.
 
 ## U. Deployment
 
@@ -194,13 +194,13 @@ For Workers, set the D1 database ID, custom HTTPS origin, secret bindings, migra
 
 ## V. Implementation Phases
 
-The delivered sequence is engine/roster → local strategy/UI → authoritative storage → JEV boundary → replay/metrics → Discord/context → scoped rankings → reliability/retention → expanded analytics → benchmark/browser checks → packaging. Files and executable tests exist for these stages; external-service provisioning and production smoke testing remain deployment tasks, not implicitly completed stages.
+The delivered sequence is engine/roster → local strategy/UI → authoritative storage → Jev boundary → replay/metrics → Discord/context → scoped rankings → reliability/retention → expanded analytics → benchmark/browser checks → packaging. Files and executable tests exist for these stages; external-service provisioning and production smoke testing remain deployment tasks, not implicitly completed stages.
 
 For subsequent changes, use small milestones: modify one rules/policy/schema unit, add a regression, rerun unit/API tests, regenerate sample and benchmark, inspect browser behavior, then review whether the change requires a new rules/roster/prompt/policy/analytics version or migration. Never silently reinterpret active matches under a changed ruleset.
 
 ## W. Risks and Open Questions
 
-Live JEV strength and availability are unmeasured here. Remote response variability, roster presentation ambiguity, first-move advantage and budget-dependent estimates require evaluation. Discord context is launch-time, not continuous. Native SQLite warnings/host capabilities differ by runtime. This package has not undergone independent security review, load testing or a production Cloudflare trial.
+Live Jev strength and availability are unmeasured here. Remote response variability, roster presentation ambiguity, first-move advantage and budget-dependent estimates require evaluation. Discord context is launch-time, not continuous. Native SQLite warnings/host capabilities differ by runtime. This package has not undergone independent security review, load testing or a production Cloudflare trial.
 
 Operational limitations include no hosted alert sink, no account-wide provider circuit breaker, no self-service deletion UI, and no automatic proof of human unaided play. Aggregate history and retention are bounded. Telemetry writes can fail, so operational usage is not a complete provider bill. Deployment owners must supply backups, deletion handling, incident response and budget alerts.
 
@@ -212,7 +212,7 @@ Kept because they solve actual boundaries: trusted online turns protect secrets;
 
 ## Y. MVP Definition
 
-The delivered local system plays complete human-versus-local matches, with server authority, two boards, trait elimination, four decision configurations, diagnostics, history and replays. Configured JEV and Discord code paths exist with mocked integration coverage. A deployed ranked release is complete only after real identity, signed community launch, actual provider inference, verified result insertion and each scope have been exercised with the operator's own configured services.
+The delivered local system plays complete human-versus-local matches, with server authority, two boards, trait elimination, four decision configurations, diagnostics, history and replays. Configured Jev and Discord code paths exist with mocked integration coverage. A deployed ranked release is complete only after real identity, signed community launch, actual provider inference, verified result insertion and each scope have been exercised with the operator's own configured services.
 
 The distinction matters: supplying deployable source is not deploying it. The included evidence identifies what actually ran.
 

@@ -43,7 +43,7 @@ test('singleton requires a final guess and allows equal secrets',()=>{
   }
   assert.equal(state.phase,'active');assert.equal(count(state.possible.human),1);
 });
-test('live human projection has no JEV secret or seed; decision view has neither secret',()=>{
+test('live human projection has no Jev secret or seed; decision view has neither secret',()=>{
   for(const h of ROSTER)for(const j of ROSTER){
     const state=createInitialState({human:h.id,jev:j.id});const view=projectForHuman(state),decision=projectForDecision(state);
     assert.equal(view.ownSecret,h.id);assert.equal(view.secrets,undefined);assert.equal(view.revealedSecrets,undefined);assert.equal(view.seed,undefined);
