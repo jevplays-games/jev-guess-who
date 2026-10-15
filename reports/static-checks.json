@@ -1,7 +1,7 @@
 {
   "syntaxModules": 37,
   "rosterValid": true,
-  "publicGzipBytes": 125778,
+  "publicGzipBytes": 125650,
   "publicJavaScriptGzipBytes": 27458,
   "budgets": {
     "javaScript": 60000,
@@ -50,8 +50,8 @@
     },
     {
       "path": "public/brand/favicon-32.png",
-      "bytes": 452,
-      "gzipBytes": 475
+      "bytes": 324,
+      "gzipBytes": 347
     },
     {
       "path": "public/brand/icon.svg",

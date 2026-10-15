@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "project": "jev-noul-who",
-  "generatedAt": "2026-10-15T03:13:02.924734+00:00",
+  "generatedAt": "2026-10-15T03:13:37.648396+00:00",
   "excluded": [
     "local SQLite databases",
     "runtime sessions/data",
@@ -178,8 +178,8 @@
     },
     {
       "path": "public/brand/favicon-32.png",
-      "bytes": 452,
-      "sha256": "1d01ce4613a4a1ab3d4d89cddb82963907c8e59a869ffa2476100d393a4926d1"
+      "bytes": 324,
+      "sha256": "599364712ad0a898ac6e25554d022b1fb46e5c26f1c09ad17844ce96c5b5bf81"
     },
     {
       "path": "public/brand/icon.svg",
@@ -499,7 +499,7 @@
     {
       "path": "reports/static-checks.json",
       "bytes": 5436,
-      "sha256": "483678936b49b65b95cc69a1997752978455227247ce802fce346473ee15a5de"
+      "sha256": "34a612fa4c6f43175ba6a07e9422aa2b8afcf196ba1cf6a108510baf4fc75250"
     },
     {
       "path": "reports/unit-tests.tap",
