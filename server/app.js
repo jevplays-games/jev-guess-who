@@ -70,8 +70,8 @@ export async function handle(request,env) {
     if(path==='/api/leaderboard'&&method==='GET')return json(await leaderboard(store,session,url.searchParams,env));
     throw new HttpError(404,'not_found');
   } catch(error) {
-    const status=error.status||(['RuleError'].includes(error.constructor.name)?422:500);
-    const code=status===500?'internal_error':error.code||error.message;
+    const status=error.status||(['RuleError'].includes(error.constructor.name)?422:error instanceof URIError?400:500);
+    const code=status===500?'internal_error':error instanceof URIError?'malformed_uri':error.code||error.message;
     await store.telemetry(status===429?'rate_limited':'request_rejected',{details:{status,reason:code}});
     if(status===500)console.error(JSON.stringify({event:'internal_error',type:error.constructor.name,message:error.message?.slice(0,160)}));
     return json({error:code},status,status===429?{'Retry-After':'60'}:{});

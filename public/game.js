@@ -3,6 +3,7 @@ import {createInitialState,applyAction,projectForHuman,projectForDecision,action
 import {localDecision,questionFeatures} from './shared/strategy.js';
 import {analyzeAction,analyzeMatch,aggregateAnalytics,decisionRows,csv} from './shared/analytics.js';
 import {matchQuestion} from './shared/question-parse.js';
+import {opponentSourceLabel,resultLabel,LAST_ANSWER_PLACEHOLDER} from './shared/match-labels.js';
 const $=id=>document.getElementById(id);
 const f=(n,d=2)=>typeof n==='number'&&Number.isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:d}):'—';
 const pct=n=>typeof n==='number'?`${f(n*100,1)}%`:'—';
@@ -82,10 +83,10 @@ function render(){
   $('remaining').textContent=humanRemaining;$('remaining-count').textContent=humanRemaining;$('jev-remaining').textContent=count(current.possible.jev);$('jev-questions').textContent=current.questionsAsked.jev;
   const over=current.phase!=='active',status=$('turn-status');
   status.className=over?`jv-plaque ${current.outcome.winner==='human'?'is-win':'is-loss'}`:'';document.querySelector('.board-panel').dataset.turn=over?'over':current.turn;
-  status.textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):(current.outcome.winner==='human'?'You found the answer.':'Match complete.');
+  status.textContent=current.phase==='active'?(current.turn==='human'?'Your turn. Choose a question.':'Opponent is choosing…'):resultLabel(current.outcome);
   $('eligibility').textContent=current.eligible?'Ranked · eligible':current.eligibilityReason?.startsWith('jev_fallback')?'Unranked · Jev fallback':practice?(offline?'Offline practice':'Practice · local heuristic'):'Casual · not ranked';
   const fallback=current.history.some(e=>e.decision?.source==='fallback');
-  $('opponent-source').textContent=fallback?'Fallback heuristic':practice?'Local heuristic':'Jev';
+  $('opponent-source').textContent=opponentSourceLabel({practice,fallback,jevConfigured:me?.jevConfigured});
   const c=character(current.ownSecret),image=el('img');image.src=`/portraits/${c.id}.svg`;image.alt=describe(c);
   const identity=el('div');identity.append(el('h3',c.name),el('p',describe(c).split('; ').slice(1).join(' · '),'identity-traits'));$('secret').replaceChildren(image,identity);
   // The datalist offers the questions still open, so typing stays optional and
@@ -96,7 +97,7 @@ function render(){
   previewQuestion();
   $('opponent-board').replaceChildren(...ROSTER.map((c,i)=>el('span',c.name,current.possible.jev&(1<<i)?'':'eliminated')));
   const last=current.history.at(-1);
-  if(last)$('last-answer').textContent=`${humanName(last.actor)}: ${labelAction(last.action)}${typeof last.answer==='boolean'?` ${last.answer?'Yes.':'No.'}`:''}`;
+  $('last-answer').textContent=last?`${humanName(last.actor)}: ${labelAction(last.action)}${typeof last.answer==='boolean'?` ${last.answer?'Yes.':'No.'}`:''}`:LAST_ANSWER_PLACEHOLDER;
   $('history').replaceChildren();
   if(!current.history.length)$('history').append(el('p','No turns yet.','muted'));
   for(const event of current.history){const row=el('div',null,'history-entry');row.append(el('span',String(event.sequence).padStart(2,'0'),'muted'),el('span',humanName(event.actor),'actor'),el('span',labelAction(event.action)),el('span',typeof event.answer==='boolean'?(event.answer?'Yes':'No'):typeof event.correct==='boolean'?(event.correct?'Correct':'Incorrect'):'','answer'));$('history').append(row);}
@@ -334,6 +335,7 @@ async function initialize(){
     me=await api('/api/me');$('identity').textContent=me.user?.name||'Guest';$('login').hidden=!!me.user;$('logout').hidden=!me.user;
     if(!me.discordConfigured)$('login').textContent='Discord setup required';
     if(me.jevConfigured)$('mode').value='casual';
+    else{const casual=$('mode').querySelector('option[value=casual]');if(casual)casual.textContent='Casual · local fallback (no Jev key)';}
     let token;try{token=sessionStorage.getItem('gw:launch');}catch{}
     if(token&&me.user){try{await api('/api/context/redeem',{method:'POST',body:{token}});notice('Discord community context verified.');}finally{sessionStorage.removeItem('gw:launch');}}
     else if(token)notice('Sign in with the Discord account that launched this game to verify community context.');

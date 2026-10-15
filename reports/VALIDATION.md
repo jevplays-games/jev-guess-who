@@ -86,3 +86,14 @@ Runtime: Node v24.15.0. `npm test`: **86 passed; 0 failed** (two consecutive run
 
 Red hair is now #D24E2D and brown #6A4639 (highlights #D96526 and #8D5544), so the four hair colours step from dark to light (black, brown, red, blond) for every type of colour vision; the earlier red and brown were CIEDE2000 4.2 apart under protanopia. `portraits-contact-sheet.png`, the README banner, the social preview and the hub og card were re-rendered from their unchanged sources, with only hair pixels changing. `desktop-game.png` (1440, mid-game), `mobile-game.png` (390, mid-game) and `desktop-analytics.png` (1440, after a finished game) were retaken with Playwright against a fresh local server in practice mode. `tests/browser.py` still fails in both modes exactly as on `origin/main` (real HTTP: the page's CSP refuses `wait_for_function`; inline fixture: 30 s timeout), so `browser-results.json` and `browser-test.log` remain from the original build.
 
+
+## Verifier follow-ups N1–N4 (2026-10-15)
+
+`npm test`: **91 passed; 0 failed** (two consecutive runs; `unit-tests.tap` is the second). The five new tests:
+- the opponent is labelled "Local heuristic" (never "Jev") when the host has no Jev key, before the fallback's first move;
+- the result plaque says "The opponent guessed wrong. You win." when the opponent's wrong guess decided the match;
+- New game resets the opponent panel's last line;
+- `scripts/serve.mjs` answers malformed percent-encoded paths (`/%ZZ`, `/%`, `/%E0%A4%A`, `/portraits/%c0%af.svg`) with 400 instead of 500;
+- `handle()` maps a `URIError` to 400 `malformed_uri`.
+
+`npm run check`: public assets **126,662 of 150,000** bytes gzip, JavaScript **28,325 of 60,000**. The portrait check is unchanged: minimum pairwise difference is 108 cells. `replay-verification.log` still verifies.

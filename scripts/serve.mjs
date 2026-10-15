@@ -20,7 +20,9 @@ const env={...process.env,DB,ORIGIN:origin,LOCAL_DEVELOPMENT:local?'true':'false
   LAUNCH_SIGNING_KEY:process.env.LAUNCH_SIGNING_KEY||randomBytes(32).toString('hex'),
   RATE_LIMIT_HASH_KEY:process.env.RATE_LIMIT_HASH_KEY||randomBytes(32).toString('hex'),
   ASSETS:{async fetch(request){
-    let relative=decodeURIComponent(new URL(request.url).pathname);if(relative==='/')relative='/index.html';
+    // A malformed percent-escape (/%ZZ) is the client's error: 400, not an internal 500.
+    let relative;try{relative=decodeURIComponent(new URL(request.url).pathname);}catch{return new Response('Bad request',{status:400,headers:{'Content-Type':'text/plain; charset=utf-8'}});}
+    if(relative==='/')relative='/index.html';
     const filename=path.resolve(root,'public','.'+relative),base=path.join(root,'public')+path.sep;
     if(!filename.startsWith(base))return new Response('Not found',{status:404});
     try{if(!(await stat(filename)).isFile())throw Error();const bytes=await readFile(filename);return new Response(bytes,{headers:{'Content-Type':types[path.extname(filename)]||'application/octet-stream'}});}catch{return new Response('Not found',{status:404});}

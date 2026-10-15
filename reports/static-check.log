@@ -3,10 +3,10 @@
 > node scripts/check.mjs
 
 {
-  "syntaxModules": 37,
+  "syntaxModules": 39,
   "rosterValid": true,
-  "publicGzipBytes": 126051,
-  "publicJavaScriptGzipBytes": 27714,
+  "publicGzipBytes": 126662,
+  "publicJavaScriptGzipBytes": 28325,
   "budgets": {
     "javaScript": 60000,
     "allPublicAssets": 150000
