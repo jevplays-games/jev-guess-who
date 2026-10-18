@@ -16,6 +16,7 @@
     "benchmark": "node benchmarks/run.mjs",
     "verify": "node scripts/verify-replay.mjs",
     "discord:register": "node --env-file-if-exists=.env scripts/register-discord.mjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "deploy:godaddy": "node --env-file-if-exists=.env scripts/godaddy-deploy.js"
   }
 }
